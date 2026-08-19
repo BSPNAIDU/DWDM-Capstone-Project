@@ -1,0 +1,1168 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriAI | Smart Agriculture Intelligence</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --green-950: #032f2b;
+            --green-900: #064c43;
+            --green-800: #086455;
+            --green-700: #087a5f;
+            --green-600: #0fa66f;
+            --green-500: #18c47d;
+            --mint: #55e6a2;
+            --cyan: #48d7d0;
+            --white: #ffffff;
+            --text: #eefcf7;
+            --muted: #a9c9c2;
+            --line: rgba(255,255,255,.12);
+            --glass: rgba(8, 77, 68, .58);
+            --shadow: 0 30px 80px rgba(0,0,0,.28);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Inter", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 10% 10%, rgba(30, 220, 140, .18), transparent 30%),
+                radial-gradient(circle at 90% 15%, rgba(72, 215, 208, .15), transparent 28%),
+                linear-gradient(135deg, #032f2b 0%, #06483f 46%, #082f4a 100%);
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .ambient {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: .25;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .orb.one {
+            width: 330px;
+            height: 330px;
+            left: -100px;
+            top: 12%;
+            background: radial-gradient(circle, rgba(30, 220, 140, .45), transparent 70%);
+        }
+
+        .orb.two {
+            width: 420px;
+            height: 420px;
+            right: -150px;
+            top: 35%;
+            background: radial-gradient(circle, rgba(70, 210, 205, .38), transparent 70%);
+            animation-delay: -4s;
+        }
+
+        .orb.three {
+            width: 260px;
+            height: 260px;
+            left: 55%;
+            bottom: -100px;
+            background: radial-gradient(circle, rgba(20, 200, 125, .30), transparent 70%);
+            animation-delay: -7s;
+        }
+
+        @keyframes float {
+            0%,100% { transform: translate3d(0,0,0) scale(1); }
+            50% { transform: translate3d(30px,-35px,0) scale(1.08); }
+        }
+
+        /* Top navigation */
+        .nav {
+            position: relative;
+            z-index: 5;
+            width: min(1180px, calc(100% - 40px));
+            margin: 22px auto 0;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: rgba(2, 43, 39, .68);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 18px 55px rgba(0,0,0,.18);
+            animation: navIn .8s ease both;
+        }
+
+        @keyframes navIn {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .brand-mark {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            font-size: 23px;
+            background: linear-gradient(145deg, #1fe28c, #0b9f68);
+            box-shadow: 0 10px 30px rgba(20,210,130,.25);
+        }
+
+        .brand-text strong {
+            display: block;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 20px;
+            letter-spacing: -.5px;
+        }
+
+        .brand-text span {
+            display: block;
+            margin-top: 2px;
+            color: #92bdb4;
+            font-size: 10px;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            color: #d7eee8;
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: .25s ease;
+        }
+
+        .nav-links a:hover {
+            color: white;
+            background: rgba(255,255,255,.08);
+            transform: translateY(-2px);
+        }
+
+        .nav-cta {
+            color: #052f2a !important;
+            background: linear-gradient(135deg, #51e6a0, #15bc77);
+            box-shadow: 0 8px 25px rgba(22,195,125,.25);
+        }
+
+        /* Main hero */
+        .hero {
+            position: relative;
+            z-index: 1;
+            width: min(1180px, calc(100% - 40px));
+            min-height: 600px;
+            margin: 38px auto 0;
+            display: grid;
+            grid-template-columns: 1.08fr .92fr;
+            gap: 42px;
+            align-items: center;
+        }
+
+        .hero-copy {
+            animation: heroIn .9s .1s ease both;
+        }
+
+        @keyframes heroIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .eyebrow {
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 13px;
+            border: 1px solid rgba(81,230,160,.28);
+            border-radius: 999px;
+            background: rgba(25, 190, 120, .10);
+            color: #74f0b1;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .pulse {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #4ff0a5;
+            box-shadow: 0 0 0 0 rgba(79,240,165,.7);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            70% { box-shadow: 0 0 0 8px rgba(79,240,165,0); }
+            100% { box-shadow: 0 0 0 0 rgba(79,240,165,0); }
+        }
+
+        h1 {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: clamp(42px, 5.1vw, 70px);
+            line-height: 1.04;
+            letter-spacing: -3px;
+            max-width: 760px;
+        }
+
+        h1 .gradient {
+            background: linear-gradient(90deg, #54e9a4, #7cf4b8, #48d7d0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: shine 4s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        .hero-copy > p {
+            max-width: 650px;
+            margin-top: 22px;
+            color: #b8d4ce;
+            font-size: 16px;
+            line-height: 1.75;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            min-height: 48px;
+            padding: 0 20px;
+            border-radius: 14px;
+            border: 1px solid transparent;
+            text-decoration: none;
+            cursor: pointer;
+            font: inherit;
+            font-size: 13px;
+            font-weight: 800;
+            transition: .28s ease;
+        }
+
+        .btn-primary {
+            color: #042f29;
+            background: linear-gradient(135deg, #5cf0a8, #13bd78);
+            box-shadow: 0 15px 35px rgba(15,190,115,.24);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 45px rgba(15,190,115,.34);
+        }
+
+        .btn-secondary {
+            color: white;
+            background: rgba(255,255,255,.06);
+            border-color: rgba(255,255,255,.13);
+            backdrop-filter: blur(12px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,.11);
+            transform: translateY(-3px);
+        }
+
+        .mini-trust {
+            display: flex;
+            gap: 24px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #91b8b0;
+            font-size: 11px;
+        }
+
+        .trust-item b {
+            color: #e6f8f3;
+            font-size: 13px;
+        }
+
+        /* Hero visual */
+        .hero-visual {
+            position: relative;
+            min-height: 490px;
+            display: grid;
+            place-items: center;
+            animation: visualIn 1s .25s ease both;
+        }
+
+        @keyframes visualIn {
+            from { opacity: 0; transform: translateX(35px) scale(.96); }
+            to { opacity: 1; transform: translateX(0) scale(1); }
+        }
+
+        .dashboard-orbit {
+            position: absolute;
+            width: 440px;
+            height: 440px;
+            border: 1px solid rgba(91,236,174,.18);
+            border-radius: 50%;
+            animation: spin 24s linear infinite;
+        }
+
+        .dashboard-orbit::before,
+        .dashboard-orbit::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            background: #4deaa2;
+            box-shadow: 0 0 25px rgba(77,234,162,.8);
+        }
+
+        .dashboard-orbit::before {
+            width: 9px;
+            height: 9px;
+            top: 25px;
+            left: 80px;
+        }
+
+        .dashboard-orbit::after {
+            width: 6px;
+            height: 6px;
+            right: 42px;
+            bottom: 95px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .phone-dashboard {
+            position: relative;
+            z-index: 2;
+            width: min(430px, 92%);
+            border: 1px solid rgba(255,255,255,.16);
+            border-radius: 30px;
+            padding: 18px;
+            background:
+                linear-gradient(150deg, rgba(16,104,88,.9), rgba(5,49,55,.92));
+            box-shadow: 0 35px 90px rgba(0,0,0,.38);
+            transform: rotate(2deg);
+        }
+
+        .phone-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3px 4px 16px;
+        }
+
+        .phone-top span {
+            font-size: 10px;
+            color: #8fbdb4;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            display: inline-block;
+            border-radius: 50%;
+            background: #4deaa2;
+            margin-right: 5px;
+        }
+
+        .analytics-card {
+            padding: 18px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,.09), rgba(255,255,255,.035));
+            border: 1px solid rgba(255,255,255,.09);
+            margin-bottom: 12px;
+        }
+
+        .analytics-card.large {
+            min-height: 165px;
+            background:
+                radial-gradient(circle at 85% 10%, rgba(73,214,208,.2), transparent 35%),
+                linear-gradient(135deg, rgba(255,255,255,.09), rgba(255,255,255,.03));
+        }
+
+        .analytics-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #9cc2b9;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+        }
+
+        .analytics-number {
+            margin-top: 8px;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 29px;
+            font-weight: 800;
+        }
+
+        .up {
+            color: #57eba6;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .chart {
+            height: 70px;
+            margin-top: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .mini-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .mini-value {
+            font-size: 20px;
+            font-weight: 800;
+            margin-top: 6px;
+        }
+
+        .progress {
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.08);
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .progress span {
+            display: block;
+            height: 100%;
+            width: 78%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #18c47d, #55e6a2);
+            animation: grow 1.7s ease both;
+        }
+
+        @keyframes grow {
+            from { width: 0; }
+        }
+
+        /* Feature section */
+        .features {
+            position: relative;
+            z-index: 1;
+            width: min(1180px, calc(100% - 40px));
+            margin: 45px auto 85px;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 26px;
+        }
+
+        .section-heading .label {
+            color: #64eeb0;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        .section-heading h2 {
+            margin-top: 8px;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 30px;
+            letter-spacing: -1.2px;
+        }
+
+        .section-heading p {
+            margin: 9px auto 0;
+            color: #94b9b1;
+            font-size: 13px;
+            max-width: 600px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .feature {
+            position: relative;
+            min-height: 175px;
+            padding: 20px;
+            border-radius: 22px;
+            border: 1px solid var(--line);
+            background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
+            backdrop-filter: blur(12px);
+            overflow: hidden;
+            transition: .3s ease;
+        }
+
+        .feature::after {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            right: -45px;
+            top: -45px;
+            border-radius: 50%;
+            background: rgba(54,224,150,.12);
+        }
+
+        .feature:hover {
+            transform: translateY(-7px);
+            border-color: rgba(76,234,167,.32);
+            box-shadow: 0 20px 50px rgba(0,0,0,.22);
+        }
+
+        .feature-icon {
+            width: 43px;
+            height: 43px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: rgba(39,207,137,.13);
+            border: 1px solid rgba(81,230,160,.15);
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .feature h3 {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 15px;
+        }
+
+        .feature p {
+            margin-top: 8px;
+            color: #91b8b0;
+            font-size: 11px;
+            line-height: 1.65;
+        }
+
+        /* Prediction panel */
+        .predict-wrap {
+            position: relative;
+            z-index: 2;
+            width: min(980px, calc(100% - 40px));
+            margin: 0 auto 80px;
+        }
+
+        .predict-card {
+            position: relative;
+            overflow: hidden;
+            padding: 34px;
+            border-radius: 28px;
+            border: 1px solid rgba(84,232,166,.22);
+            background:
+                radial-gradient(circle at 85% 0%, rgba(74,214,207,.14), transparent 28%),
+                linear-gradient(135deg, rgba(8,94,78,.82), rgba(5,54,60,.82));
+            box-shadow: var(--shadow);
+        }
+
+        .predict-card::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(120deg, rgba(82,237,169,.35), transparent 35%, rgba(72,215,208,.28));
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .predict-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .predict-head h2 {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 24px;
+        }
+
+        .predict-head p {
+            color: #94bbb3;
+            margin-top: 7px;
+            font-size: 12px;
+        }
+
+        .secure-badge {
+            padding: 8px 11px;
+            border-radius: 10px;
+            background: rgba(76,234,167,.1);
+            color: #70eeb0;
+            border: 1px solid rgba(76,234,167,.18);
+            font-size: 10px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 17px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #d8eee9;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #62e7ad;
+            font-size: 15px;
+            pointer-events: none;
+        }
+
+        select,
+        input {
+            width: 100%;
+            height: 50px;
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 13px;
+            outline: none;
+            padding: 0 15px 0 43px;
+            background: rgba(255,255,255,.065);
+            color: #f3fffb;
+            font: inherit;
+            font-size: 12px;
+            transition: .25s ease;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: auto;
+        }
+
+        select option {
+            background: #0b4c43;
+            color: white;
+        }
+
+        input::placeholder {
+            color: #8eafa9;
+        }
+
+        select:focus,
+        input:focus {
+            border-color: rgba(76,234,167,.65);
+            box-shadow: 0 0 0 4px rgba(76,234,167,.08);
+            background: rgba(255,255,255,.09);
+        }
+
+        .submit-row {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 21px;
+        }
+
+        .submit-btn {
+            min-width: 220px;
+            height: 52px;
+            border: 0;
+            border-radius: 14px;
+            cursor: pointer;
+            color: #042f29;
+            font: inherit;
+            font-size: 13px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #55e6a2, #13bb77);
+            box-shadow: 0 14px 30px rgba(19,187,119,.22);
+            transition: .3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(19,187,119,.32);
+        }
+
+        .footer {
+            position: relative;
+            z-index: 2;
+            padding: 25px 20px 35px;
+            text-align: center;
+            color: #719890;
+            font-size: 10px;
+            border-top: 1px solid rgba(255,255,255,.06);
+        }
+
+        .footer strong {
+            color: #b7d8d0;
+        }
+
+        /* Reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 900px) {
+            .nav-links a:not(.nav-cta) {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 30px;
+            }
+
+            .eyebrow {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-copy > p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-actions,
+            .mini-trust {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                min-height: 430px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .nav,
+            .hero,
+            .features,
+            .predict-wrap {
+                width: min(100% - 24px, 1180px);
+            }
+
+            .nav {
+                margin-top: 12px;
+            }
+
+            .brand-text span {
+                display: none;
+            }
+
+            h1 {
+                font-size: 42px;
+                letter-spacing: -2px;
+            }
+
+            .hero {
+                margin-top: 20px;
+            }
+
+            .dashboard-orbit {
+                width: 330px;
+                height: 330px;
+            }
+
+            .phone-dashboard {
+                width: 94%;
+            }
+
+            .feature-grid,
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .predict-card {
+                padding: 22px;
+            }
+
+            .predict-head {
+                flex-direction: column;
+            }
+
+            .submit-row {
+                justify-content: stretch;
+            }
+
+            .submit-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="ambient">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+</div>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+    <a href="/" class="brand">
+        <div class="brand-mark">🌱</div>
+        <div class="brand-text">
+            <strong>AgriAI</strong>
+            <span>Intelligent Agriculture Platform</span>
+        </div>
+    </a>
+
+    <div class="nav-links">
+        <a href="#solutions">Solutions</a>
+        <a href="#prediction">AI Prediction</a>
+        <a href="/dashboard">Analytics</a>
+        <a href="/dashboard" class="nav-cta">Open Dashboard →</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+    <div class="hero-copy">
+        <div class="eyebrow">
+            <span class="pulse"></span>
+            AI-POWERED AGRICULTURE INTELLIGENCE
+        </div>
+
+        <h1>
+            Smarter decisions for a
+            <span class="gradient">better harvest.</span>
+        </h1>
+
+        <p>
+            AgriAI combines agricultural data, machine learning and intelligent
+            analytics to help farmers understand crop performance, predict yield,
+            optimize resources and make data-driven farming decisions.
+        </p>
+
+        <div class="hero-actions">
+            <a href="#prediction" class="btn btn-primary">
+                🤖 Start AI Prediction
+            </a>
+            <a href="/dashboard" class="btn btn-secondary">
+                📊 Explore Analytics
+            </a>
+        </div>
+
+        <div class="mini-trust">
+            <div class="trust-item">✓ <b>Data-driven</b> insights</div>
+            <div class="trust-item">✓ <b>ML-powered</b> predictions</div>
+            <div class="trust-item">✓ <b>Smart</b> resource planning</div>
+        </div>
+    </div>
+
+    <div class="hero-visual">
+        <div class="dashboard-orbit"></div>
+
+        <div class="phone-dashboard">
+            <div class="phone-top">
+                <span><span class="status-dot"></span>AgriAI Intelligence</span>
+                <span>LIVE ANALYTICS</span>
+            </div>
+
+            <div class="analytics-card large">
+                <div class="analytics-title">
+                    <span>Crop Performance</span>
+                    <span class="up">↑ 12.8%</span>
+                </div>
+                <div class="analytics-number">8,420 <small style="font-size:12px;color:#8eb5ac;">kg/ha</small></div>
+
+                <div class="chart">
+                    <svg viewBox="0 0 420 80" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#4deaa2" stop-opacity=".35"/>
+                                <stop offset="100%" stop-color="#4deaa2" stop-opacity="0"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M0 65 C35 61 40 52 70 56 C105 61 120 37 145 43 C175 51 185 25 215 35 C245 45 255 19 280 29 C310 40 320 18 348 23 C375 28 390 12 420 7 L420 80 L0 80 Z"
+                              fill="url(#areaFill)"/>
+                        <path d="M0 65 C35 61 40 52 70 56 C105 61 120 37 145 43 C175 51 185 25 215 35 C245 45 255 19 280 29 C310 40 320 18 348 23 C375 28 390 12 420 7"
+                              fill="none" stroke="#4deaa2" stroke-width="3"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="mini-grid">
+                <div class="analytics-card">
+                    <div class="analytics-title">Rainfall</div>
+                    <div class="mini-value">1,438</div>
+                    <div style="font-size:9px;color:#7fa79f;margin-top:3px;">mm / annual</div>
+                    <div class="progress"><span style="width:72%;"></span></div>
+                </div>
+
+                <div class="analytics-card">
+                    <div class="analytics-title">Yield Score</div>
+                    <div class="mini-value">94.6%</div>
+                    <div style="font-size:9px;color:#7fa79f;margin-top:3px;">AI confidence</div>
+                    <div class="progress"><span style="width:94%;"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section class="features reveal" id="solutions">
+    <div class="section-heading">
+        <div class="label">One intelligent platform</div>
+        <h2>Everything you need for smarter farming</h2>
+        <p>
+            From prediction to resource optimization, AgriAI brings the important
+            agricultural insights together in one professional workspace.
+        </p>
+    </div>
+
+    <div class="feature-grid">
+        <div class="feature">
+            <div class="feature-icon">📈</div>
+            <h3>Yield Prediction</h3>
+            <p>Estimate crop yield using historical agriculture data and machine learning.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">💧</div>
+            <h3>Water Intelligence</h3>
+            <p>Calculate irrigation requirements and identify opportunities to reduce water usage.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">🦠</div>
+            <h3>Disease Detection</h3>
+            <p>Analyze crop images with the trained disease model and receive crop-health guidance.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">📊</div>
+            <h3>Analytics Dashboard</h3>
+            <p>Explore crop, state, season and year trends through interactive agricultural analytics.</p>
+        </div>
+    </div>
+</section>
+
+<!-- AI PREDICTION -->
+<section class="predict-wrap reveal" id="prediction">
+    <div class="predict-card">
+
+        <div class="predict-head">
+            <div>
+                <h2>AI Crop Yield Prediction</h2>
+                <p>Configure your farm conditions and let AgriAI generate an intelligent prediction.</p>
+            </div>
+            <div class="secure-badge">● MODEL READY</div>
+        </div>
+
+        <form action="/predict" method="POST">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="crop">🌿 Select Crop</label>
+                    <div class="input-wrap">
+                        <span class="input-icon">🌱</span>
+                        <select name="crop" id="crop" required>
+                            <option value="">Choose Crop</option>
+                            {% for crop in crops %}
+                            <option value="{{ crop }}">{{ crop }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="state">📍 Select State</label>
+                    <div class="input-wrap">
+                        <span class="input-icon">📍</span>
+                        <select name="state" id="state" required>
+                            <option value="">Choose State</option>
+                            {% for state in states %}
+                            <option value="{{ state }}">{{ state }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="season">☀️ Select Season</label>
+                    <div class="input-wrap">
+                        <span class="input-icon">☀️</span>
+                        <select name="season" id="season" required>
+                            <option value="">Choose Season</option>
+                            {% for season in seasons %}
+                            <option value="{{ season }}">{{ season }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="year">📅 Crop Year</label>
+                    <div class="input-wrap">
+                        <span class="input-icon">📅</span>
+                        <input
+                            type="number"
+                            name="year"
+                            id="year"
+                            min="1997"
+                            max="2050"
+                            placeholder="Enter Crop Year"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group full">
+                    <label for="area">📐 Farm Area (Hectares)</label>
+                    <div class="input-wrap">
+                        <span class="input-icon">📐</span>
+                        <input
+                            type="number"
+                            name="area"
+                            id="area"
+                            min="0.01"
+                            step="0.01"
+                            placeholder="Enter farm area in hectares"
+                            required
+                        >
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="submit-row">
+                <button type="submit" class="submit-btn">
+                    🤖 Predict Using AI&nbsp; →
+                </button>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+<footer class="footer">
+    <strong>AgriAI Agriculture Intelligence Platform</strong>
+    &nbsp;•&nbsp; Data Warehouse &nbsp;•&nbsp; Machine Learning &nbsp;•&nbsp;
+    Smart Water Management &nbsp;•&nbsp; Crop Health Intelligence
+</footer>
+
+<script>
+    // Scroll reveal
+    const revealElements = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver(
+        entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        { threshold: 0.12 }
+    );
+
+    revealElements.forEach(el => observer.observe(el));
+
+    // Small interaction feedback on the prediction form
+    const form = document.querySelector("#prediction form");
+    const button = document.querySelector(".submit-btn");
+
+    if (form && button) {
+        form.addEventListener("submit", () => {
+            button.innerHTML = "⏳ Generating AI Prediction...";
+            button.style.opacity = ".82";
+        });
+    }
+</script>
+
+</body>
+</html>

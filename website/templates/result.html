@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AgriAI | Prediction Result</title>
+
+    <!-- Main website CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Prediction result CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/result.css') }}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+
+<body class="result-page">
+
+
+    <!-- Background circles -->
+
+    <div class="circle circle-one"></div>
+    <div class="circle circle-two"></div>
+    <div class="circle circle-three"></div>
+    <div class="circle circle-four"></div>
+
+
+    <main class="result-container">
+
+        <section class="result-card">
+
+
+            <!-- HEADER -->
+
+            <div class="result-header">
+
+                <h1>
+                    <i class="fas fa-chart-line"></i>
+                    AI Prediction Result
+                </h1>
+
+                <p>
+                    Agriculture Data Warehouse &amp; Crop Yield Prediction
+                </p>
+
+            </div>
+
+
+            {% if error %}
+
+            <!-- ERROR -->
+
+            <div class="error-box">
+
+                <div class="error-icon">
+                    <i class="fas fa-circle-exclamation"></i>
+                </div>
+
+                <div>
+                    <h3>Data Not Found</h3>
+
+                    <p>
+                        {{ error }}
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="result-actions">
+
+                <a href="/"
+                   class="result-button">
+
+                    <i class="fas fa-arrow-left"></i>
+
+                    Try Another Selection
+
+                </a>
+
+            </div>
+
+
+            {% else %}
+
+
+            <!-- INPUT DATA -->
+
+            <div class="input-result-grid">
+
+
+                <div class="result-info">
+
+                    <div class="result-info-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+
+                    <div>
+                        <span>Crop</span>
+                        <strong>{{ crop }}</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="result-info">
+
+                    <div class="result-info-icon">
+                        <i class="fas fa-location-dot"></i>
+                    </div>
+
+                    <div>
+                        <span>State</span>
+                        <strong>{{ state }}</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="result-info">
+
+                    <div class="result-info-icon">
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+
+                    <div>
+                        <span>Season</span>
+                        <strong>{{ season }}</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="result-info">
+
+                    <div class="result-info-icon">
+                        <i class="fas fa-calendar-days"></i>
+                    </div>
+
+                    <div>
+                        <span>Crop Year</span>
+                        <strong>{{ year }}</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="result-info">
+
+                    <div class="result-info-icon">
+                        <i class="fas fa-ruler-combined"></i>
+                    </div>
+
+                    <div>
+                        <span>Farm Area</span>
+                        <strong>{{ area }} Hectares</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="result-info">
+
+                    <div class="result-info-icon">
+                        <i class="fas fa-cloud-rain"></i>
+                    </div>
+
+                    <div>
+                        <span>Rainfall</span>
+                        <strong>{{ rainfall }} mm</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="result-info">
+
+                    <div class="result-info-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+
+                    <div>
+                        <span>Fertilizer</span>
+                        <strong>{{ fertilizer }}</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="result-info">
+
+                    <div class="result-info-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+
+                    <div>
+                        <span>Pesticide</span>
+                        <strong>{{ pesticide }}</strong>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- AI PREDICTION -->
+
+            <div class="prediction-box">
+
+                <div class="prediction-title">
+
+                    <div class="prediction-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            AI Prediction
+                        </h2>
+
+                        <span>
+                            Predicted Crop Yield
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="prediction-value">
+
+                    {{ "%.2f"|format(predicted_yield) }}
+
+                    <span>
+                        Ton/Hectare
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATISTICS -->
+
+            <div class="result-stat-grid">
+
+
+                <div class="result-stat">
+
+                    <div class="stat-icon">
+                        <i class="fas fa-boxes-stacked"></i>
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Estimated Production
+                        </span>
+
+                        <strong>
+                            {{ "%.2f"|format(estimated_production) }}
+                        </strong>
+
+                        <small>
+                            Tons
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="result-stat">
+
+                    <div class="stat-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Prediction Confidence
+                        </span>
+
+                        <strong>
+                            {{ "%.2f"|format(confidence) }}%
+                        </strong>
+
+                        <small>
+                            Model Confidence
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- RECOMMENDATION -->
+
+            <div class="recommendation-box">
+
+                <div class="recommendation-icon">
+
+                    <i class="fas fa-seedling"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        AI Recommendation
+                    </h3>
+
+
+                    {% if confidence >= 90 %}
+
+                    <p>
+                        Excellent prediction confidence.
+                        Historical conditions indicate a very
+                        high probability of achieving the
+                        predicted yield if recommended farming
+                        practices are followed.
+                    </p>
+
+                    {% elif confidence >= 75 %}
+
+                    <p>
+                        Good prediction confidence.
+                        The selected agricultural conditions
+                        show a favorable possibility of achieving
+                        the predicted crop yield.
+                    </p>
+
+                    {% else %}
+
+                    <p>
+                        Moderate prediction confidence.
+                        Consider monitoring rainfall, fertilizer
+                        and other agricultural conditions before
+                        making farming decisions.
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="result-actions">
+
+                <a href="/"
+                   class="result-button">
+
+                    <i class="fas fa-rotate-left"></i>
+
+                    Predict Another Crop
+
+                </a>
+
+
+                <a href="/dashboard"
+                   class="result-dashboard-button">
+
+                    <i class="fas fa-chart-pie"></i>
+
+                    Agriculture Dashboard
+
+                </a>
+
+            </div>
+
+
+            <!-- FOOTER -->
+
+            <div class="result-footer">
+
+                <p>
+                    🌾 AgriAI Crop Yield Prediction System
+                </p>
+
+                <span>
+                    Powered by Flask • PostgreSQL • Machine Learning • Python • Power BI
+                </span>
+
+            </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+    </main>
+
+
+</body>
+
+</html>

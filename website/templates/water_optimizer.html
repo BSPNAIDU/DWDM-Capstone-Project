@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AgriAI | Water Usage Optimizer</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/water_optimizer.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+
+<body class="water-page">
+
+
+    <!-- Background -->
+
+    <div class="water-overlay"></div>
+
+
+    <div class="water-container">
+
+
+        <!-- MAIN CARD -->
+
+        <div class="water-card">
+
+
+            <!-- HEADER -->
+
+            <div class="water-header">
+
+                <div class="water-header-icon">
+
+                    <i class="fas fa-droplet"></i>
+
+                </div>
+
+                <div>
+
+                    <h1>
+                        Water Usage Optimizer
+                    </h1>
+
+                    <p>
+                        Smart irrigation planning using agricultural
+                        water-management data
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="water-intro">
+
+                <i class="fas fa-circle-info"></i>
+
+                <p>
+                    Enter your crop and farm details. The system will
+                    analyze the water-management dataset and recommend
+                    an irrigation requirement along with a water-saving
+                    method.
+                </p>
+
+            </div>
+
+
+            <!-- FORM -->
+
+            <form action="/water-calculate"
+                  method="POST"
+                  id="waterForm">
+
+
+                <!-- CROP -->
+
+                <div class="water-form-group">
+
+                    <label for="crop">
+
+                        <i class="fas fa-seedling"></i>
+
+                        Crop
+
+                    </label>
+
+                    <select name="crop"
+                            id="crop"
+                            required>
+
+                        <option value="">
+                            Select Crop
+                        </option>
+
+                        {% for crop in crops %}
+
+                        <option value="{{ crop }}">
+                            {{ crop }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- STATE -->
+
+                <div class="water-form-group">
+
+                    <label for="state">
+
+                        <i class="fas fa-location-dot"></i>
+
+                        State
+
+                    </label>
+
+                    <select name="state"
+                            id="state"
+                            required>
+
+                        <option value="">
+                            Select State
+                        </option>
+
+                        {% for state in states %}
+
+                        <option value="{{ state }}">
+                            {{ state }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- SEASON -->
+
+                <div class="water-form-group">
+
+                    <label for="season">
+
+                        <i class="fas fa-cloud-sun"></i>
+
+                        Season
+
+                    </label>
+
+                    <select name="season"
+                            id="season"
+                            required>
+
+                        <option value="">
+                            Select Season
+                        </option>
+
+                        {% for season in seasons %}
+
+                        <option value="{{ season }}">
+                            {{ season }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- SOIL -->
+
+                <div class="water-form-group">
+
+                    <label for="soil_type">
+
+                        <i class="fas fa-layer-group"></i>
+
+                        Soil Type
+
+                    </label>
+
+                    <select name="soil_type"
+                            id="soil_type"
+                            required>
+
+                        <option value="">
+                            Select Soil Type
+                        </option>
+
+                        {% for soil in soils %}
+
+                        <option value="{{ soil }}">
+                            {{ soil }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- FARM AREA -->
+
+                <div class="water-form-group full-width">
+
+                    <label for="farm_area">
+
+                        <i class="fas fa-ruler-combined"></i>
+
+                        Farm Area (Hectares)
+
+                    </label>
+
+                    <input type="number"
+                           name="farm_area"
+                           id="farm_area"
+                           min="0.01"
+                           step="0.01"
+                           placeholder="Enter farm area"
+                           required>
+
+                </div>
+
+
+                <!-- BUTTON -->
+
+                <button type="submit"
+                        class="water-submit-button"
+                        id="waterSubmitButton">
+
+                    <i class="fas fa-droplet"></i>
+
+                    Calculate Water Requirement
+
+                </button>
+
+
+            </form>
+
+
+            <!-- INFORMATION CARDS -->
+
+            <div class="water-info-grid">
+
+
+                <div class="water-info-card">
+
+                    <i class="fas fa-database"></i>
+
+                    <div>
+
+                        <h3>
+                            Data Driven
+                        </h3>
+
+                        <p>
+                            Uses the dedicated 20,000-row
+                            water-management dataset.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="water-info-card">
+
+                    <i class="fas fa-cloud-rain"></i>
+
+                    <div>
+
+                        <h3>
+                            Rainfall Aware
+                        </h3>
+
+                        <p>
+                            Historical rainfall information is
+                            considered when estimating irrigation.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="water-info-card">
+
+                    <i class="fas fa-leaf"></i>
+
+                    <div>
+
+                        <h3>
+                            Water Saving
+                        </h3>
+
+                        <p>
+                            Provides a suitable water-saving
+                            irrigation method.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- BACK BUTTON -->
+
+            <div class="water-back">
+
+                <a href="/">
+
+                    <i class="fas fa-arrow-left"></i>
+
+                    Back to AgriAI
+
+                </a>
+
+            </div>
+
+
+            <!-- FOOTER -->
+
+            <div class="water-footer">
+
+                <span>
+                    🌾 AgriAI Agriculture Data Warehouse
+                </span>
+
+                <span>
+                    Python • Flask • PostgreSQL • Machine Learning • Power BI
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <script src="{{ url_for('static', filename='js/water_optimizer.js') }}">
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1129 @@
+/* =========================================================
+   AGRIAI WATER USAGE OPTIMIZER
+   COMPLETE PAGE + RESULT STYLING
+   ========================================================= */
+
+
+/* =========================================================
+   MAIN PAGE
+   ========================================================= */
+
+.water-page {
+
+    min-height: 100vh;
+
+    margin: 0;
+
+    padding: 0;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            rgba(5, 42, 48, 0.72),
+            rgba(5, 42, 48, 0.82)
+        ),
+        url("../images/agriculture-bg.png");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-attachment: fixed;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+.water-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 12% 20%,
+            rgba(67, 240, 163, 0.12),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 88% 80%,
+            rgba(39, 170, 220, 0.10),
+            transparent 32%
+        );
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.water-container {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-start;
+
+    padding: 40px 20px 60px;
+}
+
+
+/* =========================================================
+   MAIN CARD
+   ========================================================= */
+
+.water-card {
+
+    width: 100%;
+
+    max-width: 850px;
+
+    box-sizing: border-box;
+
+    padding: 34px 36px 26px;
+
+    border-radius: 22px;
+
+    background:
+        rgba(17, 54, 60, 0.94);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.20);
+
+    box-shadow:
+        0 25px 70px
+        rgba(0, 0, 0, 0.42);
+
+    backdrop-filter: blur(12px);
+
+    -webkit-backdrop-filter: blur(12px);
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.water-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+
+    text-align: left;
+}
+
+
+.water-header-icon {
+
+    width: 58px;
+
+    min-width: 58px;
+
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background:
+        rgba(54, 224, 158, 0.12);
+
+    border:
+        1px solid
+        rgba(77, 243, 160, 0.30);
+
+    color:
+        #4df3a0;
+
+    font-size: 27px;
+}
+
+
+.water-header h1 {
+
+    margin: 0 0 5px;
+
+    color: #ffffff;
+
+    font-size: 32px;
+
+    font-weight: 800;
+}
+
+
+.water-header p {
+
+    margin: 0;
+
+    color:
+        rgba(255, 255, 255, 0.63);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   INTRODUCTION
+   ========================================================= */
+
+.water-intro {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin-bottom: 24px;
+
+    padding: 14px 16px;
+
+    border-radius: 11px;
+
+    background:
+        rgba(255, 255, 255, 0.065);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.13);
+}
+
+
+.water-intro > i {
+
+    margin-top: 2px;
+
+    color:
+        #4df3a0;
+}
+
+
+.water-intro p {
+
+    margin: 0;
+
+    color:
+        rgba(255, 255, 255, 0.70);
+
+    font-size: 12px;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+#waterForm {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 17px;
+}
+
+
+.water-form-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+.water-form-group.full-width {
+
+    grid-column:
+        1 / -1;
+}
+
+
+.water-form-group label {
+
+    color:
+        rgba(255, 255, 255, 0.82);
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.water-form-group label i {
+
+    margin-right: 6px;
+
+    color:
+        #4df3a0;
+}
+
+
+.water-form-group select,
+.water-form-group input {
+
+    width: 100%;
+
+    height: 46px;
+
+    box-sizing: border-box;
+
+    padding: 0 13px;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    color: #ffffff;
+
+    background:
+        rgba(255, 255, 255, 0.09);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.20);
+
+    font-size: 13px;
+
+    transition: 0.2s ease;
+}
+
+
+.water-form-group select:focus,
+.water-form-group input:focus {
+
+    border-color:
+        #4df3a0;
+
+    background:
+        rgba(255, 255, 255, 0.13);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(77, 243, 160, 0.08);
+}
+
+
+.water-form-group select option {
+
+    color: #222222;
+
+    background: #ffffff;
+}
+
+
+.water-form-group input::placeholder {
+
+    color:
+        rgba(255, 255, 255, 0.43);
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+   ========================================================= */
+
+.water-submit-button {
+
+    grid-column:
+        1 / -1;
+
+    height: 50px;
+
+    margin-top: 4px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #10c967,
+            #0eaa7a
+        );
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.water-submit-button:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 10px 28px
+        rgba(16, 201, 103, 0.25);
+}
+
+
+/* =========================================================
+   INFORMATION CARDS
+   ========================================================= */
+
+.water-info-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 11px;
+
+    margin-top: 25px;
+}
+
+
+.water-info-card {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    min-height: 70px;
+
+    box-sizing: border-box;
+
+    padding: 14px;
+
+    border-radius: 11px;
+
+    background:
+        rgba(255, 255, 255, 0.065);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.15);
+}
+
+
+.water-info-card > i {
+
+    margin-top: 2px;
+
+    color:
+        #4df3a0;
+
+    font-size: 17px;
+}
+
+
+.water-info-card h3 {
+
+    margin: 0 0 5px;
+
+    color: #ffffff;
+
+    font-size: 13px;
+}
+
+
+.water-info-card p {
+
+    margin: 0;
+
+    color:
+        rgba(255, 255, 255, 0.58);
+
+    font-size: 10px;
+
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   =========================================================
+   WATER RESULT PAGE
+   =========================================================
+   ========================================================= */
+
+
+/* =========================================================
+   RESULT INFORMATION GRID
+   ========================================================= */
+
+.water-card > .water-info-grid {
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    margin-top: 5px;
+
+    margin-bottom: 22px;
+}
+
+
+/* =========================================================
+   RESULT MAIN RECOMMENDATION BOX
+   ========================================================= */
+
+.prediction-box {
+
+    position: relative;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+
+    padding: 22px 24px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(16, 145, 101, 0.78),
+            rgba(32, 111, 151, 0.76)
+        );
+
+    border:
+        1px solid
+        rgba(77, 243, 160, 0.34);
+
+    box-shadow:
+        0 12px 30px
+        rgba(0, 0, 0, 0.18);
+}
+
+
+.prediction-box::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+
+    height: 150px;
+
+    right: -65px;
+
+    top: -70px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.06);
+}
+
+
+.prediction-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+.prediction-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255, 255, 255, 0.12);
+
+    color:
+        #ffffff;
+
+    font-size: 20px;
+}
+
+
+.prediction-title h2 {
+
+    margin: 0 0 3px;
+
+    color: #ffffff;
+
+    font-size: 20px;
+
+    font-weight: 800;
+}
+
+
+.prediction-title span {
+
+    color:
+        rgba(255, 255, 255, 0.72);
+
+    font-size: 11px;
+}
+
+
+.prediction-value {
+
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 15px;
+
+    color: #ffffff;
+
+    font-size: 34px;
+
+    font-weight: 900;
+}
+
+
+.prediction-value span {
+
+    margin-left: 5px;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    opacity: 0.85;
+}
+
+
+/* =========================================================
+   RESULT STATISTICS
+   ========================================================= */
+
+.result-stat-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+
+    margin-top: 18px;
+}
+
+
+.result-stat {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    min-height: 82px;
+
+    box-sizing: border-box;
+
+    padding: 16px 17px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255, 255, 255, 0.075);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.16);
+
+    box-shadow:
+        0 7px 18px
+        rgba(0, 0, 0, 0.08);
+}
+
+
+.stat-icon {
+
+    width: 38px;
+
+    min-width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background:
+        rgba(77, 243, 160, 0.10);
+
+    color:
+        #4df3a0;
+
+    font-size: 16px;
+}
+
+
+.result-stat span {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color:
+        rgba(255, 255, 255, 0.60);
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+.result-stat strong {
+
+    display: inline-block;
+
+    margin-right: 4px;
+
+    color: #ffffff;
+
+    font-size: 18px;
+
+    font-weight: 800;
+}
+
+
+.result-stat small {
+
+    color:
+        rgba(255, 255, 255, 0.47);
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   WATER SAVING RECOMMENDATION
+   ========================================================= */
+
+.recommendation-box {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 13px;
+
+    box-sizing: border-box;
+
+    margin-top: 18px;
+
+    padding: 17px 18px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(22, 146, 104, 0.28);
+
+    border-left:
+        3px solid
+        #4df3a0;
+
+    border-top:
+        1px solid
+        rgba(77, 243, 160, 0.16);
+
+    border-right:
+        1px solid
+        rgba(77, 243, 160, 0.16);
+
+    border-bottom:
+        1px solid
+        rgba(77, 243, 160, 0.16);
+}
+
+
+.recommendation-icon {
+
+    width: 38px;
+
+    min-width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background:
+        rgba(77, 243, 160, 0.12);
+
+    color:
+        #4df3a0;
+
+    font-size: 17px;
+}
+
+
+.recommendation-box h3 {
+
+    margin: 0 0 8px;
+
+    color: #ffffff;
+
+    font-size: 17px;
+
+    font-weight: 800;
+}
+
+
+.recommendation-box p {
+
+    margin: 0;
+
+    color:
+        rgba(255, 255, 255, 0.68);
+
+    font-size: 11px;
+
+    line-height: 1.65;
+}
+
+
+.recommendation-box strong {
+
+    color:
+        #ffffff;
+}
+
+
+/* =========================================================
+   RESULT ACTION BUTTONS
+   ========================================================= */
+
+.result-actions {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+
+.result-button,
+.result-dashboard-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 175px;
+
+    height: 43px;
+
+    box-sizing: border-box;
+
+    padding: 0 18px;
+
+    border-radius: 9px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+
+.result-button {
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #10c967,
+            #0eaa7a
+        );
+
+    border:
+        1px solid
+        rgba(77, 243, 160, 0.25);
+}
+
+
+.result-dashboard-button {
+
+    color:
+        rgba(255, 255, 255, 0.82);
+
+    background:
+        rgba(255, 255, 255, 0.075);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.18);
+}
+
+
+.result-button:hover,
+.result-dashboard-button:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(0, 0, 0, 0.18);
+}
+
+
+.result-button i,
+.result-dashboard-button i {
+
+    margin-right: 7px;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.water-back {
+
+    text-align: center;
+
+    margin-top: 22px;
+}
+
+
+.water-back a {
+
+    color:
+        rgba(255, 255, 255, 0.68);
+
+    text-decoration: none;
+
+    font-size: 12px;
+}
+
+
+.water-back a:hover {
+
+    color:
+        #4df3a0;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.water-footer {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-top: 24px;
+
+    padding-top: 15px;
+
+    border-top:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+
+    color:
+        rgba(255, 255, 255, 0.40);
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   ERROR MESSAGE
+   ========================================================= */
+
+.water-error {
+
+    padding: 18px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(220, 60, 60, 0.14);
+
+    border:
+        1px solid
+        rgba(255, 100, 100, 0.28);
+
+    color:
+        #ffffff;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+
+    .water-container {
+
+        padding:
+            20px 10px 40px;
+    }
+
+
+    .water-card {
+
+        padding:
+            25px 18px;
+    }
+
+
+    .water-header {
+
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+
+    .water-header h1 {
+
+        font-size: 28px;
+    }
+
+
+    #waterForm {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .water-form-group.full-width {
+
+        grid-column:
+            auto;
+    }
+
+
+    .water-submit-button {
+
+        grid-column:
+            auto;
+    }
+
+
+    .water-info-grid,
+    .water-card > .water-info-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .result-stat-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .prediction-value {
+
+        font-size: 28px;
+    }
+
+
+    .result-actions {
+
+        flex-direction: column;
+    }
+
+
+    .result-button,
+    .result-dashboard-button {
+
+        width: 100%;
+    }
+
+
+    .water-footer {
+
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+}

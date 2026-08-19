@@ -1,0 +1,791 @@
+/* =========================================================
+   AGRIAI - PREDICTION RESULT PAGE
+   ========================================================= */
+
+
+/* PAGE */
+
+.result-page {
+
+    min-height: 100vh;
+
+    color: #ffffff;
+
+    background-color: #0c3039;
+
+    background-image:
+        linear-gradient(
+            rgba(3, 34, 42, 0.28),
+            rgba(3, 34, 42, 0.38)
+        ),
+        url("../images/agriculture-bg.png");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-repeat: no-repeat;
+
+    background-attachment: fixed;
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.result-container {
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-start;
+
+    padding: 35px 20px 60px;
+}
+
+
+/* =========================================================
+   MAIN CARD
+   ========================================================= */
+
+.result-card {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    padding: 38px 40px 30px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(25, 61, 65, 0.90),
+            rgba(18, 48, 53, 0.88)
+        );
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.28);
+
+    box-shadow:
+
+        0 25px 65px
+        rgba(0, 0, 0, 0.42),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.12);
+
+    backdrop-filter: blur(12px);
+
+    -webkit-backdrop-filter: blur(12px);
+
+    position: relative;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.result-header {
+
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+
+.result-header h1 {
+
+    margin: 0 0 8px;
+
+    color: #ffffff;
+
+    font-size: 42px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+
+.result-header h1 i {
+
+    color: #50f2a0;
+
+    margin-right: 9px;
+}
+
+
+.result-header p {
+
+    margin: 0;
+
+    color:
+        rgba(255,255,255,0.70);
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   INPUT DATA GRID
+   ========================================================= */
+
+.input-result-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   DATA BOX
+   ========================================================= */
+
+.result-info {
+
+    min-height: 64px;
+
+    padding: 11px 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,0.10);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.23);
+
+    transition:
+        all 0.2s ease;
+}
+
+
+.result-info:hover {
+
+    background:
+        rgba(255,255,255,0.15);
+
+    border-color:
+        rgba(80,242,160,0.40);
+
+    transform:
+        translateY(-2px);
+}
+
+
+.result-info-icon {
+
+    width: 37px;
+
+    min-width: 37px;
+
+    height: 37px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background:
+        rgba(80,242,160,0.12);
+
+    color:
+        #50f2a0;
+
+    font-size: 16px;
+}
+
+
+.result-info span {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color:
+        rgba(255,255,255,0.56);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+}
+
+
+.result-info strong {
+
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 15px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   AI PREDICTION
+   ========================================================= */
+
+.prediction-box {
+
+    margin-bottom: 18px;
+
+    padding: 22px 25px;
+
+    text-align: center;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(15,190,100,0.34),
+            rgba(39,112,149,0.42)
+        );
+
+    border:
+        1px solid
+        rgba(80,242,160,0.38);
+
+    box-shadow:
+        0 12px 28px
+        rgba(0,0,0,0.14);
+}
+
+
+.prediction-title {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 11px;
+
+    margin-bottom: 9px;
+}
+
+
+.prediction-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,0.12);
+
+    color: #ffffff;
+
+    font-size: 20px;
+}
+
+
+.prediction-title h2 {
+
+    margin: 0;
+
+    text-align: left;
+
+    color: #ffffff;
+
+    font-size: 20px;
+}
+
+
+.prediction-title span {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color:
+        rgba(255,255,255,0.68);
+
+    font-size: 11px;
+
+    text-align: left;
+}
+
+
+.prediction-value {
+
+    color: #ffffff;
+
+    font-size: 32px;
+
+    font-weight: 700;
+}
+
+
+.prediction-value span {
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    color:
+        rgba(255,255,255,0.88);
+}
+
+
+/* =========================================================
+   STATISTICS
+   ========================================================= */
+
+.result-stat-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 14px;
+
+    margin-bottom: 18px;
+}
+
+
+.result-stat {
+
+    min-height: 105px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 18px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,0.105);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.22);
+}
+
+
+.stat-icon {
+
+    width: 44px;
+
+    min-width: 44px;
+
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background:
+        rgba(80,242,160,0.11);
+
+    color:
+        #50f2a0;
+
+    font-size: 18px;
+}
+
+
+.result-stat span {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color:
+        rgba(255,255,255,0.68);
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+.result-stat strong {
+
+    display: inline-block;
+
+    color: #ffffff;
+
+    font-size: 20px;
+}
+
+
+.result-stat small {
+
+    margin-left: 4px;
+
+    color:
+        rgba(255,255,255,0.55);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   RECOMMENDATION
+   ========================================================= */
+
+.recommendation-box {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 13px;
+
+    padding: 16px 18px;
+
+    margin-bottom: 22px;
+
+    border-radius: 11px;
+
+    background:
+        rgba(14,160,91,0.25);
+
+    border-left:
+        3px solid
+        #50f2a0;
+}
+
+
+.recommendation-icon {
+
+    width: 32px;
+
+    min-width: 32px;
+
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color:
+        #50f2a0;
+
+    font-size: 18px;
+}
+
+
+.recommendation-box h3 {
+
+    margin: 0 0 5px;
+
+    color: #ffffff;
+
+    font-size: 16px;
+}
+
+
+.recommendation-box p {
+
+    margin: 0;
+
+    color:
+        rgba(255,255,255,0.76);
+
+    font-size: 12px;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.result-actions {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+}
+
+
+.result-button,
+.result-dashboard-button {
+
+    min-height: 45px;
+
+    padding:
+        11px 19px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    border-radius: 9px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: all 0.2s ease;
+}
+
+
+.result-button {
+
+    color: #ffffff;
+
+    background:
+        #10c967;
+
+    border:
+        1px solid
+        #10c967;
+}
+
+
+.result-button:hover {
+
+    background:
+        #0eae59;
+
+    transform:
+        translateY(-2px);
+}
+
+
+.result-dashboard-button {
+
+    color: #ffffff;
+
+    background:
+        rgba(255,255,255,0.10);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.25);
+}
+
+
+.result-dashboard-button:hover {
+
+    background:
+        rgba(255,255,255,0.18);
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.error-box {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(220,53,69,0.18);
+
+    border:
+        1px solid
+        rgba(255,100,100,0.35);
+}
+
+
+.error-icon {
+
+    color:
+        #ff7777;
+
+    font-size: 28px;
+}
+
+
+.error-box h3 {
+
+    margin: 0 0 4px;
+
+    color: #ffffff;
+}
+
+
+.error-box p {
+
+    margin: 0;
+
+    color:
+        rgba(255,255,255,0.72);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.result-footer {
+
+    margin-top: 24px;
+
+    padding-top: 17px;
+
+    text-align: center;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,0.12);
+
+    color:
+        rgba(255,255,255,0.46);
+
+    font-size: 10px;
+
+    line-height: 1.6;
+}
+
+
+.result-footer p {
+
+    margin: 0 0 2px;
+
+    color:
+        rgba(255,255,255,0.65);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .result-container {
+
+        padding:
+            20px
+            10px
+            40px;
+    }
+
+
+    .result-card {
+
+        padding:
+            27px
+            18px
+            25px;
+
+        border-radius: 18px;
+    }
+
+
+    .result-header h1 {
+
+        font-size: 32px;
+    }
+
+
+    .input-result-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .result-stat-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .prediction-value {
+
+        font-size: 28px;
+    }
+
+
+    .result-actions {
+
+        flex-direction:
+            column;
+    }
+
+
+    .result-button,
+    .result-dashboard-button {
+
+        width: 100%;
+    }
+
+}

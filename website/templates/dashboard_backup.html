@@ -1,0 +1,5220 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+
+/* =========================================================
+   AGRI AI PREMIUM ANIMATED DASHBOARD
+   ========================================================= */
+
+:root {
+    --bg-main: #003f3b;
+    --bg-dark: #002f2c;
+    --card: rgba(28, 92, 91, 0.72);
+    --card-light: rgba(42, 111, 108, 0.55);
+    --green: #19e68c;
+    --green-light: #43f2a4;
+    --text: #ffffff;
+    --muted: #a7d6d0;
+    --border: rgba(100, 255, 210, 0.20);
+}
+
+/* ---------- MAIN BACKGROUND ---------- */
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(20, 230, 145, 0.13), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(0, 170, 255, 0.10), transparent 25%),
+        radial-gradient(circle at 60% 85%, rgba(80, 255, 180, 0.10), transparent 25%),
+        linear-gradient(135deg, #003d39 0%, #00504b 45%, #073b48 100%);
+    background-attachment: fixed;
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+/* ---------- ANIMATED LIGHT BLOBS ---------- */
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(90px);
+    opacity: 0.18;
+    z-index: -1;
+}
+
+body::before {
+    background: #19e68c;
+    top: 10%;
+    left: 5%;
+    animation: floatingGlow1 12s ease-in-out infinite alternate;
+}
+
+body::after {
+    background: #278cff;
+    right: 5%;
+    bottom: 5%;
+    animation: floatingGlow2 15s ease-in-out infinite alternate;
+}
+
+@keyframes floatingGlow1 {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(180px, 80px) scale(1.25);
+    }
+
+    100% {
+        transform: translate(50px, 220px) scale(0.9);
+    }
+}
+
+@keyframes floatingGlow2 {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-150px, -100px) scale(1.3);
+    }
+
+    100% {
+        transform: translate(-30px, -200px) scale(0.85);
+    }
+}
+
+
+/* ---------- MAIN CONTENT ---------- */
+
+.dashboard-container,
+.main-content,
+.content {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* ---------- SIDEBAR ---------- */
+
+.sidebar {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0, 48, 44, 0.96),
+            rgba(0, 40, 38, 0.96)
+        ) !important;
+
+    border-right: 1px solid rgba(50, 255, 180, 0.10);
+
+    box-shadow:
+        10px 0 40px rgba(0, 0, 0, 0.20);
+
+    backdrop-filter: blur(18px);
+}
+
+
+/* ---------- SIDEBAR MENU ---------- */
+
+.sidebar a {
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.sidebar a:hover {
+    transform: translateX(7px);
+
+    background: rgba(27, 220, 140, 0.12) !important;
+
+    box-shadow:
+        inset 3px 0 0 var(--green),
+        0 0 20px rgba(25, 230, 140, 0.08);
+}
+
+.sidebar a.active {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(20, 220, 140, 0.28),
+            rgba(20, 220, 140, 0.08)
+        ) !important;
+
+    border-left: 3px solid var(--green);
+
+    box-shadow:
+        0 0 25px rgba(25, 230, 140, 0.12);
+}
+
+
+/* ---------- TOP HEADER ---------- */
+
+.dashboard-header {
+    animation: slideDown 0.8s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ---------- HERO ---------- */
+
+.hero-section {
+    position: relative;
+    overflow: hidden;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 55, 50, 0.94),
+            rgba(0, 55, 50, 0.65),
+            rgba(0, 45, 50, 0.75)
+        ),
+        url("/static/images/agriculture-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    border: 1px solid rgba(130, 255, 210, 0.16);
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.25);
+
+    animation: heroAppear 1s ease;
+}
+
+.hero-section::after {
+    content: "";
+
+    position: absolute;
+    inset: -50%;
+
+    background:
+        linear-gradient(
+            115deg,
+            transparent 40%,
+            rgba(255,255,255,0.08) 50%,
+            transparent 60%
+        );
+
+    animation: shine 7s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-80%) rotate(10deg);
+    }
+
+    100% {
+        transform: translateX(80%) rotate(10deg);
+    }
+}
+
+@keyframes heroAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* ---------- GLASS CARDS ---------- */
+
+.card,
+.analytics-card,
+.kpi-card,
+.filter-card,
+.chart-card,
+.stat-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(40, 115, 110, 0.65),
+            rgba(20, 75, 78, 0.65)
+        ) !important;
+
+    border:
+        1px solid rgba(125, 255, 220, 0.15);
+
+    border-radius: 20px;
+
+    backdrop-filter: blur(16px);
+
+    -webkit-backdrop-filter: blur(16px);
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.18);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease,
+        border-color 0.4s ease;
+}
+
+
+/* ---------- CARD HOVER ---------- */
+
+.card:hover,
+.analytics-card:hover,
+.kpi-card:hover,
+.chart-card:hover,
+.stat-card:hover {
+
+    transform: translateY(-8px);
+
+    border-color:
+        rgba(45, 240, 160, 0.40);
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.25),
+        0 0 30px rgba(25, 230, 140, 0.08);
+}
+
+
+/* ---------- KPI CARDS ---------- */
+
+.kpi-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.kpi-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    border-radius: 50%;
+
+    right: -70px;
+    top: -70px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(35, 230, 150, 0.25),
+            transparent 70%
+        );
+
+    animation: kpiGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes kpiGlow {
+    from {
+        transform: scale(0.8);
+    }
+
+    to {
+        transform: scale(1.4);
+    }
+}
+
+
+/* ---------- KPI ICON ---------- */
+
+.kpi-icon {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(25, 230, 140, 0.25),
+            rgba(25, 230, 140, 0.05)
+        );
+
+    box-shadow:
+        0 0 25px rgba(25, 230, 140, 0.12);
+
+    animation: iconFloat 4s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+
+/* ---------- FILTER SECTION ---------- */
+
+.filter-card {
+    animation: filterAppear 1s ease 0.2s both;
+}
+
+@keyframes filterAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+select {
+    background:
+        rgba(255, 255, 255, 0.08) !important;
+
+    color: white !important;
+
+    border:
+        1px solid rgba(120, 255, 220, 0.18) !important;
+
+    border-radius: 12px !important;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+}
+
+select:hover {
+    border-color:
+        rgba(40, 240, 160, 0.50) !important;
+
+    box-shadow:
+        0 0 20px rgba(25, 230, 140, 0.10);
+}
+
+select:focus {
+    outline: none;
+
+    border-color:
+        var(--green) !important;
+
+    box-shadow:
+        0 0 0 3px rgba(25, 230, 140, 0.12);
+}
+
+
+/* ---------- CHART AREA ---------- */
+
+.chart-card {
+    overflow: hidden;
+
+    animation:
+        chartReveal 0.9s ease both;
+}
+
+@keyframes chartReveal {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(50px)
+            scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* ---------- CHART CANVAS ---------- */
+
+canvas {
+    transition:
+        transform 0.5s ease,
+        filter 0.5s ease;
+}
+
+.chart-card:hover canvas {
+    transform: scale(1.015);
+
+    filter:
+        drop-shadow(
+            0 0 10px rgba(40, 230, 160, 0.10)
+        );
+}
+
+
+/* ---------- SECTION TITLES ---------- */
+
+.section-title {
+    position: relative;
+
+    animation:
+        titleReveal 0.8s ease;
+}
+
+.section-title::after {
+    content: "";
+
+    display: block;
+
+    width: 80px;
+    height: 3px;
+
+    margin-top: 8px;
+
+    border-radius: 5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--green),
+            transparent
+        );
+
+    animation:
+        lineExpand 1.2s ease;
+}
+
+@keyframes titleReveal {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes lineExpand {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 80px;
+    }
+}
+
+
+/* ---------- BUTTONS ---------- */
+
+button,
+.btn {
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+button:hover,
+.btn:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.20);
+
+    filter: brightness(1.08);
+}
+
+button:active,
+.btn:active {
+    transform: scale(0.96);
+}
+
+
+/* ---------- GREEN BUTTON ---------- */
+
+.btn-primary,
+.ai-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #13d984,
+            #08b875
+        ) !important;
+
+    border: none !important;
+
+    color: white !important;
+
+    box-shadow:
+        0 8px 25px rgba(10, 220, 130, 0.18);
+}
+
+.btn-primary:hover,
+.ai-button:hover {
+
+    box-shadow:
+        0 12px 35px rgba(10, 220, 130, 0.32);
+}
+
+
+/* ---------- RESET BUTTON ---------- */
+
+.btn-danger,
+.reset-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff5260,
+            #e9374b
+        ) !important;
+
+    border: none !important;
+}
+
+
+/* ---------- GLOW TEXT ---------- */
+
+.highlight,
+.green-text {
+
+    color: var(--green-light);
+
+    text-shadow:
+        0 0 15px rgba(25, 230, 140, 0.22);
+}
+
+
+/* ---------- FLOATING PARTICLES ---------- */
+
+.dashboard-container::before,
+.main-content::before {
+
+    content: "";
+
+    position: fixed;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    box-shadow:
+        200px 100px 0 rgba(40,255,170,.4),
+        500px 300px 0 rgba(40,255,170,.3),
+        800px 150px 0 rgba(40,255,170,.25),
+        1000px 500px 0 rgba(40,255,170,.3),
+        300px 600px 0 rgba(40,255,170,.25);
+
+    opacity: 0.5;
+
+    animation:
+        particlesMove 12s linear infinite;
+
+    pointer-events: none;
+}
+
+@keyframes particlesMove {
+
+    0% {
+        transform:
+            translateY(50px)
+            translateX(0);
+    }
+
+    50% {
+        transform:
+            translateY(-80px)
+            translateX(30px);
+    }
+
+    100% {
+        transform:
+            translateY(50px)
+            translateX(0);
+    }
+}
+
+
+/* ---------- SMOOTH PAGE LOAD ---------- */
+
+body {
+    animation:
+        pageFade 0.7s ease;
+}
+
+@keyframes pageFade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* ---------- SCROLLBAR ---------- */
+
+::-webkit-scrollbar {
+    width: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background: #00302d;
+}
+
+::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(
+            #16d986,
+            #087d68
+        );
+
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #20ef9a;
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 220px !important;
+    }
+
+    .hero-section {
+        border-radius: 18px;
+    }
+
+    .card,
+    .analytics-card,
+    .kpi-card,
+    .chart-card {
+        border-radius: 16px;
+    }
+}
+
+</style>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AgriAI Agriculture Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f3f7f4;
+            color: #1f2937;
+        }
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #14532d,
+                    #166534,
+                    #15803d
+                );
+
+            color: white;
+
+            padding: 22px 35px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            flex-wrap: wrap;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.15);
+
+        }
+
+        .header-left h1 {
+
+            margin: 0;
+
+            font-size: 29px;
+
+        }
+
+        .header-left p {
+
+            margin: 7px 0 0;
+
+            opacity: 0.9;
+
+            font-size: 14px;
+
+        }
+
+        .header-buttons {
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+        }
+
+        .header-btn {
+
+            border: none;
+
+            background: rgba(255,255,255,0.15);
+
+            color: white;
+
+            padding: 11px 17px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+            transition: 0.2s;
+
+        }
+
+        .header-btn:hover {
+
+            background:
+                rgba(255,255,255,0.28);
+
+        }
+
+        /* =====================================================
+           CONTAINER
+        ===================================================== */
+
+        .container {
+
+            max-width: 1500px;
+
+            margin: auto;
+
+            padding: 25px;
+
+        }
+
+        /* =====================================================
+           NAVIGATION MODULES
+        ===================================================== */
+
+        .module-navigation {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+
+        }
+
+        .module-card {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 4px 16px rgba(0,0,0,0.08);
+
+            cursor: pointer;
+
+            transition: 0.25s;
+
+            border: 2px solid transparent;
+
+        }
+
+        .module-card:hover {
+
+            transform: translateY(-3px);
+
+            border-color: #22c55e;
+
+        }
+
+        .module-card.active {
+
+            border-color: #16a34a;
+
+            background: #f0fdf4;
+
+        }
+
+        .module-icon {
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+
+        }
+
+        .module-card h3 {
+
+            margin: 5px 0;
+
+            color: #14532d;
+
+        }
+
+        .module-card p {
+
+            margin: 0;
+
+            color: #6b7280;
+
+            font-size: 13px;
+
+        }
+
+        /* =====================================================
+           SECTIONS
+        ===================================================== */
+
+        .section {
+
+            display: none;
+
+        }
+
+        .section.active {
+
+            display: block;
+
+        }
+
+        /* =====================================================
+           FILTER PANEL
+        ===================================================== */
+
+        .filter-panel {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 22px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 4px 16px rgba(0,0,0,0.08);
+
+        }
+
+        .filter-title {
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            color: #14532d;
+
+            margin-bottom: 18px;
+
+        }
+
+        .filters {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+        }
+
+        .filter-group label {
+
+            display: block;
+
+            font-weight: bold;
+
+            font-size: 13px;
+
+            margin-bottom: 7px;
+
+            color: #374151;
+
+        }
+
+        .filter-group select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            border: 1px solid #d1d5db;
+
+            background: white;
+
+            font-size: 14px;
+
+            outline: none;
+
+        }
+
+        .filter-group select:focus {
+
+            border-color: #16a34a;
+
+            box-shadow:
+                0 0 0 3px rgba(22,163,74,0.12);
+
+        }
+
+        .filter-buttons {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 18px;
+
+        }
+
+        .reset-btn {
+
+            background: #374151;
+
+            color: white;
+
+            border: none;
+
+            padding: 11px 20px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+        }
+
+        .reset-btn:hover {
+
+            background: #111827;
+
+        }
+
+        .result-count {
+
+            margin-top: 12px;
+
+            color: #6b7280;
+
+            font-size: 13px;
+
+        }
+
+        /* =====================================================
+           KPI CARDS
+        ===================================================== */
+
+        .kpi-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 17px;
+
+            margin-bottom: 25px;
+
+        }
+
+        .kpi {
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.08);
+
+            border-left: 5px solid #16a34a;
+
+        }
+
+        .kpi-title {
+
+            font-size: 13px;
+
+            color: #6b7280;
+
+            font-weight: bold;
+
+        }
+
+        .kpi-value {
+
+            margin-top: 8px;
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+            color: #14532d;
+
+        }
+
+        .kpi-unit {
+
+            color: #9ca3af;
+
+            font-size: 11px;
+
+            margin-top: 3px;
+
+        }
+
+        /* =====================================================
+           CHART GRID
+        ===================================================== */
+
+        .chart-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+
+        }
+
+        .chart-box {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.08);
+
+        }
+
+        .chart-box.full {
+
+            grid-column: 1 / -1;
+
+        }
+
+        .chart-title {
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            color: #14532d;
+
+            margin-bottom: 15px;
+
+        }
+
+        .chart-container {
+
+            height: 320px;
+
+            position: relative;
+
+        }
+
+        /* =====================================================
+           ANALYTICS
+        ===================================================== */
+
+        .analytics-box {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 22px;
+
+            margin-top: 22px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.08);
+
+        }
+
+        .analytics-box h2 {
+
+            margin-top: 0;
+
+            color: #14532d;
+
+        }
+
+        .insight-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+
+        }
+
+        .insight {
+
+            background: #f0fdf4;
+
+            border-left: 4px solid #16a34a;
+
+            border-radius: 10px;
+
+            padding: 15px;
+
+        }
+
+        .insight-title {
+
+            font-weight: bold;
+
+            color: #166534;
+
+            margin-bottom: 6px;
+
+        }
+
+        .insight-text {
+
+            font-size: 14px;
+
+            color: #4b5563;
+
+            line-height: 1.5;
+
+        }
+
+        /* =====================================================
+           WATER USAGE
+        ===================================================== */
+
+        .water-panel {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.08);
+
+        }
+
+        .water-header {
+
+            margin-bottom: 20px;
+
+        }
+
+        .water-header h2 {
+
+            color: #14532d;
+
+            margin: 0 0 6px;
+
+        }
+
+        .water-header p {
+
+            color: #6b7280;
+
+            margin: 0;
+
+        }
+
+        .water-form {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+        }
+
+        .water-form label {
+
+            display: block;
+
+            font-weight: bold;
+
+            font-size: 13px;
+
+            margin-bottom: 7px;
+
+        }
+
+        .water-form select,
+
+        .water-form input {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+        }
+
+        .water-action {
+
+            margin-top: 18px;
+
+        }
+
+        .calculate-btn {
+
+            background: #15803d;
+
+            color: white;
+
+            border: none;
+
+            padding: 13px 24px;
+
+            border-radius: 9px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+        .calculate-btn:hover {
+
+            background: #166534;
+
+        }
+
+        .water-result {
+
+            display: none;
+
+            margin-top: 25px;
+
+        }
+
+        .water-result.show {
+
+            display: block;
+
+        }
+
+        .water-result-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+        }
+
+        .water-result-card {
+
+            background: #f0fdf4;
+
+            padding: 18px;
+
+            border-radius: 12px;
+
+            border-left: 4px solid #16a34a;
+
+        }
+
+        .water-result-card small {
+
+            color: #6b7280;
+
+        }
+
+        .water-result-card strong {
+
+            display: block;
+
+            font-size: 22px;
+
+            color: #14532d;
+
+            margin-top: 6px;
+
+        }
+
+        .water-message {
+
+            margin-top: 18px;
+
+            background: #eff6ff;
+
+            border-left: 4px solid #2563eb;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            line-height: 1.5;
+
+        }
+
+        /* =====================================================
+           DISEASE DETECTOR
+        ===================================================== */
+
+        .disease-panel {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.08);
+
+        }
+
+        .disease-header h2 {
+
+            color: #14532d;
+
+            margin-top: 0;
+
+        }
+
+        .disease-header p {
+
+            color: #6b7280;
+
+        }
+
+        .upload-area {
+
+            border: 2px dashed #22c55e;
+
+            border-radius: 14px;
+
+            padding: 35px;
+
+            text-align: center;
+
+            background: #f0fdf4;
+
+            margin-top: 20px;
+
+        }
+
+        .upload-icon {
+
+            font-size: 45px;
+
+        }
+
+        .upload-area input {
+
+            margin-top: 15px;
+
+        }
+
+        .detect-btn {
+
+            margin-top: 18px;
+
+            background: #15803d;
+
+            color: white;
+
+            border: none;
+
+            padding: 13px 25px;
+
+            border-radius: 9px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+        .detect-btn:hover {
+
+            background: #166534;
+
+        }
+
+        .image-preview {
+
+            max-width: 300px;
+
+            max-height: 250px;
+
+            margin: 20px auto;
+
+            display: none;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 12px rgba(0,0,0,0.15);
+
+        }
+
+        .disease-result {
+
+            display: none;
+
+            margin-top: 25px;
+
+        }
+
+        .disease-result.show {
+
+            display: block;
+
+        }
+
+        .disease-main {
+
+            background: #f0fdf4;
+
+            border-left: 6px solid #16a34a;
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            margin-bottom: 18px;
+
+        }
+
+        .disease-name {
+
+            font-size: 28px;
+
+            color: #14532d;
+
+            font-weight: bold;
+
+        }
+
+        .confidence {
+
+            display: inline-block;
+
+            margin-top: 8px;
+
+            background: #166534;
+
+            color: white;
+
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+        }
+
+        .disease-info-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+
+        }
+
+        .disease-info {
+
+            padding: 18px;
+
+            background: #f9fafb;
+
+            border-radius: 10px;
+
+            border-left: 4px solid #16a34a;
+
+        }
+
+        .disease-info h4 {
+
+            margin: 0 0 8px;
+
+            color: #14532d;
+
+        }
+
+        .disease-info p {
+
+            margin: 0;
+
+            line-height: 1.55;
+
+            color: #4b5563;
+
+        }
+
+        .loading {
+
+            display: none;
+
+            margin-top: 15px;
+
+            color: #166534;
+
+            font-weight: bold;
+
+        }
+
+        .error-box {
+
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 13px;
+
+            border-radius: 8px;
+
+            background: #fef2f2;
+
+            color: #991b1b;
+
+            border-left: 4px solid #dc2626;
+
+        }
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+
+            text-align: center;
+
+            padding: 30px;
+
+            color: #6b7280;
+
+            font-size: 13px;
+
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media(max-width: 1100px) {
+
+            .kpi-grid {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+
+            }
+
+            .filters,
+
+            .water-form {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+            .water-result-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+        @media(max-width: 800px) {
+
+            .module-navigation {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .chart-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .chart-box.full {
+
+                grid-column: auto;
+
+            }
+
+            .insight-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .disease-info-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+        @media(max-width: 600px) {
+
+            .container {
+
+                padding: 15px;
+
+            }
+
+            .header {
+
+                padding: 20px;
+
+            }
+
+            .kpi-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .filters,
+
+            .water-form,
+
+            .water-result-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="header">
+
+    <div class="header-left">
+
+        <h1>
+            🌾 AgriAI Agriculture Dashboard
+        </h1>
+
+        <p>
+            Agriculture Data Warehouse • AI Analytics • Smart Farming
+        </p>
+
+    </div>
+
+
+    <div class="header-buttons">
+
+        <a
+            href="/"
+            class="header-btn"
+        >
+            🏠 Home
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<div class="container">
+
+
+<!-- =========================================================
+     MODULE NAVIGATION
+========================================================= -->
+
+<div class="module-navigation">
+
+
+    <div
+        class="module-card active"
+        onclick="showSection('dashboardSection', this)"
+    >
+
+        <div class="module-icon">
+            📊
+        </div>
+
+        <h3>
+            Agriculture Dashboard
+        </h3>
+
+        <p>
+            Crop production, yield, rainfall and analytics
+        </p>
+
+    </div>
+
+
+
+    <div
+        class="module-card"
+        onclick="showSection('waterSection', this)"
+    >
+
+        <div class="module-icon">
+            💧
+        </div>
+
+        <h3>
+            Water Usage Optimizer
+        </h3>
+
+        <p>
+            Calculate recommended irrigation water
+        </p>
+
+    </div>
+
+
+
+    <div
+        class="module-card"
+        onclick="showSection('diseaseSection', this)"
+    >
+
+        <div class="module-icon">
+            🌿
+        </div>
+
+        <h3>
+            Disease Detector
+        </h3>
+
+        <p>
+            Upload a crop leaf and detect disease using AI
+        </p>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     DASHBOARD SECTION
+========================================================= -->
+
+<section
+    id="dashboardSection"
+    class="section active"
+>
+
+
+<!-- =========================================================
+     FILTERS
+========================================================= -->
+
+<div class="filter-panel">
+
+    <div class="filter-title">
+
+        🔎 Agriculture Data Filters
+
+    </div>
+
+
+    <div class="filters">
+
+
+        <div class="filter-group">
+
+            <label for="stateFilter">
+                State
+            </label>
+
+            <select id="stateFilter">
+
+                <option value="">
+                    All States
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <div class="filter-group">
+
+            <label for="cropFilter">
+                Crop
+            </label>
+
+            <select id="cropFilter">
+
+                <option value="">
+                    All Crops
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <div class="filter-group">
+
+            <label for="seasonFilter">
+                Season
+            </label>
+
+            <select id="seasonFilter">
+
+                <option value="">
+                    All Seasons
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <div class="filter-group">
+
+            <label for="yearFilter">
+                Crop Year
+            </label>
+
+            <select id="yearFilter">
+
+                <option value="">
+                    All Years
+                </option>
+
+            </select>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="filter-buttons">
+
+        <button
+            class="reset-btn"
+            onclick="resetFilters()"
+        >
+            🔄 Reset Filters
+        </button>
+
+    </div>
+
+
+    <div
+        class="result-count"
+        id="resultCount"
+    >
+        Loading data...
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     KPI CARDS
+========================================================= -->
+
+<div class="kpi-grid">
+
+
+    <div class="kpi">
+
+        <div class="kpi-title">
+            TOTAL PRODUCTION
+        </div>
+
+        <div
+            class="kpi-value"
+            id="totalProduction"
+        >
+            0
+        </div>
+
+        <div class="kpi-unit">
+            Production
+        </div>
+
+    </div>
+
+
+
+    <div class="kpi">
+
+        <div class="kpi-title">
+            AVERAGE YIELD
+        </div>
+
+        <div
+            class="kpi-value"
+            id="averageYield"
+        >
+            0
+        </div>
+
+        <div class="kpi-unit">
+            Yield
+        </div>
+
+    </div>
+
+
+
+    <div class="kpi">
+
+        <div class="kpi-title">
+            TOTAL AREA
+        </div>
+
+        <div
+            class="kpi-value"
+            id="totalArea"
+        >
+            0
+        </div>
+
+        <div class="kpi-unit">
+            Hectares
+        </div>
+
+    </div>
+
+
+
+    <div class="kpi">
+
+        <div class="kpi-title">
+            AVERAGE RAINFALL
+        </div>
+
+        <div
+            class="kpi-value"
+            id="averageRainfall"
+        >
+            0
+        </div>
+
+        <div class="kpi-unit">
+            mm
+        </div>
+
+    </div>
+
+
+
+    <div class="kpi">
+
+        <div class="kpi-title">
+            RECORDS
+        </div>
+
+        <div
+            class="kpi-value"
+            id="recordCount"
+        >
+            0
+        </div>
+
+        <div class="kpi-unit">
+            Filtered Records
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     CHARTS
+========================================================= -->
+
+<div class="chart-grid">
+
+
+    <div class="chart-box">
+
+        <div class="chart-title">
+            📊 Average Yield by Crop
+        </div>
+
+        <div class="chart-container">
+
+            <canvas id="cropChart"></canvas>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="chart-box">
+
+        <div class="chart-title">
+            📊 Production by State
+        </div>
+
+        <div class="chart-container">
+
+            <canvas id="stateChart"></canvas>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="chart-box">
+
+        <div class="chart-title">
+            🥧 Average Yield by Season
+        </div>
+
+        <div class="chart-container">
+
+            <canvas id="seasonChart"></canvas>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="chart-box">
+
+        <div class="chart-title">
+            📈 Year-wise Average Yield
+        </div>
+
+        <div class="chart-container">
+
+            <canvas id="yearChart"></canvas>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="chart-box full">
+
+        <div class="chart-title">
+            🌧️ Rainfall vs Crop Yield
+        </div>
+
+        <div class="chart-container">
+
+            <canvas id="rainfallChart"></canvas>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="chart-box full">
+
+        <div class="chart-title">
+            🧪 Fertilizer vs Crop Yield
+        </div>
+
+        <div class="chart-container">
+
+            <canvas id="fertilizerChart"></canvas>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     ANALYTICS
+========================================================= -->
+
+<div class="analytics-box">
+
+    <h2>
+        🤖 Agriculture Analytics
+    </h2>
+
+
+    <div class="insight-grid">
+
+
+        <div class="insight">
+
+            <div class="insight-title">
+                🏆 Best Performing Crop
+            </div>
+
+            <div
+                class="insight-text"
+                id="bestCrop"
+            >
+                Calculating...
+            </div>
+
+        </div>
+
+
+
+        <div class="insight">
+
+            <div class="insight-title">
+                📈 Highest Yield
+            </div>
+
+            <div
+                class="insight-text"
+                id="highestYield"
+            >
+                Calculating...
+            </div>
+
+        </div>
+
+
+
+        <div class="insight">
+
+            <div class="insight-title">
+                🌧️ Rainfall Insight
+            </div>
+
+            <div
+                class="insight-text"
+                id="rainfallInsight"
+            >
+                Calculating...
+            </div>
+
+        </div>
+
+
+
+        <div class="insight">
+
+            <div class="insight-title">
+                🌱 Production Insight
+            </div>
+
+            <div
+                class="insight-text"
+                id="productionInsight"
+            >
+                Calculating...
+            </div>
+
+        </div>
+
+
+
+        <div class="insight">
+
+            <div class="insight-title">
+                🧪 Fertilizer Insight
+            </div>
+
+            <div
+                class="insight-text"
+                id="fertilizerInsight"
+            >
+                Calculating...
+            </div>
+
+        </div>
+
+
+
+        <div class="insight">
+
+            <div class="insight-title">
+                💡 Recommendation
+            </div>
+
+            <div
+                class="insight-text"
+                id="recommendation"
+            >
+                Calculating...
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     WATER USAGE SECTION
+========================================================= -->
+
+<section
+    id="waterSection"
+    class="section"
+>
+
+
+<div class="water-panel">
+
+
+    <div class="water-header">
+
+        <h2>
+            💧 Water Usage Optimizer
+        </h2>
+
+        <p>
+            Select the crop, state, soil type and farm area
+            to calculate recommended water usage.
+        </p>
+
+    </div>
+
+
+
+    <div class="water-form">
+
+
+        <div>
+
+            <label>
+                Crop
+            </label>
+
+            <select id="waterCrop">
+
+                <option value="">
+                    Select Crop
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <div>
+
+            <label>
+                State
+            </label>
+
+            <select id="waterState">
+
+                <option value="">
+                    Select State
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <div>
+
+            <label>
+                Soil Type
+            </label>
+
+            <select id="waterSoil">
+
+                <option value="">
+                    Select Soil Type
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <div>
+
+            <label>
+                Farm Area (Hectares)
+            </label>
+
+            <input
+                id="farmArea"
+                type="number"
+                min="0.1"
+                step="0.1"
+                placeholder="Enter hectares"
+            >
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="water-action">
+
+        <button
+            class="calculate-btn"
+            onclick="calculateWater()"
+        >
+            💧 Calculate Water Usage
+        </button>
+
+    </div>
+
+
+
+    <div
+        class="error-box"
+        id="waterError"
+    ></div>
+
+
+
+    <div
+        class="water-result"
+        id="waterResult"
+    >
+
+
+        <div class="water-result-grid">
+
+
+            <div class="water-result-card">
+
+                <small>
+                    Crop Water Requirement
+                </small>
+
+                <strong id="waterCropRequirement">
+                    0
+                </strong>
+
+                <small>
+                    mm
+                </small>
+
+            </div>
+
+
+
+            <div class="water-result-card">
+
+                <small>
+                    Recommended Water
+                </small>
+
+                <strong id="recommendedWater">
+                    0
+                </strong>
+
+                <small>
+                    mm
+                </small>
+
+            </div>
+
+
+
+            <div class="water-result-card">
+
+                <small>
+                    Recommended Volume
+                </small>
+
+                <strong id="recommendedVolume">
+                    0
+                </strong>
+
+                <small>
+                    m³
+                </small>
+
+            </div>
+
+
+
+            <div class="water-result-card">
+
+                <small>
+                    Water Saving Potential
+                </small>
+
+                <strong id="waterSaving">
+                    0
+                </strong>
+
+                <small>
+                    %
+                </small>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div
+            class="water-message"
+            id="waterMessage"
+        ></div>
+
+
+    </div>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     DISEASE DETECTOR SECTION
+========================================================= -->
+
+<section
+    id="diseaseSection"
+    class="section"
+>
+
+
+<div class="disease-panel">
+
+
+    <div class="disease-header">
+
+        <h2>
+            🌿 AI Crop Disease Detector
+        </h2>
+
+        <p>
+            Upload a crop leaf image. The trained TensorFlow
+            model will analyze the image and provide disease
+            information, treatment, pesticide guidance,
+            prevention and recommendations.
+        </p>
+
+    </div>
+
+
+
+    <div class="upload-area">
+
+
+        <div class="upload-icon">
+            📷
+        </div>
+
+
+        <div>
+
+            Select a crop or leaf image
+
+        </div>
+
+
+        <input
+            type="file"
+            id="diseaseImage"
+            accept=".jpg,.jpeg,.png,.webp,image/*"
+            onchange="previewDiseaseImage()"
+        >
+
+
+        <img
+            id="imagePreview"
+            class="image-preview"
+            alt="Leaf Preview"
+        >
+
+
+        <br>
+
+
+        <button
+            class="detect-btn"
+            onclick="detectDisease()"
+        >
+            🔍 Detect Disease Using AI
+        </button>
+
+
+        <div
+            class="loading"
+            id="diseaseLoading"
+        >
+            ⏳ Analyzing image using AI model...
+        </div>
+
+
+        <div
+            class="error-box"
+            id="diseaseError"
+        ></div>
+
+
+    </div>
+
+
+
+    <div
+        class="disease-result"
+        id="diseaseResult"
+    >
+
+
+        <div class="disease-main">
+
+            <div>
+                Detected Disease
+            </div>
+
+            <div
+                class="disease-name"
+                id="diseaseName"
+            >
+                -
+            </div>
+
+            <div
+                class="confidence"
+                id="diseaseConfidence"
+            >
+                Confidence: -
+            </div>
+
+            <p>
+                <strong>
+                    Crop:
+                </strong>
+
+                <span id="diseaseCrop">
+                    -
+                </span>
+            </p>
+
+            <p>
+                <strong>
+                    Sensitivity:
+                </strong>
+
+                <span id="diseaseSensitivity">
+                    -
+                </span>
+            </p>
+
+        </div>
+
+
+
+        <div class="disease-info-grid">
+
+
+            <div class="disease-info">
+
+                <h4>
+                    🩺 Symptoms
+                </h4>
+
+                <p id="diseaseSymptoms">
+                    -
+                </p>
+
+            </div>
+
+
+
+            <div class="disease-info">
+
+                <h4>
+                    🧑‍🌾 Treatment
+                </h4>
+
+                <p id="diseaseTreatment">
+                    -
+                </p>
+
+            </div>
+
+
+
+            <div class="disease-info">
+
+                <h4>
+                    🧪 Pesticide Guidance
+                </h4>
+
+                <p id="diseasePesticide">
+                    -
+                </p>
+
+            </div>
+
+
+
+            <div class="disease-info">
+
+                <h4>
+                    🛡️ Prevention
+                </h4>
+
+                <p id="diseasePrevention">
+                    -
+                </p>
+
+            </div>
+
+
+
+            <div class="disease-info"
+                 style="grid-column:1/-1;">
+
+                <h4>
+                    💡 Recommendation
+                </h4>
+
+                <p id="diseaseRecommendation">
+                    -
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</section>
+
+
+
+</div>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<div class="footer">
+
+    AgriAI Agriculture Data Warehouse
+    •
+    Smart Agriculture Analytics System
+
+</div>
+
+
+
+<script>
+
+/* ============================================================
+   DATA FROM FLASK
+============================================================ */
+
+/*
+   app.py sends:
+
+   dashboard_data
+
+   containing:
+
+   Crop
+   Crop_Year
+   Season
+   State
+   Area
+   Production
+   Annual_Rainfall
+   Fertilizer
+   Pesticide
+   Yield
+*/
+
+const dashboardData =
+    {{ dashboard_data | tojson }};
+
+
+const waterCrops =
+    {{ water_crops | tojson }};
+
+
+const waterStates =
+    {{ water_states | tojson }};
+
+
+const waterSoils =
+    {{ water_soils | tojson }};
+
+
+/* ============================================================
+   GLOBAL CHART VARIABLES
+============================================================ */
+
+let cropChart = null;
+
+let stateChart = null;
+
+let seasonChart = null;
+
+let yearChart = null;
+
+let rainfallChart = null;
+
+let fertilizerChart = null;
+
+
+/* ============================================================
+   HELPER FUNCTIONS
+============================================================ */
+
+function numberValue(value) {
+
+    const n = Number(value);
+
+    if (Number.isFinite(n)) {
+
+        return n;
+
+    }
+
+    return 0;
+
+}
+
+
+function formatNumber(value, decimals = 2) {
+
+    return numberValue(value).toLocaleString(
+        "en-IN",
+        {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals
+        }
+    );
+
+}
+
+
+function uniqueSorted(values) {
+
+    return [...new Set(
+
+        values
+            .filter(v =>
+                v !== null &&
+                v !== undefined &&
+                String(v).trim() !== ""
+            )
+            .map(v => String(v))
+
+    )].sort(
+        (a,b) =>
+            a.localeCompare(
+                b,
+                undefined,
+                {
+                    numeric: true
+                }
+            )
+    );
+
+}
+
+
+/* ============================================================
+   POPULATE FILTERS
+============================================================ */
+
+function populateFilters() {
+
+    const stateFilter =
+        document.getElementById(
+            "stateFilter"
+        );
+
+    const cropFilter =
+        document.getElementById(
+            "cropFilter"
+        );
+
+    const seasonFilter =
+        document.getElementById(
+            "seasonFilter"
+        );
+
+    const yearFilter =
+        document.getElementById(
+            "yearFilter"
+        );
+
+
+    const states =
+        uniqueSorted(
+            dashboardData.map(
+                row => row.State
+            )
+        );
+
+
+    const crops =
+        uniqueSorted(
+            dashboardData.map(
+                row => row.Crop
+            )
+        );
+
+
+    const seasons =
+        uniqueSorted(
+            dashboardData.map(
+                row => row.Season
+            )
+        );
+
+
+    const years =
+        uniqueSorted(
+            dashboardData.map(
+                row => row.Crop_Year
+            )
+        );
+
+
+    states.forEach(state => {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value = state;
+
+        option.textContent = state;
+
+        stateFilter.appendChild(
+            option
+        );
+
+    });
+
+
+    crops.forEach(crop => {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value = crop;
+
+        option.textContent = crop;
+
+        cropFilter.appendChild(
+            option
+        );
+
+    });
+
+
+    seasons.forEach(season => {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value = season;
+
+        option.textContent = season;
+
+        seasonFilter.appendChild(
+            option
+        );
+
+    });
+
+
+    years.forEach(year => {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value = year;
+
+        option.textContent = year;
+
+        yearFilter.appendChild(
+            option
+        );
+
+    });
+
+}
+
+
+/* ============================================================
+   POPULATE WATER DROPDOWNS
+============================================================ */
+
+function populateWaterFilters() {
+
+    const cropSelect =
+        document.getElementById(
+            "waterCrop"
+        );
+
+    const stateSelect =
+        document.getElementById(
+            "waterState"
+        );
+
+    const soilSelect =
+        document.getElementById(
+            "waterSoil"
+        );
+
+
+    waterCrops.forEach(crop => {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value = crop;
+
+        option.textContent = crop;
+
+        cropSelect.appendChild(
+            option
+        );
+
+    });
+
+
+    waterStates.forEach(state => {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value = state;
+
+        option.textContent = state;
+
+        stateSelect.appendChild(
+            option
+        );
+
+    });
+
+
+    waterSoils.forEach(soil => {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value = soil;
+
+        option.textContent = soil;
+
+        soilSelect.appendChild(
+            option
+        );
+
+    });
+
+}
+
+
+/* ============================================================
+   GET FILTERED DATA
+============================================================ */
+
+function getFilteredData() {
+
+    const selectedState =
+        document.getElementById(
+            "stateFilter"
+        ).value;
+
+
+    const selectedCrop =
+        document.getElementById(
+            "cropFilter"
+        ).value;
+
+
+    const selectedSeason =
+        document.getElementById(
+            "seasonFilter"
+        ).value;
+
+
+    const selectedYear =
+        document.getElementById(
+            "yearFilter"
+        ).value;
+
+
+    return dashboardData.filter(row => {
+
+
+        const stateMatch =
+            !selectedState ||
+            String(row.State) ===
+            selectedState;
+
+
+        const cropMatch =
+            !selectedCrop ||
+            String(row.Crop) ===
+            selectedCrop;
+
+
+        const seasonMatch =
+            !selectedSeason ||
+            String(row.Season) ===
+            selectedSeason;
+
+
+        const yearMatch =
+            !selectedYear ||
+            String(row.Crop_Year) ===
+            selectedYear;
+
+
+        return (
+
+            stateMatch &&
+            cropMatch &&
+            seasonMatch &&
+            yearMatch
+
+        );
+
+    });
+
+}
+
+
+/* ============================================================
+   FILTER EVENT
+============================================================ */
+
+document.getElementById(
+    "stateFilter"
+).addEventListener(
+    "change",
+    updateDashboard
+);
+
+
+document.getElementById(
+    "cropFilter"
+).addEventListener(
+    "change",
+    updateDashboard
+);
+
+
+document.getElementById(
+    "seasonFilter"
+).addEventListener(
+    "change",
+    updateDashboard
+);
+
+
+document.getElementById(
+    "yearFilter"
+).addEventListener(
+    "change",
+    updateDashboard
+);
+
+
+/* ============================================================
+   RESET FILTERS
+============================================================ */
+
+function resetFilters() {
+
+    document.getElementById(
+        "stateFilter"
+    ).value = "";
+
+
+    document.getElementById(
+        "cropFilter"
+    ).value = "";
+
+
+    document.getElementById(
+        "seasonFilter"
+    ).value = "";
+
+
+    document.getElementById(
+        "yearFilter"
+    ).value = "";
+
+
+    updateDashboard();
+
+}
+
+
+/* ============================================================
+   UPDATE DASHBOARD
+============================================================ */
+
+function updateDashboard() {
+
+    const filteredData =
+        getFilteredData();
+
+
+    updateKPIs(
+        filteredData
+    );
+
+
+    updateCharts(
+        filteredData
+    );
+
+
+    updateAnalytics(
+        filteredData
+    );
+
+
+    document.getElementById(
+        "resultCount"
+    ).textContent =
+        "Showing " +
+        formatNumber(
+            filteredData.length,
+            0
+        ) +
+        " records from " +
+        formatNumber(
+            dashboardData.length,
+            0
+        ) +
+        " total records.";
+
+}
+
+
+/* ============================================================
+   UPDATE KPI CARDS
+============================================================ */
+
+function updateKPIs(data) {
+
+    if (!data.length) {
+
+        document.getElementById(
+            "totalProduction"
+        ).textContent = "0";
+
+
+        document.getElementById(
+            "averageYield"
+        ).textContent = "0";
+
+
+        document.getElementById(
+            "totalArea"
+        ).textContent = "0";
+
+
+        document.getElementById(
+            "averageRainfall"
+        ).textContent = "0";
+
+
+        document.getElementById(
+            "recordCount"
+        ).textContent = "0";
+
+
+        return;
+
+    }
+
+
+    let totalProduction = 0;
+
+    let totalArea = 0;
+
+    let totalYield = 0;
+
+    let totalRainfall = 0;
+
+    let yieldCount = 0;
+
+    let rainfallCount = 0;
+
+
+    data.forEach(row => {
+
+        totalProduction +=
+            numberValue(
+                row.Production
+            );
+
+
+        totalArea +=
+            numberValue(
+                row.Area
+            );
+
+
+        const yieldValue =
+            Number(row.Yield);
+
+
+        if (Number.isFinite(yieldValue)) {
+
+            totalYield += yieldValue;
+
+            yieldCount++;
+
+        }
+
+
+        const rainfallValue =
+            Number(
+                row.Annual_Rainfall
+            );
+
+
+        if (
+            Number.isFinite(
+                rainfallValue
+            )
+        ) {
+
+            totalRainfall +=
+                rainfallValue;
+
+            rainfallCount++;
+
+        }
+
+    });
+
+
+    const averageYield =
+        yieldCount
+            ? totalYield / yieldCount
+            : 0;
+
+
+    const averageRainfall =
+        rainfallCount
+            ? totalRainfall / rainfallCount
+            : 0;
+
+
+    document.getElementById(
+        "totalProduction"
+    ).textContent =
+        formatNumber(
+            totalProduction
+        );
+
+
+    document.getElementById(
+        "averageYield"
+    ).textContent =
+        formatNumber(
+            averageYield
+        );
+
+
+    document.getElementById(
+        "totalArea"
+    ).textContent =
+        formatNumber(
+            totalArea
+        );
+
+
+    document.getElementById(
+        "averageRainfall"
+    ).textContent =
+        formatNumber(
+            averageRainfall
+        );
+
+
+    document.getElementById(
+        "recordCount"
+    ).textContent =
+        formatNumber(
+            data.length,
+            0
+        );
+
+}
+
+
+/* ============================================================
+   GROUP DATA
+============================================================ */
+
+function groupAverage(
+    data,
+    field
+) {
+
+    const groups = {};
+
+
+    data.forEach(row => {
+
+        const key =
+            String(
+                row[field] ?? "Unknown"
+            );
+
+
+        const value =
+            Number(
+                row.Yield
+            );
+
+
+        if (!groups[key]) {
+
+            groups[key] = {
+
+                sum: 0,
+
+                count: 0
+
+            };
+
+        }
+
+
+        if (Number.isFinite(value)) {
+
+            groups[key].sum += value;
+
+            groups[key].count++;
+
+        }
+
+    });
+
+
+    const labels =
+        Object.keys(
+            groups
+        ).sort();
+
+
+    const values =
+        labels.map(label => {
+
+            const item =
+                groups[label];
+
+
+            return item.count
+                ? item.sum / item.count
+                : 0;
+
+        });
+
+
+    return {
+        labels,
+        values
+    };
+
+}
+
+
+function groupSum(
+    data,
+    field,
+    valueField
+) {
+
+    const groups = {};
+
+
+    data.forEach(row => {
+
+        const key =
+            String(
+                row[field] ?? "Unknown"
+            );
+
+
+        if (!groups[key]) {
+
+            groups[key] = 0;
+
+        }
+
+
+        groups[key] +=
+            numberValue(
+                row[valueField]
+            );
+
+    });
+
+
+    const labels =
+        Object.keys(
+            groups
+        ).sort();
+
+
+    const values =
+        labels.map(
+            label =>
+                groups[label]
+        );
+
+
+    return {
+        labels,
+        values
+    };
+
+}
+
+
+/* ============================================================
+   DESTROY OLD CHART
+============================================================ */
+
+function destroyChart(chart) {
+
+    if (chart) {
+
+        chart.destroy();
+
+    }
+
+}
+
+
+/* ============================================================
+   UPDATE CHARTS
+============================================================ */
+
+function updateCharts(data) {
+
+
+    destroyChart(
+        cropChart
+    );
+
+
+    destroyChart(
+        stateChart
+    );
+
+
+    destroyChart(
+        seasonChart
+    );
+
+
+    destroyChart(
+        yearChart
+    );
+
+
+    destroyChart(
+        rainfallChart
+    );
+
+
+    destroyChart(
+        fertilizerChart
+    );
+
+
+    /* --------------------------------------------------------
+       CROP YIELD
+    -------------------------------------------------------- */
+
+    const cropData =
+        groupAverage(
+            data,
+            "Crop"
+        );
+
+
+    cropChart = new Chart(
+
+        document.getElementById(
+            "cropChart"
+        ),
+
+        {
+
+            type: "bar",
+
+            data: {
+
+                labels:
+                    cropData.labels,
+
+                datasets: [{
+
+                    label:
+                        "Average Yield",
+
+                    data:
+                        cropData.values,
+
+                    backgroundColor:
+                        "#16a34a",
+
+                    borderRadius:
+                        5
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio:
+                    false,
+
+                plugins: {
+
+                    legend: {
+                        display: false
+                    }
+
+                },
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero:
+                            true
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    );
+
+
+    /* --------------------------------------------------------
+       STATE PRODUCTION
+    -------------------------------------------------------- */
+
+    const stateData =
+        groupSum(
+            data,
+            "State",
+            "Production"
+        );
+
+
+    stateChart = new Chart(
+
+        document.getElementById(
+            "stateChart"
+        ),
+
+        {
+
+            type: "bar",
+
+            data: {
+
+                labels:
+                    stateData.labels,
+
+                datasets: [{
+
+                    label:
+                        "Production",
+
+                    data:
+                        stateData.values,
+
+                    backgroundColor:
+                        "#2563eb",
+
+                    borderRadius:
+                        5
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio:
+                    false,
+
+                plugins: {
+
+                    legend: {
+                        display: false
+                    }
+
+                }
+
+            }
+
+        }
+
+    );
+
+
+    /* --------------------------------------------------------
+       SEASON
+    -------------------------------------------------------- */
+
+    const seasonData =
+        groupAverage(
+            data,
+            "Season"
+        );
+
+
+    seasonChart = new Chart(
+
+        document.getElementById(
+            "seasonChart"
+        ),
+
+        {
+
+            type: "doughnut",
+
+            data: {
+
+                labels:
+                    seasonData.labels,
+
+                datasets: [{
+
+                    data:
+                        seasonData.values,
+
+                    backgroundColor: [
+
+                        "#16a34a",
+
+                        "#2563eb",
+
+                        "#f59e0b",
+
+                        "#dc2626",
+
+                        "#7c3aed",
+
+                        "#0891b2",
+
+                        "#ea580c"
+
+                    ]
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio:
+                    false
+
+            }
+
+        }
+
+    );
+
+
+    /* --------------------------------------------------------
+       YEAR
+    -------------------------------------------------------- */
+
+    const yearData =
+        groupAverage(
+            data,
+            "Crop_Year"
+        );
+
+
+    yearChart = new Chart(
+
+        document.getElementById(
+            "yearChart"
+        ),
+
+        {
+
+            type: "line",
+
+            data: {
+
+                labels:
+                    yearData.labels,
+
+                datasets: [{
+
+                    label:
+                        "Average Yield",
+
+                    data:
+                        yearData.values,
+
+                    borderColor:
+                        "#16a34a",
+
+                    backgroundColor:
+                        "rgba(22,163,74,0.12)",
+
+                    fill: true,
+
+                    tension:
+                        0.3
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio:
+                    false
+
+            }
+
+        }
+
+    );
+
+
+    /* --------------------------------------------------------
+       RAINFALL VS YIELD
+    -------------------------------------------------------- */
+
+    const rainfallPoints =
+        data
+
+            .map(row => ({
+
+                x:
+                    Number(
+                        row.Annual_Rainfall
+                    ),
+
+                y:
+                    Number(
+                        row.Yield
+                    )
+
+            }))
+
+            .filter(point =>
+                Number.isFinite(point.x) &&
+                Number.isFinite(point.y)
+            );
+
+
+    rainfallChart = new Chart(
+
+        document.getElementById(
+            "rainfallChart"
+        ),
+
+        {
+
+            type: "scatter",
+
+            data: {
+
+                datasets: [{
+
+                    label:
+                        "Rainfall vs Yield",
+
+                    data:
+                        rainfallPoints,
+
+                    backgroundColor:
+                        "#2563eb",
+
+                    pointRadius:
+                        4
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio:
+                    false,
+
+                scales: {
+
+                    x: {
+
+                        title: {
+
+                            display:
+                                true,
+
+                            text:
+                                "Annual Rainfall (mm)"
+
+                        }
+
+                    },
+
+                    y: {
+
+                        title: {
+
+                            display:
+                                true,
+
+                            text:
+                                "Crop Yield"
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    );
+
+
+    /* --------------------------------------------------------
+       FERTILIZER VS YIELD
+    -------------------------------------------------------- */
+
+    const fertilizerPoints =
+        data
+
+            .map(row => ({
+
+                x:
+                    Number(
+                        row.Fertilizer
+                    ),
+
+                y:
+                    Number(
+                        row.Yield
+                    )
+
+            }))
+
+            .filter(point =>
+                Number.isFinite(point.x) &&
+                Number.isFinite(point.y)
+            );
+
+
+    fertilizerChart = new Chart(
+
+        document.getElementById(
+            "fertilizerChart"
+        ),
+
+        {
+
+            type: "scatter",
+
+            data: {
+
+                datasets: [{
+
+                    label:
+                        "Fertilizer vs Yield",
+
+                    data:
+                        fertilizerPoints,
+
+                    backgroundColor:
+                        "#dc2626",
+
+                    pointRadius:
+                        4
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio:
+                    false,
+
+                scales: {
+
+                    x: {
+
+                        title: {
+
+                            display:
+                                true,
+
+                            text:
+                                "Fertilizer"
+
+                        }
+
+                    },
+
+                    y: {
+
+                        title: {
+
+                            display:
+                                true,
+
+                            text:
+                                "Crop Yield"
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    );
+
+}
+
+
+/* ============================================================
+   ANALYTICS
+============================================================ */
+
+function updateAnalytics(data) {
+
+    if (!data.length) {
+
+        document.getElementById(
+            "bestCrop"
+        ).textContent =
+            "No data available for the selected filters.";
+
+
+        document.getElementById(
+            "highestYield"
+        ).textContent =
+            "No data available.";
+
+
+        document.getElementById(
+            "rainfallInsight"
+        ).textContent =
+            "No rainfall data available.";
+
+
+        document.getElementById(
+            "productionInsight"
+        ).textContent =
+            "No production data available.";
+
+
+        document.getElementById(
+            "fertilizerInsight"
+        ).textContent =
+            "No fertilizer data available.";
+
+
+        document.getElementById(
+            "recommendation"
+        ).textContent =
+            "Try selecting different filters.";
+
+        return;
+
+    }
+
+
+    /* --------------------------------------------------------
+       BEST CROP
+    -------------------------------------------------------- */
+
+    const cropStats = {};
+
+
+    data.forEach(row => {
+
+        const crop =
+            String(
+                row.Crop ?? "Unknown"
+            );
+
+
+        if (!cropStats[crop]) {
+
+            cropStats[crop] = {
+
+                totalYield: 0,
+
+                count: 0,
+
+                production: 0
+
+            };
+
+        }
+
+
+        const yieldValue =
+            Number(
+                row.Yield
+            );
+
+
+        if (
+            Number.isFinite(
+                yieldValue
+            )
+        ) {
+
+            cropStats[crop].totalYield +=
+                yieldValue;
+
+            cropStats[crop].count++;
+
+        }
+
+
+        cropStats[crop].production +=
+            numberValue(
+                row.Production
+            );
+
+    });
+
+
+    let bestCrop =
+        "-";
+
+    let bestCropYield =
+        -Infinity;
+
+
+    Object.entries(
+        cropStats
+    ).forEach(
+        ([crop, values]) => {
+
+            const avg =
+                values.count
+                    ? values.totalYield /
+                      values.count
+                    : 0;
+
+
+            if (
+                avg >
+                bestCropYield
+            ) {
+
+                bestCropYield =
+                    avg;
+
+                bestCrop =
+                    crop;
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "bestCrop"
+    ).textContent =
+
+        bestCrop +
+        " has the highest average yield in the selected data (" +
+        formatNumber(bestCropYield) +
+        ").";
+
+
+    /* --------------------------------------------------------
+       HIGHEST YIELD
+    -------------------------------------------------------- */
+
+    let maximumYield =
+        -Infinity;
+
+    let maximumYieldCrop =
+        "-";
+
+
+    data.forEach(row => {
+
+        const value =
+            Number(
+                row.Yield
+            );
+
+
+        if (
+            Number.isFinite(value) &&
+            value > maximumYield
+        ) {
+
+            maximumYield =
+                value;
+
+            maximumYieldCrop =
+                row.Crop;
+
+        }
+
+    });
+
+
+    document.getElementById(
+        "highestYield"
+    ).textContent =
+
+        maximumYieldCrop +
+        " recorded the highest yield value of " +
+        formatNumber(maximumYield) +
+        ".";
+
+
+    /* --------------------------------------------------------
+       RAINFALL
+    -------------------------------------------------------- */
+
+    let rainfallTotal =
+        0;
+
+    let rainfallCount =
+        0;
+
+
+    data.forEach(row => {
+
+        const value =
+            Number(
+                row.Annual_Rainfall
+            );
+
+
+        if (
+            Number.isFinite(value)
+        ) {
+
+            rainfallTotal +=
+                value;
+
+            rainfallCount++;
+
+        }
+
+    });
+
+
+    const avgRainfall =
+        rainfallCount
+            ? rainfallTotal /
+              rainfallCount
+            : 0;
+
+
+    document.getElementById(
+        "rainfallInsight"
+    ).textContent =
+
+        "Average rainfall for the selected data is " +
+        formatNumber(avgRainfall) +
+        " mm. Use rainfall together with soil moisture and crop requirements when planning irrigation.";
+
+
+    /* --------------------------------------------------------
+       PRODUCTION
+    -------------------------------------------------------- */
+
+    let highestProduction =
+        -Infinity;
+
+    let productionCrop =
+        "-";
+
+
+    const productionByCrop =
+        {};
+
+
+    data.forEach(row => {
+
+        const crop =
+            String(
+                row.Crop ?? "Unknown"
+            );
+
+
+        if (!productionByCrop[crop]) {
+
+            productionByCrop[crop] =
+                0;
+
+        }
+
+
+        productionByCrop[crop] +=
+            numberValue(
+                row.Production
+            );
+
+    });
+
+
+    Object.entries(
+        productionByCrop
+    ).forEach(
+        ([crop, production]) => {
+
+            if (
+                production >
+                highestProduction
+            ) {
+
+                highestProduction =
+                    production;
+
+                productionCrop =
+                    crop;
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "productionInsight"
+    ).textContent =
+
+        productionCrop +
+        " has the highest total production in the currently filtered dataset (" +
+        formatNumber(highestProduction) +
+        ").";
+
+
+    /* --------------------------------------------------------
+       FERTILIZER
+    -------------------------------------------------------- */
+
+    let fertilizerTotal =
+        0;
+
+    let fertilizerCount =
+        0;
+
+
+    data.forEach(row => {
+
+        const value =
+            Number(
+                row.Fertilizer
+            );
+
+
+        if (
+            Number.isFinite(value)
+        ) {
+
+            fertilizerTotal +=
+                value;
+
+            fertilizerCount++;
+
+        }
+
+    });
+
+
+    const averageFertilizer =
+        fertilizerCount
+            ? fertilizerTotal /
+              fertilizerCount
+            : 0;
+
+
+    document.getElementById(
+        "fertilizerInsight"
+    ).textContent =
+
+        "Average fertilizer usage in the selected records is " +
+        formatNumber(averageFertilizer) +
+        ". Compare fertilizer usage with yield instead of increasing fertilizer automatically.";
+
+
+    /* --------------------------------------------------------
+       RECOMMENDATION
+    -------------------------------------------------------- */
+
+    let recommendation =
+        "Continue monitoring crop yield, rainfall and production trends.";
+
+
+    if (
+        avgRainfall < 500
+    ) {
+
+        recommendation =
+            "Rainfall is relatively low in the selected data. Consider efficient irrigation and soil-moisture monitoring.";
+
+    }
+
+    else if (
+        avgRainfall > 1500
+    ) {
+
+        recommendation =
+            "Rainfall is relatively high. Avoid unnecessary irrigation and monitor drainage and crop disease risk.";
+
+    }
+
+    else {
+
+        recommendation =
+            "Rainfall is within a moderate range. Use crop-specific irrigation planning and continue monitoring yield.";
+
+    }
+
+
+    document.getElementById(
+        "recommendation"
+    ).textContent =
+        recommendation;
+
+}
+
+
+/* ============================================================
+   MODULE SWITCHING
+============================================================ */
+
+function showSection(
+    sectionId,
+    clickedCard
+) {
+
+
+    document
+        .querySelectorAll(
+            ".section"
+        )
+        .forEach(section => {
+
+            section.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    document
+        .querySelectorAll(
+            ".module-card"
+        )
+        .forEach(card => {
+
+            card.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    document
+        .getElementById(
+            sectionId
+        )
+        .classList.add(
+            "active"
+        );
+
+
+    clickedCard.classList.add(
+        "active"
+    );
+
+}
+
+
+/* ============================================================
+   WATER USAGE CALCULATION
+============================================================ */
+
+async function calculateWater() {
+
+    const crop =
+        document.getElementById(
+            "waterCrop"
+        ).value;
+
+
+    const state =
+        document.getElementById(
+            "waterState"
+        ).value;
+
+
+    const soil =
+        document.getElementById(
+            "waterSoil"
+        ).value;
+
+
+    const farmArea =
+        document.getElementById(
+            "farmArea"
+        ).value;
+
+
+    const errorBox =
+        document.getElementById(
+            "waterError"
+        );
+
+
+    const resultBox =
+        document.getElementById(
+            "waterResult"
+        );
+
+
+    errorBox.style.display =
+        "none";
+
+
+    resultBox.classList.remove(
+        "show"
+    );
+
+
+    if (!crop) {
+
+        showWaterError(
+            "Please select a crop."
+        );
+
+        return;
+
+    }
+
+
+    if (!state) {
+
+        showWaterError(
+            "Please select a state."
+        );
+
+        return;
+
+    }
+
+
+    if (!soil) {
+
+        showWaterError(
+            "Please select a soil type."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !farmArea ||
+        Number(farmArea) <= 0
+    ) {
+
+        showWaterError(
+            "Please enter a valid farm area."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/dashboard/water-calculate",
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            crop:
+                                crop,
+
+                            state:
+                                state,
+
+                            soil_type:
+                                soil,
+
+                            farm_area:
+                                Number(
+                                    farmArea
+                                )
+
+                        })
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            showWaterError(
+                result.error ||
+                "Unable to calculate water usage."
+            );
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "waterCropRequirement"
+        ).textContent =
+
+            formatNumber(
+                result.crop_water_requirement
+            );
+
+
+        document.getElementById(
+            "recommendedWater"
+        ).textContent =
+
+            formatNumber(
+                result.recommended_water_mm
+            );
+
+
+        document.getElementById(
+            "recommendedVolume"
+        ).textContent =
+
+            formatNumber(
+                result.recommended_water_m3
+            );
+
+
+        document.getElementById(
+            "waterSaving"
+        ).textContent =
+
+            formatNumber(
+                result.saving_percentage
+            );
+
+
+        document.getElementById(
+            "waterMessage"
+        ).innerHTML =
+
+            "<strong>💧 Irrigation Level:</strong> " +
+            result.irrigation_level +
+            "<br><br>" +
+
+            "<strong>Recommended Method:</strong> " +
+            result.water_saving_method +
+            "<br><br>" +
+
+            result.saving_message;
+
+
+        resultBox.classList.add(
+            "show"
+        );
+
+
+    }
+
+    catch(error) {
+
+        showWaterError(
+            "Unable to connect to the water optimizer."
+        );
+
+        console.error(
+            error
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   WATER ERROR
+============================================================ */
+
+function showWaterError(
+    message
+) {
+
+    const box =
+        document.getElementById(
+            "waterError"
+        );
+
+
+    box.textContent =
+        message;
+
+
+    box.style.display =
+        "block";
+
+}
+
+
+/* ============================================================
+   DISEASE IMAGE PREVIEW
+============================================================ */
+
+function previewDiseaseImage() {
+
+    const input =
+        document.getElementById(
+            "diseaseImage"
+        );
+
+
+    const preview =
+        document.getElementById(
+            "imagePreview"
+        );
+
+
+    if (
+        input.files &&
+        input.files[0]
+    ) {
+
+        const file =
+            input.files[0];
+
+
+        preview.src =
+            URL.createObjectURL(
+                file
+            );
+
+
+        preview.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* ============================================================
+   DISEASE DETECTION
+============================================================ */
+
+async function detectDisease() {
+
+    const input =
+        document.getElementById(
+            "diseaseImage"
+        );
+
+
+    const loading =
+        document.getElementById(
+            "diseaseLoading"
+        );
+
+
+    const errorBox =
+        document.getElementById(
+            "diseaseError"
+        );
+
+
+    const resultBox =
+        document.getElementById(
+            "diseaseResult"
+        );
+
+
+    errorBox.style.display =
+        "none";
+
+
+    resultBox.classList.remove(
+        "show"
+    );
+
+
+    if (
+        !input.files ||
+        !input.files[0]
+    ) {
+
+        errorBox.textContent =
+            "Please select a crop leaf image first.";
+
+        errorBox.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    const file =
+        input.files[0];
+
+
+    const formData =
+        new FormData();
+
+
+    formData.append(
+        "image",
+        file
+    );
+
+
+    loading.style.display =
+        "block";
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/dashboard/disease-detect",
+                {
+
+                    method: "POST",
+
+                    body:
+                        formData
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        loading.style.display =
+            "none";
+
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            errorBox.textContent =
+                result.error ||
+                "Disease detection failed.";
+
+            errorBox.style.display =
+                "block";
+
+            return;
+
+        }
+
+
+        /* ----------------------------------------------------
+           RESULT
+        ---------------------------------------------------- */
+
+        document.getElementById(
+            "diseaseName"
+        ).textContent =
+            cleanDiseaseName(
+                result.disease
+            );
+
+
+        document.getElementById(
+            "diseaseCrop"
+        ).textContent =
+            result.crop ||
+            "-";
+
+
+        document.getElementById(
+            "diseaseConfidence"
+        ).textContent =
+
+            "Confidence: " +
+            formatNumber(
+                result.confidence
+            ) +
+            "%";
+
+
+        document.getElementById(
+            "diseaseSensitivity"
+        ).textContent =
+            result.sensitivity ||
+            "-";
+
+
+        document.getElementById(
+            "diseaseSymptoms"
+        ).textContent =
+            result.symptoms ||
+            "-";
+
+
+        document.getElementById(
+            "diseaseTreatment"
+        ).textContent =
+            result.treatment ||
+            "-";
+
+
+        document.getElementById(
+            "diseasePesticide"
+        ).textContent =
+            result.pesticide ||
+            "-";
+
+
+        document.getElementById(
+            "diseasePrevention"
+        ).textContent =
+            result.prevention ||
+            "-";
+
+
+        document.getElementById(
+            "diseaseRecommendation"
+        ).textContent =
+            result.recommendation ||
+            "-";
+
+
+        resultBox.classList.add(
+            "show"
+        );
+
+
+    }
+
+    catch(error) {
+
+        loading.style.display =
+            "none";
+
+
+        errorBox.textContent =
+            "Unable to connect to the Disease Detector.";
+
+        errorBox.style.display =
+            "block";
+
+
+        console.error(
+            error
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   CLEAN DISEASE NAME
+============================================================ */
+
+function cleanDiseaseName(
+    name
+) {
+
+    if (!name) {
+
+        return "Unknown";
+
+    }
+
+
+    return String(name)
+
+        .replaceAll(
+            "__",
+            " "
+        )
+
+        .replaceAll(
+            "___",
+            " "
+        )
+
+        .replaceAll(
+            "_",
+            " "
+        )
+
+        .replace(
+            "bell",
+            "Bell"
+        )
+
+        .replace(
+            "Early blight",
+            "Early Blight"
+        )
+
+        .replace(
+            "Late blight",
+            "Late Blight"
+        );
+
+}
+
+
+/* ============================================================
+   INITIALIZE
+============================================================ */
+
+function initializeDashboard() {
+
+    populateFilters();
+
+    populateWaterFilters();
+
+    updateDashboard();
+
+}
+
+
+/* ============================================================
+   START
+============================================================ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initializeDashboard
+);
+
+</script>
+
+
+</body>
+
+</html>

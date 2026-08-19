@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AgriAI | Water Analysis Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/water_optimizer.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+
+<body class="water-page">
+
+
+<div class="water-container">
+
+
+    <div class="water-card">
+
+
+        {% if error %}
+
+
+        <div class="water-header">
+
+            <div class="water-header-icon">
+
+                <i class="fas fa-triangle-exclamation"></i>
+
+            </div>
+
+            <div>
+
+                <h1>
+                    Water Analysis
+                </h1>
+
+                <p>
+                    Unable to generate recommendation
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="water-intro">
+
+            <i class="fas fa-circle-exclamation"></i>
+
+            <p>
+                {{ error }}
+            </p>
+
+        </div>
+
+
+        <div class="water-back">
+
+            <a href="/water-optimizer">
+
+                <i class="fas fa-arrow-left"></i>
+
+                Try Again
+
+            </a>
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- HEADER -->
+
+        <div class="water-header">
+
+            <div class="water-header-icon">
+
+                <i class="fas fa-droplet"></i>
+
+            </div>
+
+            <div>
+
+                <h1>
+                    Water Analysis Result
+                </h1>
+
+                <p>
+                    Data-driven irrigation recommendation
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- INPUT INFORMATION -->
+
+        <div class="water-info-grid">
+
+
+            <div class="water-info-card">
+
+                <i class="fas fa-seedling"></i>
+
+                <div>
+
+                    <h3>
+                        Crop
+                    </h3>
+
+                    <p>
+                        {{ crop }}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="water-info-card">
+
+                <i class="fas fa-location-dot"></i>
+
+                <div>
+
+                    <h3>
+                        State
+                    </h3>
+
+                    <p>
+                        {{ state }}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="water-info-card">
+
+                <i class="fas fa-cloud-sun"></i>
+
+                <div>
+
+                    <h3>
+                        Season
+                    </h3>
+
+                    <p>
+                        {{ season }}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="water-info-card">
+
+                <i class="fas fa-layer-group"></i>
+
+                <div>
+
+                    <h3>
+                        Soil Type
+                    </h3>
+
+                    <p>
+                        {{ soil_type }}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="water-info-card">
+
+                <i class="fas fa-ruler-combined"></i>
+
+                <div>
+
+                    <h3>
+                        Farm Area
+                    </h3>
+
+                    <p>
+                        {{ farm_area }} Hectares
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="water-info-card">
+
+                <i class="fas fa-cloud-rain"></i>
+
+                <div>
+
+                    <h3>
+                        Rainfall
+                    </h3>
+
+                    <p>
+                        {{ rainfall }} mm
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- MAIN WATER RESULT -->
+
+        <div class="prediction-box"
+             style="margin-top:20px;">
+
+            <div class="prediction-title">
+
+                <div class="prediction-icon">
+
+                    <i class="fas fa-droplet"></i>
+
+                </div>
+
+                <div>
+
+                    <h2>
+                        Recommended Water
+                    </h2>
+
+                    <span>
+                        Based on crop, soil, rainfall and irrigation efficiency
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="prediction-value">
+
+                {{ recommended_water_m3 }}
+
+                <span>
+                    m³
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="result-stat-grid">
+
+
+            <div class="result-stat">
+
+                <div class="stat-icon">
+
+                    <i class="fas fa-water"></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Water Requirement
+                    </span>
+
+                    <strong>
+                        {{ recommended_water_mm }}
+                    </strong>
+
+                    <small>
+                        mm
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="result-stat">
+
+                <div class="stat-icon">
+
+                    <i class="fas fa-gauge-high"></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Irrigation Level
+                    </span>
+
+                    <strong>
+                        {{ irrigation_level }}
+                    </strong>
+
+                    <small>
+                        Requirement
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="result-stat">
+
+                <div class="stat-icon">
+
+                    <i class="fas fa-percent"></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Irrigation Efficiency
+                    </span>
+
+                    <strong>
+                        {{ irrigation_efficiency }}%
+                    </strong>
+
+                    <small>
+                        Dataset Value
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="result-stat">
+
+                <div class="stat-icon">
+
+                    <i class="fas fa-cloud-rain"></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Effective Rainfall
+                    </span>
+
+                    <strong>
+                        {{ effective_rainfall }}
+                    </strong>
+
+                    <small>
+                        mm
+                    </small>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- WATER SAVING -->
+
+        <div class="recommendation-box">
+
+            <div class="recommendation-icon">
+
+                <i class="fas fa-leaf"></i>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Water-Saving Recommendation
+                </h3>
+
+                <p>
+
+                    Recommended Method:
+                    <strong>
+                        {{ water_saving_method }}
+                    </strong>
+
+                    <br><br>
+
+                    Potential Water Saving:
+                    <strong>
+                        {{ saving_percentage }}%
+                    </strong>
+
+                    <br><br>
+
+                    {{ saving_message }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTION BUTTONS -->
+
+        <div class="result-actions">
+
+
+            <a href="/water-optimizer"
+               class="result-button">
+
+                <i class="fas fa-rotate-left"></i>
+
+                Calculate Again
+
+            </a>
+
+
+            <a href="/"
+               class="result-dashboard-button">
+
+                <i class="fas fa-home"></i>
+
+                Back to AgriAI
+
+            </a>
+
+
+        </div>
+
+
+        {% endif %}
+
+
+        <!-- FOOTER -->
+
+        <div class="water-footer">
+
+            <span>
+                🌾 AgriAI Water Usage Optimizer
+            </span>
+
+            <span>
+                Data-driven irrigation planning
+            </span>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>
