@@ -36,3 +36,4 @@ generated_reports/
 # OS
 .DS_Store
 Thumbs.db
+ml_model/model.pkl
