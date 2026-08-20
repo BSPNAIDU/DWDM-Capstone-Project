@@ -48,7 +48,7 @@ if str(PROJECT_DIR) not in sys.path:
 # =========================================================
 
 try:
-    from database import get_weather_details
+   from website.database import get_weather_details
 except Exception as error:
     print("WARNING: database.py could not be imported.")
     print("Database import error:", error)
@@ -58,7 +58,7 @@ except Exception as error:
 
 
 try:
-    from predictor import predict_crop_yield
+    from website.predictor import predict_crop_yield
 except Exception as error:
     print("WARNING: predictor.py could not be imported.")
     print("Predictor import error:", error)
