@@ -1,215 +1,6324 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>AgriAI | Agriculture Analytics</title>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+crossorigin="anonymous"
+referrerpolicy="no-referrer"></script>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#003b36,#073f4d);color:#fff;min-height:100vh}.sidebar{position:fixed;left:0;top:0;bottom:0;width:190px;background:#003d38;padding:22px 12px;z-index:10}.logo{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;margin-bottom:35px}.logo-icon{width:36px;height:36px;border-radius:10px;background:#19d66b;display:flex;align-items:center;justify-content:center}.menu-title{font-size:9px;color:#8bb5ae;margin:15px 10px 10px;letter-spacing:1px;font-weight:700}.menu-item{width:100%;border:0;background:transparent;color:#d9efeb;padding:12px 10px;margin-bottom:5px;border-radius:9px;text-align:left;cursor:pointer;font-size:12px;display:flex;gap:10px;align-items:center}.menu-item:hover{background:rgba(255,255,255,.08)}.menu-item.active{background:linear-gradient(90deg,#064f44,#07624f);border-left:3px solid #16e879}.menu-item i{width:18px;text-align:center}.sidebar-bottom{position:absolute;bottom:20px;left:12px;right:12px;padding:12px;background:rgba(255,255,255,.07);border-radius:10px;font-size:9px;color:#a7c9c3}.main{margin-left:190px;min-height:100vh;padding-bottom:50px}.topbar{padding:18px 28px;display:flex;justify-content:space-between;align-items:center}.topbar h1{margin:0;font-size:25px}.topbar h1 span{color:#38e68a}.topbar p{margin:5px 0 0;color:#9bc6bf;font-size:11px}.top-actions{display:flex;gap:10px}.top-button{border:0;border-radius:8px;padding:10px 15px;cursor:pointer;font-weight:700;color:#fff;background:#0eab61}.top-button.reset{background:#ef4050}.content{padding:0 25px}.hero{min-height:175px;border-radius:18px;padding:28px;background:linear-gradient(rgba(8,50,43,.68),rgba(8,50,43,.75)),radial-gradient(circle at 75% 35%,#4c806d,transparent 30%),linear-gradient(120deg,#175548,#486c53);margin-bottom:18px}.hero-badge{display:inline-block;padding:6px 12px;border-radius:20px;background:rgba(22,220,119,.15);border:1px solid rgba(50,230,140,.4);color:#48e99a;font-size:10px;font-weight:700;margin-bottom:12px}.hero h2{margin:0 0 8px;font-size:24px}.hero h2 span{color:#43e895}.hero p{color:#c3d6d2;font-size:11px;max-width:650px;line-height:1.6}.filter-box,.chart-card,.kpi,.water-panel,.disease-panel{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);border-radius:16px}.filter-box{padding:18px;margin-bottom:18px}.filter-title{font-weight:700;margin-bottom:15px;font-size:13px}.filters{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.filter label{display:block;font-size:9px;color:#9fc3bd;margin-bottom:6px}select,input{width:100%;padding:11px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.12);color:#fff;outline:none}select option{color:#111;background:#fff}.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:20px}.kpi{padding:18px}.kpi-label{font-size:9px;color:#9cc0b9;text-transform:uppercase}.kpi-value{font-size:22px;font-weight:700;margin-top:7px}.kpi small{display:block;color:#4ae991;margin-top:5px;font-size:8px}.section-title{font-size:18px;font-weight:700;margin:20px 0 12px}.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.chart-card{padding:15px;min-height:320px}.chart-card.full{grid-column:1/-1}.chart-title{font-size:12px;font-weight:700;margin-bottom:10px}.chart-container{height:270px;position:relative}.hidden{display:none!important}.module-header{padding:25px;border-radius:18px;margin-bottom:18px;background:linear-gradient(135deg,#075c57,#063d52)}.module-header h2{margin:0 0 8px;font-size:25px}.module-header p{margin:0;color:#b9d8d2;font-size:12px}.water-grid,.disease-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.water-panel,.disease-panel{padding:22px}.panel-title{font-size:17px;font-weight:700;margin-bottom:16px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.form-group{margin-bottom:10px}.form-group label{display:block;font-size:10px;color:#b7d6d0;margin-bottom:6px}.wide{grid-column:1/-1}.primary-btn{width:100%;border:0;border-radius:10px;padding:13px;background:linear-gradient(90deg,#0bc46a,#00e67b);color:#fff;font-weight:700;cursor:pointer;margin-top:10px}.primary-btn:disabled{opacity:.55;cursor:not-allowed}.secondary-btn{border:0;border-radius:9px;padding:10px 15px;background:#0eab61;color:#fff;font-weight:700;cursor:pointer}.error{display:none;margin-top:12px;padding:12px;border-radius:8px;background:rgba(239,64,80,.18);border:1px solid #ef4050;color:#ffd6da;font-size:11px}.loading{display:none;margin-top:15px;text-align:center;color:#67eca0;font-size:12px}.water-results,.disease-result{display:none;margin-top:18px}.result-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.result-card{padding:15px;background:rgba(0,0,0,.15);border-radius:12px}.result-card span{display:block;color:#9cc6be;font-size:9px;text-transform:uppercase}.result-card strong{display:block;margin-top:6px;font-size:21px}..result-card p{margin:7px 0 0;color:#cfe2de;font-size:11px;line-height:1.5}.water-note,.disease-note{margin-top:14px;padding:12px;border-radius:10px;background:rgba(23,214,107,.08);border:1px solid rgba(23,214,107,.2);font-size:10px;line-height:1.6;color:#c5dfd9}.upload-box{border:2px dashed rgba(255,255,255,.22);border-radius:14px;padding:24px;text-align:center;cursor:pointer;background:rgba(255,255,255,.04)}.upload-box:hover{background:rgba(255,255,255,.07)}.upload-box i{font-size:40px;color:#45e997;margin-bottom:10px}.upload-box h3{margin:5px 0;font-size:15px}.upload-box p{margin:5px 0;color:#9fc4bd;font-size:10px}.preview{display:none;margin-top:15px;text-align:center}.preview img{max-width:100%;max-height:260px;border-radius:12px;border:1px solid rgba(255,255,255,.15)}.file-name{font-size:10px;color:#b8d7d1;margin-top:7px;word-break:break-all}.disease-result-top{padding:18px;border-radius:13px;background:linear-gradient(135deg,rgba(13,157,91,.28),rgba(8,72,83,.35));margin-bottom:14px}.disease-result-top h3{margin:0 0 8px;font-size:22px;color:#59ee9c}.disease-result-top p{margin:5px 0;font-size:11px;color:#d0e4df}.badge{display:inline-block;margin-top:8px;padding:5px 9px;border-radius:20px;background:#0eab61;font-size:9px;font-weight:700}.disease-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.info-card{padding:14px;border-radius:11px;background:rgba(0,0,0,.14)}.info-card.full{grid-column:1/-1}.info-card h4{margin:0 0 7px;font-size:11px}.info-card p{margin:0;color:#c8ddd9;font-size:10px;line-height:1.6}.footer{text-align:center;padding:35px 0 10px;color:#83aaa3;font-size:9px}@media(max-width:900px){.sidebar{width:75px}.sidebar .logo span,.sidebar .menu-item span,.menu-title,.sidebar-bottom{display:none}.main{margin-left:75px}.filters,.kpis{grid-template-columns:1fr 1fr}.water-grid,.disease-grid,.chart-grid{grid-template-columns:1fr}}@media(max-width:600px){.topbar{padding:15px;align-items:flex-start}.top-actions{flex-direction:column}.content{padding:0 12px}.filters,.kpis,.form-grid,.result-cards,.disease-info-grid{grid-template-columns:1fr}.info-card.full{grid-column:auto}.chart-card.full{grid-column:auto}}
 
-/* ================= REPORTS MODULE ================= */
-.reports-panel{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.18)}
-.report-header{background:linear-gradient(135deg,rgba(9,105,83,.95),rgba(8,61,79,.95));border-radius:16px;padding:24px;margin-bottom:18px;position:relative;overflow:hidden}
-.report-header:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-45px;top:-70px;background:rgba(60,235,150,.14);filter:blur(2px);animation:reportFloat 5s ease-in-out infinite}
-.report-header h2{margin:0 0 8px;font-size:24px}.report-header p{margin:0;color:#bdd9d3;font-size:11px;line-height:1.6;max-width:760px}
-.report-layout{display:grid;grid-template-columns:360px 1fr;gap:18px}
-.report-controls,.report-preview{background:rgba(0,0,0,.12);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px}
-.report-controls h3,.report-preview h3{margin:0 0 14px;font-size:15px}
-.report-category{display:flex;align-items:center;gap:12px;padding:13px;border-radius:12px;background:rgba(255,255,255,.05);margin-bottom:10px;cursor:pointer;transition:.25s}
-.report-category:hover{transform:translateY(-2px);background:rgba(23,214,107,.08)}
-.report-category input{width:18px;height:18px;accent-color:#19d66b}
-.report-category .cat-icon{width:38px;height:38px;border-radius:10px;background:rgba(25,214,107,.12);display:flex;align-items:center;justify-content:center;color:#4bea9a;font-size:16px}
-.report-category strong{display:block;font-size:11px}.report-category small{display:block;color:#91b7b0;font-size:9px;margin-top:3px}
-.report-filter-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:15px 0}.report-filter-item{padding:10px;border-radius:10px;background:rgba(255,255,255,.05)}.report-filter-item span{display:block;color:#8fb8b0;font-size:8px;text-transform:uppercase}.report-filter-item strong{display:block;margin-top:4px;font-size:10px;word-break:break-word}
-.report-btn{width:100%;border:0;border-radius:11px;padding:13px;margin-top:8px;background:linear-gradient(90deg,#10c76b,#21e58b);color:#fff;font-weight:800;cursor:pointer;box-shadow:0 8px 25px rgba(20,220,120,.18);transition:.25s}.report-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(20,220,120,.25)}
-.report-btn.secondary{background:rgba(255,255,255,.1);box-shadow:none}.report-note{margin-top:12px;padding:11px;border-radius:10px;background:rgba(255,193,7,.08);border:1px solid rgba(255,193,7,.2);color:#e8d9aa;font-size:9px;line-height:1.5}
-#reportDocument{background:#fff;color:#173d35;border-radius:12px;padding:28px;min-height:500px}.pdf-brand{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #19b96a;padding-bottom:14px;margin-bottom:18px}.pdf-brand h1{margin:0;font-size:24px;color:#0a6247}.pdf-brand p{margin:5px 0 0;font-size:10px;color:#607c75}.pdf-date{font-size:9px;color:#607c75;text-align:right}.pdf-section{margin:16px 0;padding:15px;border:1px solid #dce9e4;border-radius:10px;page-break-inside:avoid}.pdf-section h2{font-size:15px;color:#0a6247;margin:0 0 9px}.pdf-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.pdf-item{padding:9px;background:#f3f8f5;border-radius:7px}.pdf-item span{display:block;color:#6a837d;font-size:8px;text-transform:uppercase}.pdf-item strong{display:block;color:#173d35;font-size:10px;margin-top:3px;line-height:1.4}.pdf-text{font-size:10px;line-height:1.6;color:#35564f}.pdf-footer{margin-top:20px;padding-top:10px;border-top:1px solid #dce9e4;font-size:8px;color:#718a84;text-align:center}.report-empty{padding:40px 20px;text-align:center;color:#8ba9a2;font-size:11px}.report-empty i{font-size:38px;color:#39d98a;margin-bottom:10px}
-@keyframes reportFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(15px) scale(1.08)}}
-@media(max-width:1000px){.report-layout{grid-template-columns:1fr}}
-@media(max-width:600px){.report-filter-summary,.pdf-grid{grid-template-columns:1fr}}
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-.disease-selection{margin-bottom:18px;padding:18px;border:1px solid rgba(67,236,151,.25);border-radius:16px;background:rgba(10,55,58,.58);box-shadow:0 10px 30px rgba(0,0,0,.12)}
-.disease-selection-title{font-size:15px;font-weight:800;margin-bottom:5px;color:#fff}.disease-selection-sub{font-size:11px;color:#a8d2ca;margin-bottom:14px}.disease-selection-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.disease-selection .form-group label{display:block;font-size:10px;text-transform:uppercase;color:#8fc8bd;margin-bottom:6px;font-weight:700}.disease-selection select{width:100%;padding:12px 13px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:#164e52;color:#fff;outline:none}.disease-selection select:focus{border-color:#36e99a;box-shadow:0 0 0 3px rgba(54,233,154,.12)}.selection-actions{display:flex;gap:10px;margin-top:13px;align-items:center}.selection-btn{border:0;border-radius:10px;padding:11px 18px;background:linear-gradient(135deg,#16d879,#0dbb6b);color:#fff;font-weight:800;cursor:pointer}.selection-btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(22,216,121,.2)}.selection-status{font-size:10px;color:#9ed7cb}.disease-mode{display:inline-block;margin-left:8px;padding:5px 9px;border-radius:20px;background:rgba(54,233,154,.14);color:#56eca0;font-size:9px;font-weight:800}.disease-note.selection-note{border-color:rgba(255,193,7,.25);background:rgba(255,193,7,.07)}@media(max-width:900px){.disease-selection-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.disease-selection-grid{grid-template-columns:1fr}.selection-actions{flex-direction:column;align-items:stretch}}
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:linear-gradient(135deg,#003b36,#073f4d);
+    color:#fff;
+    min-height:100vh;
+}
+
+button,
+select,
+input{
+    font-family:inherit;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:190px;
+    background:#003d38;
+    padding:22px 12px;
+    z-index:10;
+    overflow-y:auto;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:20px;
+    font-weight:700;
+    margin-bottom:35px;
+}
+
+.logo-icon{
+    width:36px;
+    height:36px;
+    border-radius:10px;
+    background:#19d66b;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.menu-title{
+    font-size:9px;
+    color:#8bb5ae;
+    margin:15px 10px 10px;
+    letter-spacing:1px;
+    font-weight:700;
+}
+
+.menu-item{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:#d9efeb;
+    padding:12px 10px;
+    margin-bottom:5px;
+    border-radius:9px;
+    text-align:left;
+    cursor:pointer;
+    font-size:12px;
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.menu-item:hover{
+    background:rgba(255,255,255,.08);
+}
+
+.menu-item.active{
+    background:linear-gradient(90deg,#064f44,#07624f);
+    border-left:3px solid #16e879;
+}
+
+.menu-item i{
+    width:18px;
+    text-align:center;
+}
+
+.sidebar-bottom{
+    margin-top:20px;
+    padding:12px;
+    background:rgba(255,255,255,.07);
+    border-radius:10px;
+    font-size:9px;
+    color:#a7c9c3;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+    margin-left:190px;
+    min-height:100vh;
+    padding-bottom:50px;
+}
+
+.topbar{
+    padding:18px 28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.topbar h1{
+    margin:0;
+    font-size:25px;
+}
+
+.topbar h1 span{
+    color:#38e68a;
+}
+
+.topbar p{
+    margin:5px 0 0;
+    color:#9bc6bf;
+    font-size:11px;
+}
+
+.top-actions{
+    display:flex;
+    gap:10px;
+}
+
+.top-button{
+    border:0;
+    border-radius:8px;
+    padding:10px 15px;
+    cursor:pointer;
+    font-weight:700;
+    color:#fff;
+    background:#0eab61;
+}
+
+.top-button.reset{
+    background:#ef4050;
+}
+
+.content{
+    padding:0 25px;
+}
+
+/* =========================================================
+   COMMON
+========================================================= */
+
+.hero{
+    min-height:175px;
+    border-radius:18px;
+    padding:28px;
+    background:
+        linear-gradient(rgba(8,50,43,.68),rgba(8,50,43,.75)),
+        radial-gradient(circle at 75% 35%,#4c806d,transparent 30%),
+        linear-gradient(120deg,#175548,#486c53);
+    margin-bottom:18px;
+}
+
+.hero-badge{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:20px;
+    background:rgba(22,220,119,.15);
+    border:1px solid rgba(50,230,140,.4);
+    color:#48e99a;
+    font-size:10px;
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+.hero h2{
+    margin:0 0 8px;
+    font-size:24px;
+}
+
+.hero h2 span{
+    color:#43e895;
+}
+
+.hero p{
+    color:#c3d6d2;
+    font-size:11px;
+    max-width:650px;
+    line-height:1.6;
+}
+
+.filter-box,
+.chart-card,
+.kpi,
+.water-panel,
+.disease-panel,
+.waste-panel{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
+}
+
+.filter-box{
+    padding:18px;
+    margin-bottom:18px;
+}
+
+.filter-title{
+    font-weight:700;
+    margin-bottom:15px;
+    font-size:13px;
+}
+
+.filters{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.filter label{
+    display:block;
+    font-size:9px;
+    color:#9fc3bd;
+    margin-bottom:6px;
+}
+
+select,
+input{
+    width:100%;
+    padding:11px;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.12);
+    color:#fff;
+    outline:none;
+}
+
+select option{
+    color:#111;
+    background:#fff;
+}
+
+.kpis{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.kpi{
+    padding:18px;
+}
+
+.kpi-label{
+    font-size:9px;
+    color:#9cc0b9;
+    text-transform:uppercase;
+}
+
+.kpi-value{
+    font-size:22px;
+    font-weight:700;
+    margin-top:7px;
+}
+
+.kpi small{
+    display:block;
+    color:#4ae991;
+    margin-top:5px;
+    font-size:8px;
+}
+
+.section-title{
+    font-size:18px;
+    font-weight:700;
+    margin:20px 0 12px;
+}
+
+.chart-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.chart-card{
+    padding:15px;
+    min-height:320px;
+}
+
+.chart-card.full{
+    grid-column:1/-1;
+}
+
+.chart-title{
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.chart-container{
+    height:270px;
+    position:relative;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* =========================================================
+   MODULE HEADER
+========================================================= */
+
+.module-header{
+    padding:25px;
+    border-radius:18px;
+    margin-bottom:18px;
+    background:linear-gradient(135deg,#075c57,#063d52);
+}
+
+.module-header h2{
+    margin:0 0 8px;
+    font-size:25px;
+}
+
+.module-header p{
+    margin:0;
+    color:#b9d8d2;
+    font-size:12px;
+}
+
+/* =========================================================
+   WATER / DISEASE / WASTE GRID
+========================================================= */
+
+.water-grid,
+.disease-grid,
+.waste-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.water-panel,
+.disease-panel,
+.waste-panel{
+    padding:22px;
+}
+
+.panel-title{
+    font-size:17px;
+    font-weight:700;
+    margin-bottom:16px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.form-group{
+    margin-bottom:10px;
+}
+
+.form-group label{
+    display:block;
+    font-size:10px;
+    color:#b7d6d0;
+    margin-bottom:6px;
+}
+
+.wide{
+    grid-column:1/-1;
+}
+
+.primary-btn{
+    width:100%;
+    border:0;
+    border-radius:10px;
+    padding:13px;
+    background:linear-gradient(90deg,#0bc46a,#00e67b);
+    color:#fff;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.primary-btn:hover{
+    transform:translateY(-1px);
+}
+
+.primary-btn:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
+
+.secondary-btn{
+    border:0;
+    border-radius:9px;
+    padding:10px 15px;
+    background:#0eab61;
+    color:#fff;
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* =========================================================
+   ERRORS / LOADING
+========================================================= */
+
+.error{
+    display:none;
+    margin-top:12px;
+    padding:12px;
+    border-radius:8px;
+    background:rgba(239,64,80,.18);
+    border:1px solid #ef4050;
+    color:#ffd6da;
+    font-size:11px;
+}
+
+.loading{
+    display:none;
+    margin-top:15px;
+    text-align:center;
+    color:#67eca0;
+    font-size:12px;
+}
+
+/* =========================================================
+   RESULT CARDS
+========================================================= */
+
+.water-results,
+.disease-result,
+.waste-result{
+    display:none;
+}
+
+.result-cards{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.result-card{
+    padding:15px;
+    background:rgba(0,0,0,.15);
+    border-radius:12px;
+}
+
+.result-card span{
+    display:block;
+    color:#9cc6be;
+    font-size:9px;
+    text-transform:uppercase;
+}
+
+.result-card strong{
+    display:block;
+    margin-top:6px;
+    font-size:21px;
+}
+
+.result-card p{
+    margin:7px 0 0;
+    color:#cfe2de;
+    font-size:11px;
+    line-height:1.5;
+}
+
+.water-note,
+.disease-note,
+.waste-note{
+    margin-top:14px;
+    padding:12px;
+    border-radius:10px;
+    background:rgba(23,214,107,.08);
+    border:1px solid rgba(23,214,107,.2);
+    font-size:10px;
+    line-height:1.6;
+    color:#c5dfd9;
+}
+
+/* =========================================================
+   DISEASE
+========================================================= */
+
+.upload-box{
+    border:2px dashed rgba(255,255,255,.22);
+    border-radius:14px;
+    padding:24px;
+    text-align:center;
+    cursor:pointer;
+    background:rgba(255,255,255,.04);
+}
+
+.upload-box:hover{
+    background:rgba(255,255,255,.07);
+}
+
+.upload-box i{
+    font-size:40px;
+    color:#45e997;
+    margin-bottom:10px;
+}
+
+.upload-box h3{
+    margin:5px 0;
+    font-size:15px;
+}
+
+.upload-box p{
+    margin:5px 0;
+    color:#9fc4bd;
+    font-size:10px;
+}
+
+.preview{
+    display:none;
+    margin-top:15px;
+    text-align:center;
+}
+
+.preview img{
+    max-width:100%;
+    max-height:260px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.15);
+}
+
+.file-name{
+    font-size:10px;
+    color:#b8d7d1;
+    margin-top:7px;
+    word-break:break-all;
+}
+
+.disease-result-top{
+    padding:18px;
+    border-radius:13px;
+    background:linear-gradient(
+        135deg,
+        rgba(13,157,91,.28),
+        rgba(8,72,83,.35)
+    );
+    margin-bottom:14px;
+}
+
+.disease-result-top h3{
+    margin:0 0 8px;
+    font-size:22px;
+    color:#59ee9c;
+}
+
+.disease-result-top p{
+    margin:5px 0;
+    font-size:11px;
+    color:#d0e4df;
+}
+
+.badge{
+    display:inline-block;
+    margin-top:8px;
+    padding:5px 9px;
+    border-radius:20px;
+    background:#0eab61;
+    font-size:9px;
+    font-weight:700;
+}
+
+.disease-info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.info-card{
+    padding:14px;
+    border-radius:11px;
+    background:rgba(0,0,0,.14);
+}
+
+.info-card.full{
+    grid-column:1/-1;
+}
+
+.info-card h4{
+    margin:0 0 7px;
+    font-size:11px;
+}
+
+.info-card p{
+    margin:0;
+    color:#c8ddd9;
+    font-size:10px;
+    line-height:1.6;
+}
+
+/* =========================================================
+   DISEASE SELECTION
+========================================================= */
+
+.disease-selection{
+    margin-bottom:18px;
+    padding:18px;
+    border:1px solid rgba(67,236,151,.25);
+    border-radius:16px;
+    background:rgba(10,55,58,.58);
+}
+
+.disease-selection-title{
+    font-size:15px;
+    font-weight:800;
+    margin-bottom:5px;
+}
+
+.disease-selection-sub{
+    font-size:11px;
+    color:#a8d2ca;
+    margin-bottom:14px;
+}
+
+.disease-selection-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.disease-selection .form-group label{
+    display:block;
+    font-size:10px;
+    text-transform:uppercase;
+    color:#8fc8bd;
+    margin-bottom:6px;
+    font-weight:700;
+}
+
+.disease-selection select{
+    width:100%;
+    padding:12px 13px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.12);
+    background:#164e52;
+    color:#fff;
+}
+
+.selection-actions{
+    display:flex;
+    gap:10px;
+    margin-top:13px;
+    align-items:center;
+}
+
+.selection-btn{
+    border:0;
+    border-radius:10px;
+    padding:11px 18px;
+    background:linear-gradient(135deg,#16d879,#0dbb6b);
+    color:#fff;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.selection-status{
+    font-size:10px;
+    color:#9ed7cb;
+}
+
+/* =========================================================
+   SOLID WASTE MANAGEMENT
+========================================================= */
+
+.waste-intro{
+    padding:18px;
+    border-radius:15px;
+    margin-bottom:18px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(17,118,77,.35),
+            rgba(7,68,70,.45)
+        );
+    border:1px solid rgba(50,230,140,.18);
+}
+
+.waste-intro h3{
+    margin:0 0 8px;
+    color:#5af0a1;
+    font-size:17px;
+}
+
+.waste-intro p{
+    margin:0;
+    color:#c6dfda;
+    font-size:11px;
+    line-height:1.7;
+}
+
+.waste-types{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-bottom:18px;
+}
+
+.waste-type-card{
+    padding:13px;
+    border-radius:12px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.07);
+    cursor:pointer;
+    transition:.2s;
+}
+
+.waste-type-card:hover{
+    background:rgba(23,214,107,.10);
+    border-color:rgba(23,214,107,.3);
+    transform:translateY(-2px);
+}
+
+.waste-type-card strong{
+    display:block;
+    color:#fff;
+    font-size:11px;
+    margin-bottom:5px;
+}
+
+.waste-type-card span{
+    color:#9fc6be;
+    font-size:9px;
+    line-height:1.4;
+}
+
+.waste-type-card small{
+    display:block;
+    color:#55e99b;
+    font-size:8px;
+    margin-top:7px;
+}
+
+.waste-result-header{
+    padding:18px;
+    border-radius:14px;
+    background:linear-gradient(
+        135deg,
+        rgba(20,170,91,.30),
+        rgba(8,78,83,.35)
+    );
+    margin-bottom:15px;
+}
+
+.waste-result-header h3{
+    margin:0 0 7px;
+    font-size:21px;
+    color:#5aefa0;
+}
+
+.waste-result-header p{
+    margin:4px 0;
+    font-size:10px;
+    color:#c9ded9;
+}
+
+.waste-metrics{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.waste-metric{
+    padding:13px;
+    background:rgba(0,0,0,.16);
+    border-radius:11px;
+}
+
+.waste-metric span{
+    display:block;
+    color:#8fbdb5;
+    font-size:8px;
+    text-transform:uppercase;
+}
+
+.waste-metric strong{
+    display:block;
+    margin-top:5px;
+    font-size:18px;
+    color:#fff;
+}
+
+.waste-process{
+    margin-top:14px;
+    padding:14px;
+    border-radius:11px;
+    background:rgba(255,255,255,.05);
+}
+
+.waste-process h4{
+    margin:0 0 7px;
+    color:#54e99b;
+    font-size:11px;
+}
+
+.waste-process p{
+    margin:0;
+    color:#c7ded8;
+    font-size:10px;
+    line-height:1.6;
+}
+
+.waste-benefits{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:12px;
+}
+
+.waste-benefit{
+    padding:10px;
+    border-radius:9px;
+    background:rgba(22,216,121,.07);
+    border:1px solid rgba(22,216,121,.12);
+    color:#cce5df;
+    font-size:9px;
+    line-height:1.5;
+}
+
+.waste-status{
+    margin-top:12px;
+    padding:10px;
+    border-radius:9px;
+    background:rgba(54,233,154,.08);
+    color:#73edaa;
+    font-size:9px;
+}
+
+/* =========================================================
+   REPORTS
+========================================================= */
+
+.reports-panel{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:18px;
+    padding:22px;
+}
+
+.report-header{
+    background:linear-gradient(
+        135deg,
+        rgba(9,105,83,.95),
+        rgba(8,61,79,.95)
+    );
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:18px;
+}
+
+.report-header h2{
+    margin:0 0 8px;
+    font-size:24px;
+}
+
+.report-header p{
+    margin:0;
+    color:#bdd9d3;
+    font-size:11px;
+    line-height:1.6;
+}
+
+.report-layout{
+    display:grid;
+    grid-template-columns:360px 1fr;
+    gap:18px;
+}
+
+.report-controls,
+.report-preview{
+    background:rgba(0,0,0,.12);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
+    padding:18px;
+}
+
+.report-controls h3,
+.report-preview h3{
+    margin:0 0 14px;
+    font-size:15px;
+}
+
+.report-category{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px;
+    border-radius:12px;
+    background:rgba(255,255,255,.05);
+    margin-bottom:10px;
+    cursor:pointer;
+}
+
+.report-category input{
+    width:18px;
+    height:18px;
+    accent-color:#19d66b;
+}
+
+.report-category .cat-icon{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    background:rgba(25,214,107,.12);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#4bea9a;
+}
+
+.report-category strong{
+    display:block;
+    font-size:11px;
+}
+
+.report-category small{
+    display:block;
+    color:#91b7b0;
+    font-size:9px;
+    margin-top:3px;
+}
+
+.report-filter-summary{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+    margin:15px 0;
+}
+
+.report-filter-item{
+    padding:10px;
+    border-radius:10px;
+    background:rgba(255,255,255,.05);
+}
+
+.report-filter-item span{
+    display:block;
+    color:#8fb8b0;
+    font-size:8px;
+    text-transform:uppercase;
+}
+
+.report-filter-item strong{
+    display:block;
+    margin-top:4px;
+    font-size:10px;
+    word-break:break-word;
+}
+
+.report-btn{
+    width:100%;
+    border:0;
+    border-radius:11px;
+    padding:13px;
+    margin-top:8px;
+    background:linear-gradient(90deg,#10c76b,#21e58b);
+    color:#fff;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.report-btn.secondary{
+    background:rgba(255,255,255,.1);
+}
+
+.report-note{
+    margin-top:12px;
+    padding:11px;
+    border-radius:10px;
+    background:rgba(255,193,7,.08);
+    border:1px solid rgba(255,193,7,.2);
+    color:#e8d9aa;
+    font-size:9px;
+    line-height:1.5;
+}
+
+/* =========================================================
+   PDF
+========================================================= */
+
+#reportDocument{
+    background:#fff;
+    color:#173d35;
+    border-radius:12px;
+    padding:28px;
+    min-height:500px;
+}
+
+.pdf-brand{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    border-bottom:3px solid #19b96a;
+    padding-bottom:14px;
+    margin-bottom:18px;
+}
+
+.pdf-brand h1{
+    margin:0;
+    font-size:24px;
+    color:#0a6247;
+}
+
+.pdf-brand p{
+    margin:5px 0 0;
+    font-size:10px;
+    color:#607c75;
+}
+
+.pdf-date{
+    font-size:9px;
+    color:#607c75;
+    text-align:right;
+}
+
+.pdf-section{
+    margin:16px 0;
+    padding:15px;
+    border:1px solid #dce9e4;
+    border-radius:10px;
+    page-break-inside:avoid;
+}
+
+.pdf-section h2{
+    font-size:15px;
+    color:#0a6247;
+    margin:0 0 9px;
+}
+
+.pdf-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:9px;
+}
+
+.pdf-item{
+    padding:9px;
+    background:#f3f8f5;
+    border-radius:7px;
+}
+
+.pdf-item span{
+    display:block;
+    color:#6a837d;
+    font-size:8px;
+    text-transform:uppercase;
+}
+
+.pdf-item strong{
+    display:block;
+    color:#173d35;
+    font-size:10px;
+    margin-top:3px;
+    line-height:1.4;
+}
+
+.pdf-text{
+    font-size:10px;
+    line-height:1.6;
+    color:#35564f;
+}
+
+.pdf-footer{
+    margin-top:20px;
+    padding-top:10px;
+    border-top:1px solid #dce9e4;
+    font-size:8px;
+    color:#718a84;
+    text-align:center;
+}
+
+.report-empty{
+    padding:40px 20px;
+    text-align:center;
+    color:#8ba9a2;
+    font-size:11px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+    text-align:center;
+    padding:35px 0 10px;
+    color:#83aaa3;
+    font-size:9px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1000px){
+
+    .report-layout{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:900px){
+
+    .sidebar{
+        width:75px;
+    }
+
+    .sidebar .logo span,
+    .sidebar .menu-item span,
+    .menu-title,
+    .sidebar-bottom{
+        display:none;
+    }
+
+    .main{
+        margin-left:75px;
+    }
+
+    .filters,
+    .kpis{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .water-grid,
+    .disease-grid,
+    .waste-grid,
+    .chart-grid{
+        grid-template-columns:1fr;
+    }
+
+    .disease-selection-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    .topbar{
+        padding:15px;
+        align-items:flex-start;
+    }
+
+    .top-actions{
+        flex-direction:column;
+    }
+
+    .content{
+        padding:0 12px;
+    }
+
+    .filters,
+    .kpis,
+    .form-grid,
+    .result-cards,
+    .disease-info-grid,
+    .waste-types,
+    .waste-metrics,
+    .waste-benefits,
+    .pdf-grid{
+        grid-template-columns:1fr;
+    }
+
+    .info-card.full{
+        grid-column:auto;
+    }
+
+    .chart-card.full{
+        grid-column:auto;
+    }
+
+    .disease-selection-grid{
+        grid-template-columns:1fr;
+    }
+
+    .selection-actions{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .report-filter-summary{
+        grid-template-columns:1fr;
+    }
+
+}
+
 </style>
 </head>
+
 <body>
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
 <aside class="sidebar">
-  <div class="logo"><div class="logo-icon"><i class="fas fa-seedling"></i></div><span>AgriAI</span></div>
-  <div class="menu-title">MAIN MENU</div>
-  <button class="menu-item active" id="dashboardMenu" onclick="showDashboard()"><i class="fas fa-chart-column"></i><span>Dashboard</span></button>
-  <button class="menu-item" onclick="goHome()"><i class="fas fa-robot"></i><span>AI Prediction</span></button>
-  <button class="menu-item" onclick="showDashboard()"><i class="fas fa-leaf"></i><span>Crop Analytics</span></button>
-  <button class="menu-item" onclick="showDashboard()"><i class="fas fa-cloud-rain"></i><span>Weather Analysis</span></button>
-  <button class="menu-item" id="waterMenu" onclick="showWaterUsage()"><i class="fas fa-droplet"></i><span>Water Usage</span></button>
-  <button class="menu-item" id="diseaseMenu" onclick="showDiseaseDetector()"><i class="fas fa-virus"></i><span>Disease Detector</span></button>
-  <button class="menu-item" onclick="showDashboard()"><i class="fas fa-wheat-awn"></i><span>Farm Resources</span></button>
-  <button class="menu-item" id="reportsMenu" onclick="showReports()"><i class="fas fa-file-lines"></i><span>Reports</span></button>
-  <div class="menu-title">SYSTEM</div>
-  <button class="menu-item" onclick="showDashboard()"><i class="fas fa-circle-info"></i><span>About System</span></button>
-  <div class="sidebar-bottom">🌱 AI-powered agriculture analytics<br><br>Data Warehouse + Machine Learning</div>
+
+    <div class="logo">
+        <div class="logo-icon">
+            <i class="fas fa-seedling"></i>
+        </div>
+        <span>AgriAI</span>
+    </div>
+
+    <div class="menu-title">MAIN MENU</div>
+
+    <button class="menu-item active"
+            id="dashboardMenu"
+            onclick="showDashboard()">
+        <i class="fas fa-chart-column"></i>
+        <span>Dashboard</span>
+    </button>
+
+    <button class="menu-item"
+            onclick="goHome()">
+        <i class="fas fa-robot"></i>
+        <span>AI Prediction</span>
+    </button>
+
+    <button class="menu-item"
+            onclick="showDashboard()">
+        <i class="fas fa-leaf"></i>
+        <span>Crop Analytics</span>
+    </button>
+
+    <button class="menu-item"
+            onclick="showDashboard()">
+        <i class="fas fa-cloud-rain"></i>
+        <span>Weather Analysis</span>
+    </button>
+
+    <button class="menu-item"
+            id="waterMenu"
+            onclick="showWaterUsage()">
+        <i class="fas fa-droplet"></i>
+        <span>Water Usage</span>
+    </button>
+
+    <button class="menu-item"
+            id="diseaseMenu"
+            onclick="showDiseaseDetector()">
+        <i class="fas fa-virus"></i>
+        <span>Disease Detector</span>
+    </button>
+
+    <!-- NEW SOLID WASTE -->
+    <button class="menu-item"
+            id="wasteMenu"
+            onclick="showSolidWaste()">
+        <i class="fas fa-recycle"></i>
+        <span>Solid Waste</span>
+    </button>
+
+    <button class="menu-item"
+            onclick="showDashboard()">
+        <i class="fas fa-wheat-awn"></i>
+        <span>Farm Resources</span>
+    </button>
+
+    <button class="menu-item"
+            id="reportsMenu"
+            onclick="showReports()">
+        <i class="fas fa-file-lines"></i>
+        <span>Reports</span>
+    </button>
+
+    <div class="menu-title">SYSTEM</div>
+
+    <button class="menu-item"
+            onclick="showDashboard()">
+        <i class="fas fa-circle-info"></i>
+        <span>About System</span>
+    </button>
+
+    <div class="sidebar-bottom">
+        🌱 AI-powered agriculture analytics
+        <br><br>
+        Data Warehouse + Machine Learning
+        <br><br>
+        ♻ Sustainable Agricultural Waste Management
+    </div>
+
 </aside>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
 <main class="main">
+
 <header class="topbar">
-  <div><h1>Agriculture <span>Analytics</span></h1><p>Intelligent insights from your Agriculture Data Warehouse</p></div>
-  <div class="top-actions"><button class="top-button reset" onclick="resetFilters()"><i class="fas fa-rotate"></i> Reset</button><button class="top-button" onclick="goHome()"><i class="fas fa-robot"></i> AI Prediction</button></div>
+
+    <div>
+        <h1>
+            Agriculture <span>Analytics</span>
+        </h1>
+
+        <p>
+            Intelligent insights from your Agriculture Data Warehouse
+        </p>
+    </div>
+
+    <div class="top-actions">
+
+        <button class="top-button reset"
+                onclick="resetFilters()">
+            <i class="fas fa-rotate"></i>
+            Reset
+        </button>
+
+        <button class="top-button"
+                onclick="goHome()">
+            <i class="fas fa-robot"></i>
+            AI Prediction
+        </button>
+
+    </div>
+
 </header>
+
+
 <div class="content">
+
+
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
+
 <section id="dashboardSection">
-  <div class="hero"><div class="hero-badge">🌱 SMART AGRICULTURE PLATFORM</div><h2>Data-driven farming for a <span>better harvest.</span></h2><p>Explore crop yield, production, rainfall, fertilizer and agricultural trends using historical data and intelligent analytics.</p></div>
-  <div class="filter-box"><div class="filter-title">🔎 Interactive Dashboard Filters</div><div class="filters">
-    <div class="filter"><label>CROP</label><select id="cropFilter"><option value="ALL">All Crops</option></select></div>
-    <div class="filter"><label>STATE</label><select id="stateFilter"><option value="ALL">All States</option></select></div>
-    <div class="filter"><label>SEASON</label><select id="seasonFilter"><option value="ALL">All Seasons</option></select></div>
-    <div class="filter"><label>CROP YEAR</label><select id="yearFilter"><option value="ALL">All Years</option></select></div>
-  </div></div>
-  <div class="kpis">
-    <div class="kpi"><div class="kpi-label">Total Production</div><div class="kpi-value" id="kpiProduction">0</div><small>Agricultural Production</small></div>
-    <div class="kpi"><div class="kpi-label">Number of Crops</div><div class="kpi-value" id="kpiCrops">0</div><small>Crop varieties</small></div>
-    <div class="kpi"><div class="kpi-label">Average Rainfall</div><div class="kpi-value" id="kpiRainfall">0</div><small>Annual rainfall</small></div>
-    <div class="kpi"><div class="kpi-label">Average Yield</div><div class="kpi-value" id="kpiYield">0</div><small>Crop yield</small></div>
-  </div>
-  <div class="section-title">📊 Agriculture Analytics</div>
-  <div class="chart-grid">
-    <div class="chart-card"><div class="chart-title">Average Yield by Crop</div><div class="chart-container"><canvas id="cropChart"></canvas></div></div>
-    <div class="chart-card"><div class="chart-title">Production by State</div><div class="chart-container"><canvas id="stateChart"></canvas></div></div>
-    <div class="chart-card"><div class="chart-title">Production by Season</div><div class="chart-container"><canvas id="seasonChart"></canvas></div></div>
-    <div class="chart-card"><div class="chart-title">Rainfall by Year</div><div class="chart-container"><canvas id="rainfallChart"></canvas></div></div>
-    <div class="chart-card full"><div class="chart-title">Fertilizer vs Crop Yield</div><div class="chart-container"><canvas id="fertilizerChart"></canvas></div></div>
-  </div>
+
+    <div class="hero">
+
+        <div class="hero-badge">
+            🌱 SMART AGRICULTURE PLATFORM
+        </div>
+
+        <h2>
+            Data-driven farming for a
+            <span>better harvest.</span>
+        </h2>
+
+        <p>
+            Explore crop yield, production, rainfall, fertilizer
+            and agricultural trends using historical data and
+            intelligent analytics.
+        </p>
+
+    </div>
+
+
+    <div class="filter-box">
+
+        <div class="filter-title">
+            🔎 Interactive Dashboard Filters
+        </div>
+
+        <div class="filters">
+
+            <div class="filter">
+                <label>CROP</label>
+                <select id="cropFilter">
+                    <option value="ALL">All Crops</option>
+                </select>
+            </div>
+
+            <div class="filter">
+                <label>STATE</label>
+                <select id="stateFilter">
+                    <option value="ALL">All States</option>
+                </select>
+            </div>
+
+            <div class="filter">
+                <label>SEASON</label>
+                <select id="seasonFilter">
+                    <option value="ALL">All Seasons</option>
+                </select>
+            </div>
+
+            <div class="filter">
+                <label>CROP YEAR</label>
+                <select id="yearFilter">
+                    <option value="ALL">All Years</option>
+                </select>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="kpis">
+
+        <div class="kpi">
+            <div class="kpi-label">Total Production</div>
+            <div class="kpi-value" id="kpiProduction">0</div>
+            <small>Agricultural Production</small>
+        </div>
+
+        <div class="kpi">
+            <div class="kpi-label">Number of Crops</div>
+            <div class="kpi-value" id="kpiCrops">0</div>
+            <small>Crop varieties</small>
+        </div>
+
+        <div class="kpi">
+            <div class="kpi-label">Average Rainfall</div>
+            <div class="kpi-value" id="kpiRainfall">0</div>
+            <small>Annual rainfall</small>
+        </div>
+
+        <div class="kpi">
+            <div class="kpi-label">Average Yield</div>
+            <div class="kpi-value" id="kpiYield">0</div>
+            <small>Crop yield</small>
+        </div>
+
+    </div>
+
+
+    <div class="section-title">
+        📊 Agriculture Analytics
+    </div>
+
+
+    <div class="chart-grid">
+
+        <div class="chart-card">
+            <div class="chart-title">
+                Average Yield by Crop
+            </div>
+
+            <div class="chart-container">
+                <canvas id="cropChart"></canvas>
+            </div>
+        </div>
+
+
+        <div class="chart-card">
+            <div class="chart-title">
+                Production by State
+            </div>
+
+            <div class="chart-container">
+                <canvas id="stateChart"></canvas>
+            </div>
+        </div>
+
+
+        <div class="chart-card">
+            <div class="chart-title">
+                Production by Season
+            </div>
+
+            <div class="chart-container">
+                <canvas id="seasonChart"></canvas>
+            </div>
+        </div>
+
+
+        <div class="chart-card">
+            <div class="chart-title">
+                Rainfall by Year
+            </div>
+
+            <div class="chart-container">
+                <canvas id="rainfallChart"></canvas>
+            </div>
+        </div>
+
+
+        <div class="chart-card full">
+
+            <div class="chart-title">
+                Fertilizer vs Crop Yield
+            </div>
+
+            <div class="chart-container">
+                <canvas id="fertilizerChart"></canvas>
+            </div>
+
+        </div>
+
+    </div>
+
 </section>
+
+
+<!-- =========================================================
+     WATER USAGE
+========================================================= -->
+
 <section id="waterSection" class="hidden">
-  <div class="module-header"><h2>💧 Water Usage Optimization</h2><p>Enter crop, state, soil type and farm area. The existing water optimization backend will calculate the recommended irrigation requirement.</p></div>
-  <div class="water-grid">
-    <div class="water-panel"><div class="panel-title">🌱 Farm Details</div><div class="form-grid">
-      <div class="form-group"><label>Crop</label><select id="waterCrop"><option value="">Select Crop</option></select></div>
-      <div class="form-group"><label>State</label><select id="waterState"><option value="">Select State</option></select></div>
-      <div class="form-group"><label>Soil Type</label><select id="waterSoil"><option value="">Select Soil Type</option><option>Loamy</option><option>Clay</option><option>Sandy</option><option>Sandy Loam</option><option>Black Soil</option><option>Red Soil</option><option>Alluvial Soil</option></select></div>
-      <div class="form-group"><label>Farm Area (Hectares)</label><input id="waterArea" type="number" min="0.01" step="0.01" placeholder="Enter hectares"></div>
-      <div class="wide"><button class="primary-btn" onclick="calculateWater()"><i class="fas fa-droplet"></i> Calculate Optimized Water Usage</button></div>
-    </div><div id="waterError" class="error"></div><div id="waterLoading" class="loading"><i class="fas fa-spinner fa-spin"></i> Calculating water requirement...</div></div>
-    <div class="water-panel"><div class="panel-title">📈 Optimization Result</div><div id="waterResultArea" class="water-results"><div class="result-cards">
-      <div class="result-card"><span>Recommended Water</span><strong><span style="display:inline;color:#fff;font-size:21px" id="recommendedMm">0</span> mm</strong></div>
-      <div class="result-card"><span>Water Volume</span><strong><span style="display:inline;color:#fff;font-size:21px" id="recommendedM3">0</span> m³</strong></div>
-      <div class="result-card"><span>Saving</span><strong><span style="display:inline;color:#4ae991;font-size:21px" id="savingPercentage">0</span>%</strong></div>
-      <div class="result-card"><span>Irrigation Level</span><strong id="irrigationLevel">-</strong></div>
-    </div><div class="result-card" style="margin-top:12px"><span>Water Saving Method</span><p id="waterMethod">-</p></div><div class="result-card" style="margin-top:12px"><span>Recommendation</span><p id="waterMessage">-</p></div></div><div id="waterEmpty" class="water-note">Enter the farm details and click the button to get a live result from your Flask backend.</div></div>
-  </div>
+
+    <div class="module-header">
+
+        <h2>
+            💧 Water Usage Optimization
+        </h2>
+
+        <p>
+            Enter crop, state, soil type and farm area.
+            The existing water optimization backend will
+            calculate the recommended irrigation requirement.
+        </p>
+
+    </div>
+
+
+    <div class="water-grid">
+
+        <div class="water-panel">
+
+            <div class="panel-title">
+                🌱 Farm Details
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Crop</label>
+
+                    <select id="waterCrop">
+                        <option value="">Select Crop</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label>State</label>
+
+                    <select id="waterState">
+                        <option value="">Select State</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Soil Type</label>
+
+                    <select id="waterSoil">
+
+                        <option value="">
+                            Select Soil Type
+                        </option>
+
+                        <option>Loamy</option>
+                        <option>Clay</option>
+                        <option>Sandy</option>
+                        <option>Sandy Loam</option>
+                        <option>Black Soil</option>
+                        <option>Red Soil</option>
+                        <option>Alluvial Soil</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Farm Area (Hectares)
+                    </label>
+
+                    <input
+                        id="waterArea"
+                        type="number"
+                        min="0.01"
+                        step="0.01"
+                        placeholder="Enter hectares">
+
+                </div>
+
+
+                <div class="wide">
+
+                    <button
+                        class="primary-btn"
+                        onclick="calculateWater()">
+
+                        <i class="fas fa-droplet"></i>
+
+                        Calculate Optimized Water Usage
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div id="waterError"
+                 class="error"></div>
+
+            <div id="waterLoading"
+                 class="loading">
+
+                <i class="fas fa-spinner fa-spin"></i>
+
+                Calculating water requirement...
+
+            </div>
+
+        </div>
+
+
+        <div class="water-panel">
+
+            <div class="panel-title">
+                📈 Optimization Result
+            </div>
+
+            <div id="waterResultArea"
+                 class="water-results">
+
+                <div class="result-cards">
+
+                    <div class="result-card">
+                        <span>Recommended Water</span>
+
+                        <strong>
+                            <span
+                                style="display:inline;color:#fff;font-size:21px"
+                                id="recommendedMm">
+                                0
+                            </span>
+                            mm
+                        </strong>
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <span>Water Volume</span>
+
+                        <strong>
+
+                            <span
+                                style="display:inline;color:#fff;font-size:21px"
+                                id="recommendedM3">
+                                0
+                            </span>
+
+                            m³
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <span>Saving</span>
+
+                        <strong>
+
+                            <span
+                                style="display:inline;color:#4ae991;font-size:21px"
+                                id="savingPercentage">
+                                0
+                            </span>
+
+                            %
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <span>Irrigation Level</span>
+
+                        <strong id="irrigationLevel">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="result-card"
+                    style="margin-top:12px">
+
+                    <span>
+                        Water Saving Method
+                    </span>
+
+                    <p id="waterMethod">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="result-card"
+                    style="margin-top:12px">
+
+                    <span>
+                        Recommendation
+                    </span>
+
+                    <p id="waterMessage">
+                        -
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="waterEmpty"
+                class="water-note">
+
+                Enter the farm details and click the button
+                to get a live result from your Flask backend.
+
+            </div>
+
+        </div>
+
+    </div>
+
 </section>
+
+
+<!-- =========================================================
+     DISEASE DETECTION
+========================================================= -->
+
 <section id="diseaseSection" class="hidden">
-  <div class="module-header"><h2>🦠 Crop Disease Detector</h2><p>Upload a crop or leaf image. Your trained TensorFlow model will predict the disease and the backend will return symptoms, treatment, pesticide guidance, prevention and present-crop recommendations.</p></div>
-  <div class="disease-selection">
-    <div class="disease-selection-title">🎯 Disease Risk by Agriculture Selection</div>
-    <div class="disease-selection-sub">Select the same State, Crop, Season and Crop Year used in the dashboard. The system will immediately generate a crop-health disease profile. Uploading an image will still run the trained TensorFlow model for true visual detection.</div>
-    <div class="disease-selection-grid">
-      <div class="form-group"><label>State</label><select id="diseaseStateFilter"><option value="ALL">Select State</option></select></div>
-      <div class="form-group"><label>Crop</label><select id="diseaseCropFilter"><option value="ALL">Select Crop</option></select></div>
-      <div class="form-group"><label>Season</label><select id="diseaseSeasonFilter"><option value="ALL">Select Season</option></select></div>
-      <div class="form-group"><label>Crop Year</label><select id="diseaseYearFilter"><option value="ALL">Select Crop Year</option></select></div>
+
+    <div class="module-header">
+
+        <h2>
+            🦠 Crop Disease Detector
+        </h2>
+
+        <p>
+            Upload a crop or leaf image. The trained TensorFlow
+            model predicts the disease and returns symptoms,
+            treatment, pesticide guidance, prevention and
+            recommendations.
+        </p>
+
     </div>
-    <div class="selection-actions"><button class="selection-btn" onclick="generateDiseaseProfile()"><i class="fas fa-stethoscope"></i> Generate Disease Result</button><span class="selection-status" id="diseaseSelectionStatus">Choose State + Crop to generate a result.</span></div>
-  </div>
-  <div class="disease-grid">
-    <div class="disease-panel"><div class="panel-title">📷 Upload Leaf / Crop Image</div>
-      <label class="upload-box" for="diseaseImageInput"><i class="fas fa-cloud-arrow-up"></i><h3>Choose an image</h3><p>JPG, JPEG or PNG • Maximum 10 MB</p><input id="diseaseImageInput" type="file" accept="image/jpeg,image/jpg,image/png" onchange="previewDiseaseImage(event)" style="display:none"></label>
-      <div id="diseasePreview" class="preview"><img id="diseasePreviewImage" alt="Leaf preview"><div class="file-name" id="diseaseFileName"></div></div>
-      <button id="diseasePredictButton" class="primary-btn" disabled onclick="detectDisease()"><i class="fas fa-microscope"></i> Detect Disease</button>
-      <div id="diseaseLoading" class="loading"><i class="fas fa-spinner fa-spin"></i> AI is analyzing the image...</div><div id="diseaseError" class="error"></div>
+
+
+    <div class="disease-selection">
+
+        <div class="disease-selection-title">
+
+            🎯 Disease Risk by Agriculture Selection
+
+        </div>
+
+        <div class="disease-selection-sub">
+
+            Select State, Crop, Season and Crop Year.
+            Uploading an image will run the trained
+            TensorFlow model for visual disease detection.
+
+        </div>
+
+
+        <div class="disease-selection-grid">
+
+            <div class="form-group">
+
+                <label>State</label>
+
+                <select id="diseaseStateFilter">
+                    <option value="ALL">
+                        Select State
+                    </option>
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Crop</label>
+
+                <select id="diseaseCropFilter">
+                    <option value="ALL">
+                        Select Crop
+                    </option>
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Season</label>
+
+                <select id="diseaseSeasonFilter">
+                    <option value="ALL">
+                        Select Season
+                    </option>
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Crop Year</label>
+
+                <select id="diseaseYearFilter">
+                    <option value="ALL">
+                        Select Crop Year
+                    </option>
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="selection-actions">
+
+            <button
+                class="selection-btn"
+                onclick="generateDiseaseProfile()">
+
+                <i class="fas fa-stethoscope"></i>
+
+                Generate Disease Result
+
+            </button>
+
+
+            <span
+                class="selection-status"
+                id="diseaseSelectionStatus">
+
+                Choose State + Crop to generate a result.
+
+            </span>
+
+        </div>
+
     </div>
-    <div class="disease-panel"><div class="panel-title">🔬 Detection Result</div><div id="diseaseResult" class="disease-result">
-      <div class="disease-result-top"><h3 id="resultDisease">-</h3><p><strong>Crop:</strong> <span id="resultCrop">-</span></p><p><strong>Detection Confidence:</strong> <span id="resultConfidence">-</span></p><span class="badge" id="resultSensitivity">-</span><span class="disease-mode" id="resultMode">-</span></div>
-      <div class="disease-info-grid"><div class="info-card"><h4>🩺 Symptoms</h4><p id="resultSymptoms">-</p></div><div class="info-card"><h4>🧪 Treatment</h4><p id="resultTreatment">-</p></div><div class="info-card"><h4>💊 Pesticide Guidance</h4><p id="resultPesticide">-</p></div><div class="info-card"><h4>🛡 Prevention</h4><p id="resultPrevention">-</p></div><div class="info-card full"><h4>🌱 Present Crop Recommendation</h4><p id="resultRecommendation">-</p></div></div>
-      <div class="disease-note"><strong>Important:</strong> This is an AI-based crop-health screening result. Pesticide selection and application must follow the product label and local agricultural guidance. Do not apply chemicals solely from an AI prediction.</div>
-    </div><div id="diseaseEmpty" class="water-note">Select State and Crop to generate a disease profile, or upload an image and click Detect Disease for AI visual classification.</div></div>
-  </div>
+
+
+    <div class="disease-grid">
+
+        <div class="disease-panel">
+
+            <div class="panel-title">
+                📷 Upload Leaf / Crop Image
+            </div>
+
+
+            <label
+                class="upload-box"
+                for="diseaseImageInput">
+
+                <i class="fas fa-cloud-arrow-up"></i>
+
+                <h3>
+                    Choose an image
+                </h3>
+
+                <p>
+                    JPG, JPEG or PNG • Maximum 10 MB
+                </p>
+
+                <input
+                    id="diseaseImageInput"
+                    type="file"
+                    accept="image/jpeg,image/jpg,image/png"
+                    onchange="previewDiseaseImage(event)"
+                    style="display:none">
+
+            </label>
+
+
+            <div
+                id="diseasePreview"
+                class="preview">
+
+                <img
+                    id="diseasePreviewImage"
+                    alt="Leaf preview">
+
+                <div
+                    class="file-name"
+                    id="diseaseFileName">
+                </div>
+
+            </div>
+
+
+            <button
+                id="diseasePredictButton"
+                class="primary-btn"
+                disabled
+                onclick="detectDisease()">
+
+                <i class="fas fa-microscope"></i>
+
+                Detect Disease
+
+            </button>
+
+
+            <div
+                id="diseaseLoading"
+                class="loading">
+
+                <i class="fas fa-spinner fa-spin"></i>
+
+                AI is analyzing the image...
+
+            </div>
+
+
+            <div
+                id="diseaseError"
+                class="error">
+            </div>
+
+        </div>
+
+
+        <div class="disease-panel">
+
+            <div class="panel-title">
+                🔬 Detection Result
+            </div>
+
+
+            <div
+                id="diseaseResult"
+                class="disease-result">
+
+                <div class="disease-result-top">
+
+                    <h3 id="resultDisease">
+                        -
+                    </h3>
+
+                    <p>
+                        <strong>Crop:</strong>
+                        <span id="resultCrop">-</span>
+                    </p>
+
+                    <p>
+                        <strong>
+                            Detection Confidence:
+                        </strong>
+
+                        <span id="resultConfidence">
+                            -
+                        </span>
+                    </p>
+
+                    <span
+                        class="badge"
+                        id="resultSensitivity">
+                        -
+                    </span>
+
+                    <span
+                        class="badge"
+                        id="resultMode">
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="disease-info-grid">
+
+                    <div class="info-card">
+
+                        <h4>
+                            🩺 Symptoms
+                        </h4>
+
+                        <p id="resultSymptoms">
+                            -
+                        </p>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <h4>
+                            🧪 Treatment
+                        </h4>
+
+                        <p id="resultTreatment">
+                            -
+                        </p>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <h4>
+                            💊 Pesticide Guidance
+                        </h4>
+
+                        <p id="resultPesticide">
+                            -
+                        </p>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <h4>
+                            🛡 Prevention
+                        </h4>
+
+                        <p id="resultPrevention">
+                            -
+                        </p>
+
+                    </div>
+
+
+                    <div class="info-card full">
+
+                        <h4>
+                            🌱 Present Crop Recommendation
+                        </h4>
+
+                        <p id="resultRecommendation">
+                            -
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="disease-note">
+
+                    <strong>Important:</strong>
+
+                    This is an AI-based crop-health screening
+                    result. Pesticide selection and application
+                    must follow the product label and local
+                    agricultural guidance.
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="diseaseEmpty"
+                class="water-note">
+
+                Select State and Crop to generate a disease
+                profile, or upload an image and click
+                Detect Disease for AI visual classification.
+
+            </div>
+
+        </div>
+
+    </div>
+
 </section>
+
+
+<!-- =========================================================
+     SOLID WASTE MANAGEMENT
+========================================================= -->
+
+<section id="wasteSection" class="hidden">
+
+    <div class="module-header">
+
+        <h2>
+            ♻️ Agricultural Solid Waste Management
+        </h2>
+
+        <p>
+            Dataset-free agricultural waste management module
+            for identifying agricultural waste, selecting suitable
+            treatment methods, estimating resource recovery and
+            promoting circular agriculture.
+        </p>
+
+    </div>
+
+
+    <div class="waste-intro">
+
+        <h3>
+            🌱 Sustainable Agricultural Waste Management
+        </h3>
+
+        <p>
+
+            This module focuses specifically on solid waste generated
+            from agricultural activities. Select the waste category,
+            enter the quantity and the system recommends an appropriate
+            treatment method such as composting, biogas production,
+            thermal conversion, recycling or safe handling.
+
+            <br><br>
+
+            <strong>
+                No additional dataset is required.
+            </strong>
+
+            The calculations are transparent rule-based estimates.
+
+        </p>
+
+    </div>
+
+
+    <div class="waste-grid">
+
+
+        <!-- LEFT -->
+        <div class="waste-panel">
+
+            <div class="panel-title">
+
+                🗂 Agricultural Waste Categories
+
+            </div>
+
+
+            <div
+                id="wasteTypes"
+                class="waste-types">
+
+                <div class="waste-note">
+
+                    Loading agricultural waste categories...
+
+                </div>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group wide">
+
+                    <label>
+                        Agricultural Waste Type
+                    </label>
+
+                    <select id="wasteType">
+
+                        <option value="">
+                            Select Agricultural Waste
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Waste Quantity (kg)
+                    </label>
+
+                    <input
+                        id="wasteQuantity"
+                        type="number"
+                        min="0.1"
+                        step="0.1"
+                        placeholder="Example: 100">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Treatment Method
+                    </label>
+
+                    <select id="wasteTreatment">
+
+                        <option value="">
+                            Recommended Automatically
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="wide">
+
+                    <button
+                        class="primary-btn"
+                        onclick="calculateSolidWaste()">
+
+                        <i class="fas fa-recycle"></i>
+
+                        Analyze & Manage Agricultural Waste
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="wasteError"
+                class="error">
+            </div>
+
+
+            <div
+                id="wasteLoading"
+                class="loading">
+
+                <i class="fas fa-spinner fa-spin"></i>
+
+                Preparing sustainable waste management plan...
+
+            </div>
+
+
+            <div class="waste-status">
+
+                <strong>
+                    ♻ Circular Agriculture:
+                </strong>
+
+                Waste → Treatment → Resource Recovery → Agricultural / Industrial Use
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT -->
+        <div class="waste-panel">
+
+            <div class="panel-title">
+
+                📊 Waste Management Result
+
+            </div>
+
+
+            <div
+                id="wasteEmpty"
+                class="waste-note">
+
+                Select an agricultural waste type,
+                enter quantity and click the button
+                to generate a management plan.
+
+            </div>
+
+
+            <div
+                id="wasteResult"
+                class="waste-result">
+
+
+                <div class="waste-result-header">
+
+                    <h3 id="wasteResultName">
+                        -
+                    </h3>
+
+                    <p>
+                        <strong>
+                            Recommended Treatment:
+                        </strong>
+
+                        <span id="wasteRecommendedTreatment">
+                            -
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>
+                            Category:
+                        </strong>
+
+                        <span id="wasteCategory">
+                            -
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>
+                            Utilization:
+                        </strong>
+
+                        <span id="wasteUtilization">
+                            -
+                        </span>
+                    </p>
+
+                </div>
+
+
+                <div class="waste-metrics">
+
+                    <div class="waste-metric">
+
+                        <span>
+                            Input Waste
+                        </span>
+
+                        <strong id="wasteInputKg">
+                            0 kg
+                        </strong>
+
+                    </div>
+
+
+                    <div class="waste-metric">
+
+                        <span>
+                            Recovery
+                        </span>
+
+                        <strong id="wasteRecoveryKg">
+                            0 kg
+                        </strong>
+
+                    </div>
+
+
+                    <div class="waste-metric">
+
+                        <span>
+                            Recovery %
+                        </span>
+
+                        <strong id="wasteRecoveryPercent">
+                            0%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="waste-metric">
+
+                        <span>
+                            Residual Waste
+                        </span>
+
+                        <strong id="wasteResidualKg">
+                            0 kg
+                        </strong>
+
+                    </div>
+
+
+                    <div class="waste-metric">
+
+                        <span>
+                            Estimated Output
+                        </span>
+
+                        <strong id="wasteOutputKg">
+                            0 kg
+                        </strong>
+
+                    </div>
+
+
+                    <div class="waste-metric">
+
+                        <span>
+                            Risk Level
+                        </span>
+
+                        <strong id="wasteRisk">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="waste-process">
+
+                    <h4>
+                        🔄 Primary Resource Output
+                    </h4>
+
+                    <p id="wastePrimaryOutput">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div class="waste-process">
+
+                    <h4>
+                        ⚙ Processing Method
+                    </h4>
+
+                    <p id="wasteProcessNote">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div class="waste-process">
+
+                    <h4>
+                        📦 Secondary Output
+                    </h4>
+
+                    <p id="wasteSecondaryOutput">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div class="waste-process">
+
+                    <h4>
+                        🛡 Handling Guidance
+                    </h4>
+
+                    <p id="wasteHandling">
+                        -
+                    </p>
+
+                </div>
+
+
+                <div class="waste-benefits">
+
+                    <div
+                        class="waste-benefit"
+                        id="wasteBenefit1">
+                        -
+                    </div>
+
+                    <div
+                        class="waste-benefit"
+                        id="wasteBenefit2">
+                        -
+                    </div>
+
+                    <div
+                        class="waste-benefit"
+                        id="wasteBenefit3">
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="waste-note">
+
+                    <strong>
+                        ♻ Circular Agriculture:
+                    </strong>
+
+                    The recommended approach aims to reduce
+                    uncontrolled dumping or burning and recover
+                    useful agricultural, energy or recyclable
+                    resources.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     REPORTS
+========================================================= -->
+
 <section id="reportsSection" class="hidden">
-  <div class="report-header">
-    <h2>📄 Smart Agriculture Reports</h2>
-    <p>Generate a professional PDF report from the categories you select. The report automatically uses the current State, Crop, Season and Crop Year filters, plus the latest Water Usage and Disease Detector results.</p>
-  </div>
-  <div class="report-layout">
-    <div class="report-controls">
-      <h3>📌 Select Report Categories</h3>
-      <label class="report-category"><input type="checkbox" id="reportCrop" checked><span class="cat-icon"><i class="fas fa-seedling"></i></span><span><strong>Crop Recommendation</strong><small>Yield, production and data-driven crop advice</small></span></label>
-      <label class="report-category"><input type="checkbox" id="reportWater" checked><span class="cat-icon"><i class="fas fa-droplet"></i></span><span><strong>Water Usage</strong><small>Latest irrigation requirement and water-saving result</small></span></label>
-      <label class="report-category"><input type="checkbox" id="reportDisease" checked><span class="cat-icon"><i class="fas fa-virus"></i></span><span><strong>Disease Detector</strong><small>Latest AI disease result, treatment and prevention</small></span></label>
-      <label class="report-category"><input type="checkbox" id="reportAnalytics" checked><span class="cat-icon"><i class="fas fa-chart-line"></i></span><span><strong>Dashboard Analytics</strong><small>KPI summary for the selected filters</small></span></label>
-      <div class="report-filter-summary">
-        <div class="report-filter-item"><span>State</span><strong id="reportState">All States</strong></div>
-        <div class="report-filter-item"><span>Crop</span><strong id="reportCropName">All Crops</strong></div>
-        <div class="report-filter-item"><span>Season</span><strong id="reportSeason">All Seasons</strong></div>
-        <div class="report-filter-item"><span>Crop Year</span><strong id="reportYear">All Years</strong></div>
-      </div>
-      <button class="report-btn" onclick="previewReport()"><i class="fas fa-arrows-rotate"></i> Update Report Preview</button>
-      <button class="report-btn" onclick="downloadReportPDF()"><i class="fas fa-file-pdf"></i> Download Report as PDF</button>
-      <button class="report-btn secondary" onclick="showDashboard()"><i class="fas fa-chart-column"></i> Back to Dashboard</button>
-      <div class="report-note"><strong>Important:</strong> Disease information is based on the latest AI screening result. Pesticide decisions must follow the product label and local agricultural guidance.</div>
+
+    <div class="report-header">
+
+        <h2>
+            📄 Smart Agriculture Reports
+        </h2>
+
+        <p>
+            Generate a professional PDF report from the
+            selected categories. The report uses the current
+            dashboard filters and the latest Water Usage,
+            Disease Detection and Solid Waste Management results.
+        </p>
+
     </div>
-    <div class="report-preview">
-      <h3>👁 Report Preview</h3>
-      <div id="reportDocument"><div class="report-empty"><i class="fas fa-file-circle-check"></i><div>Select categories and click <strong>Update Report Preview</strong>.</div></div></div>
+
+
+    <div class="report-layout">
+
+
+        <div class="report-controls">
+
+            <h3>
+                📌 Select Report Categories
+            </h3>
+
+
+            <label class="report-category">
+
+                <input
+                    type="checkbox"
+                    id="reportCrop"
+                    checked>
+
+                <span class="cat-icon">
+                    <i class="fas fa-seedling"></i>
+                </span>
+
+                <span>
+
+                    <strong>
+                        Crop Recommendation
+                    </strong>
+
+                    <small>
+                        Yield, production and crop advice
+                    </small>
+
+                </span>
+
+            </label>
+
+
+            <label class="report-category">
+
+                <input
+                    type="checkbox"
+                    id="reportWater"
+                    checked>
+
+                <span class="cat-icon">
+                    <i class="fas fa-droplet"></i>
+                </span>
+
+                <span>
+
+                    <strong>
+                        Water Usage
+                    </strong>
+
+                    <small>
+                        Irrigation and water-saving result
+                    </small>
+
+                </span>
+
+            </label>
+
+
+            <label class="report-category">
+
+                <input
+                    type="checkbox"
+                    id="reportDisease"
+                    checked>
+
+                <span class="cat-icon">
+                    <i class="fas fa-virus"></i>
+                </span>
+
+                <span>
+
+                    <strong>
+                        Disease Detector
+                    </strong>
+
+                    <small>
+                        AI disease result and treatment
+                    </small>
+
+                </span>
+
+            </label>
+
+
+            <!-- NEW SOLID WASTE REPORT -->
+            <label class="report-category">
+
+                <input
+                    type="checkbox"
+                    id="reportWaste"
+                    checked>
+
+                <span class="cat-icon">
+                    <i class="fas fa-recycle"></i>
+                </span>
+
+                <span>
+
+                    <strong>
+                        Solid Waste Management
+                    </strong>
+
+                    <small>
+                        Agricultural waste recovery and treatment
+                    </small>
+
+                </span>
+
+            </label>
+
+
+            <label class="report-category">
+
+                <input
+                    type="checkbox"
+                    id="reportAnalytics"
+                    checked>
+
+                <span class="cat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </span>
+
+                <span>
+
+                    <strong>
+                        Dashboard Analytics
+                    </strong>
+
+                    <small>
+                        KPI summary for selected filters
+                    </small>
+
+                </span>
+
+            </label>
+
+
+            <div class="report-filter-summary">
+
+                <div class="report-filter-item">
+                    <span>State</span>
+                    <strong id="reportState">
+                        All States
+                    </strong>
+                </div>
+
+                <div class="report-filter-item">
+                    <span>Crop</span>
+                    <strong id="reportCropName">
+                        All Crops
+                    </strong>
+                </div>
+
+                <div class="report-filter-item">
+                    <span>Season</span>
+                    <strong id="reportSeason">
+                        All Seasons
+                    </strong>
+                </div>
+
+                <div class="report-filter-item">
+                    <span>Crop Year</span>
+                    <strong id="reportYear">
+                        All Years
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <button
+                class="report-btn"
+                onclick="previewReport()">
+
+                <i class="fas fa-arrows-rotate"></i>
+
+                Update Report Preview
+
+            </button>
+
+
+            <button
+                class="report-btn"
+                onclick="downloadReportPDF()">
+
+                <i class="fas fa-file-pdf"></i>
+
+                Download Report as PDF
+
+            </button>
+
+
+            <button
+                class="report-btn secondary"
+                onclick="showDashboard()">
+
+                <i class="fas fa-chart-column"></i>
+
+                Back to Dashboard
+
+            </button>
+
+
+            <div class="report-note">
+
+                <strong>
+                    Report includes:
+                </strong>
+
+                Crop Analytics, Water Optimization,
+                AI Disease Detection and Agricultural
+                Solid Waste Management.
+
+            </div>
+
+        </div>
+
+
+        <div class="report-preview">
+
+            <h3>
+                👁 Report Preview
+            </h3>
+
+            <div id="reportDocument">
+
+                <div class="report-empty">
+
+                    <i class="fas fa-file-circle-check"></i>
+
+                    <div>
+                        Select categories and click
+                        <strong>
+                            Update Report Preview
+                        </strong>.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-  </div>
+
 </section>
-<div class="footer">AgriAI Agriculture Data Warehouse • Machine Learning • Smart Water Management • Crop Disease Detection</div>
+
+
+<div class="footer">
+
+    AgriAI Agriculture Data Warehouse
+    • Machine Learning
+    • Smart Water Management
+    • Crop Disease Detection
+    • Agricultural Solid Waste Management
+
+</div>
+
+
 </div>
 </main>
+
+
 <script>
-const dashboardData={{ dashboard_data | tojson }};
-let filteredData=[...dashboardData];
-let charts={};
-let latestWaterReport=null;
-let latestDiseaseReport=null;
-function num(v){const n=Number(v);return Number.isFinite(n)?n:0}
-function text(v){return v===undefined||v===null?'':String(v)}
-function escapeHtml(v){return text(v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;')}
-function unique(key){return [...new Set(dashboardData.map(x=>x[key]).filter(x=>x!==undefined&&x!==null&&x!==''))]}
-function fillSelect(id,values,label){const el=document.getElementById(id);el.innerHTML=`<option value="ALL">${label}</option>`;values.forEach(v=>el.insertAdjacentHTML('beforeend',`<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`))}
-function populateFilters(){fillSelect('cropFilter',unique('Crop').sort(),'All Crops');fillSelect('stateFilter',unique('State').sort(),'All States');fillSelect('seasonFilter',unique('Season').sort(),'All Seasons');fillSelect('yearFilter',unique('Crop_Year').sort((a,b)=>Number(a)-Number(b)),'All Years');fillSelect('waterCrop',unique('Crop').sort(),'Select Crop');fillSelect('waterState',unique('State').sort(),'Select State')}
-function applyFilters(){const c=document.getElementById('cropFilter').value,s=document.getElementById('stateFilter').value,se=document.getElementById('seasonFilter').value,y=document.getElementById('yearFilter').value;filteredData=dashboardData.filter(x=>(c==='ALL'||text(x.Crop)===c)&&(s==='ALL'||text(x.State)===s)&&(se==='ALL'||text(x.Season)===se)&&(y==='ALL'||text(x.Crop_Year)===y));updateDashboard()}
-function sum(key){return filteredData.reduce((a,x)=>a+num(x[key]),0)}
-function avg(key){return filteredData.length?sum(key)/filteredData.length:0}
-function updateDashboard(){document.getElementById('kpiProduction').textContent=Math.round(sum('Production')).toLocaleString();document.getElementById('kpiCrops').textContent=new Set(filteredData.map(x=>x.Crop).filter(Boolean)).size;document.getElementById('kpiRainfall').textContent=avg('Annual_Rainfall').toFixed(2);document.getElementById('kpiYield').textContent=avg('Yield').toFixed(2);makeCharts()}
-function groupAvg(key,value){const m={};filteredData.forEach(x=>{const k=text(x[key])||'Unknown';(m[k]??=[]).push(num(x[value]))});return {labels:Object.keys(m),data:Object.values(m).map(a=>a.reduce((x,y)=>x+y,0)/a.length)}}
-function groupSum(key,value){const m={};filteredData.forEach(x=>{const k=text(x[key])||'Unknown';m[k]=(m[k]||0)+num(x[value])});return {labels:Object.keys(m),data:Object.values(m)}}
-function destroy(id){if(charts[id]){charts[id].destroy();charts[id]=null}}
-function chart(id,type,labels,data,label){destroy(id);const ctx=document.getElementById(id);charts[id]=new Chart(ctx,{type,data:{labels,datasets:[{label,data,borderWidth:2,backgroundColor:['#16d879','#2d8cff','#ffbf45','#ef5360','#8e7dff','#40d9d2','#f07ab0'],borderColor:'#fff',tension:.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#d7ebe7'}}},scales:{x:{ticks:{color:'#b5d0ca'},grid:{color:'rgba(255,255,255,.08)'}},y:{ticks:{color:'#b5d0ca'},grid:{color:'rgba(255,255,255,.08)'}}}}})}
-function makeCharts(){let g=groupAvg('Crop','Yield');chart('cropChart','bar',g.labels,g.data,'Average Yield');g=groupSum('State','Production');chart('stateChart','bar',g.labels,g.data,'Production');g=groupSum('Season','Production');chart('seasonChart','doughnut',g.labels,g.data,'Production');g=groupAvg('Crop_Year','Annual_Rainfall');chart('rainfallChart','line',g.labels,g.data,'Average Rainfall');destroy('fertilizerChart');const points=filteredData.map(x=>({x:num(x.Fertilizer),y:num(x.Yield)}));charts.fertilizerChart=new Chart(document.getElementById('fertilizerChart'),{type:'scatter',data:{datasets:[{label:'Fertilizer vs Yield',data:points,backgroundColor:'#16d879'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#d7ebe7'}}},scales:{x:{title:{display:true,text:'Fertilizer',color:'#fff'},ticks:{color:'#b5d0ca'},grid:{color:'rgba(255,255,255,.08)'}},y:{title:{display:true,text:'Crop Yield',color:'#fff'},ticks:{color:'#b5d0ca'},grid:{color:'rgba(255,255,255,.08)'}}}}})}
-function setActive(id){['dashboardMenu','waterMenu','diseaseMenu','reportsMenu'].forEach(x=>document.getElementById(x)?.classList.remove('active'));document.getElementById(id)?.classList.add('active')}
-function hideAllSections(){['dashboardSection','waterSection','diseaseSection','reportsSection'].forEach(id=>document.getElementById(id)?.classList.add('hidden'))}
-function showDashboard(){hideAllSections();document.getElementById('dashboardSection').classList.remove('hidden');setActive('dashboardMenu');window.scrollTo({top:0,behavior:'smooth'})}
-function showWaterUsage(){hideAllSections();document.getElementById('waterSection').classList.remove('hidden');setActive('waterMenu');window.scrollTo({top:0,behavior:'smooth'})}
-function showDiseaseDetector(){hideAllSections();document.getElementById('diseaseSection').classList.remove('hidden');setActive('diseaseMenu');window.scrollTo({top:0,behavior:'smooth'})}
-function showReports(){hideAllSections();document.getElementById('reportsSection').classList.remove('hidden');setActive('reportsMenu');updateReportFilterLabels();previewReport();window.scrollTo({top:0,behavior:'smooth'})}
-function resetFilters(){['cropFilter','stateFilter','seasonFilter','yearFilter'].forEach(id=>document.getElementById(id).value='ALL');applyFilters();updateReportFilterLabels();['diseaseCropFilter','diseaseStateFilter','diseaseSeasonFilter','diseaseYearFilter'].forEach(id=>document.getElementById(id).value='ALL');document.getElementById('diseaseSelectionStatus').textContent='Choose State + Crop to generate a result.'}
-function goHome(){window.location.href='/'}
-function showWaterError(m){const e=document.getElementById('waterError');e.textContent=m;e.style.display='block'}
-async function calculateWater(){const crop=document.getElementById('waterCrop').value,state=document.getElementById('waterState').value,soil=document.getElementById('waterSoil').value,area=document.getElementById('waterArea').value;document.getElementById('waterError').style.display='none';document.getElementById('waterResultArea').style.display='none';document.getElementById('waterEmpty').style.display='block';if(!crop||crop==='ALL')return showWaterError('Please select a crop.');if(!state||state==='ALL')return showWaterError('Please select a state.');if(!soil)return showWaterError('Please select a soil type.');if(!area||Number(area)<=0)return showWaterError('Please enter a valid farm area.');document.getElementById('waterLoading').style.display='block';try{const r=await fetch('/dashboard/water-calculate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({crop,state,soil_type:soil,farm_area:Number(area)})});const d=await r.json();if(!r.ok||d.success===false)throw new Error(d.error||'Unable to calculate water usage.');document.getElementById('recommendedMm').textContent=num(d.recommended_water_mm).toLocaleString(undefined,{maximumFractionDigits:2});document.getElementById('recommendedM3').textContent=num(d.recommended_water_m3).toLocaleString(undefined,{maximumFractionDigits:2});document.getElementById('savingPercentage').textContent=num(d.saving_percentage).toFixed(2);document.getElementById('irrigationLevel').textContent=d.irrigation_level||'-';document.getElementById('waterMessage').textContent=d.saving_message||'-';document.getElementById('waterMethod').textContent=d.water_saving_method||'-';latestWaterReport={crop:d.crop,state:d.state,soil_type:d.soil_type,farm_area:d.farm_area,recommended_water_mm:d.recommended_water_mm,recommended_water_m3:d.recommended_water_m3,saving_percentage:d.saving_percentage,irrigation_level:d.irrigation_level,water_saving_method:d.water_saving_method,saving_message:d.saving_message,rainfall:d.rainfall,net_requirement:d.net_requirement,irrigation_efficiency:d.irrigation_efficiency};document.getElementById('waterResultArea').style.display='block';document.getElementById('waterEmpty').style.display='none'}catch(e){showWaterError(e.message||'Server error. Make sure Flask is running.')}finally{document.getElementById('waterLoading').style.display='none'}}
-function previewDiseaseImage(e){const input=e.target,file=input.files?.[0],preview=document.getElementById('diseasePreview'),img=document.getElementById('diseasePreviewImage'),name=document.getElementById('diseaseFileName'),btn=document.getElementById('diseasePredictButton');document.getElementById('diseaseError').style.display='none';document.getElementById('diseaseResult').style.display='none';document.getElementById('diseaseEmpty').style.display='block';if(!file){preview.style.display='none';btn.disabled=true;return}if(!['image/jpeg','image/png','image/jpg'].includes(file.type)){showDiseaseError('Please select a JPG, JPEG or PNG image.');input.value='';preview.style.display='none';btn.disabled=true;return}if(file.size>10*1024*1024){showDiseaseError('Image size must be 10 MB or less.');input.value='';preview.style.display='none';btn.disabled=true;return}const reader=new FileReader();reader.onload=x=>{img.src=x.target.result;preview.style.display='block'};reader.readAsDataURL(file);name.textContent=file.name;btn.disabled=false}
-function diseaseName(v){return text(v).replaceAll('___',' - ').replaceAll('__',' ').replaceAll('_',' ').replace(/\s+/g,' ').trim()}
-function confidence(v){if(v===undefined||v===null)return '-';const raw=text(v),n=Number(raw.replace('%',''));if(!Number.isFinite(n))return raw;return (raw.includes('%')?n:(n<=1?n*100:n)).toFixed(2)+'%'}
-function showDiseaseError(m){const e=document.getElementById('diseaseError');e.textContent=m;e.style.display='block'}
-async function populateDiseaseFilters(){fillSelect('diseaseStateFilter',unique('State').sort(),'Select State');fillSelect('diseaseCropFilter',unique('Crop').sort(),'Select Crop');fillSelect('diseaseSeasonFilter',unique('Season').sort(),'Select Season');fillSelect('diseaseYearFilter',unique('Crop_Year').sort((a,b)=>Number(a)-Number(b)),'Select Crop Year')}
-function setDiseaseResult(d,mode){document.getElementById('resultDisease').textContent=diseaseName(d.disease||'Unknown');document.getElementById('resultCrop').textContent=diseaseName(d.crop||'Unknown');document.getElementById('resultConfidence').textContent=confidence(d.confidence);document.getElementById('resultSensitivity').textContent=diseaseName(d.sensitivity||'-');document.getElementById('resultMode').textContent=mode||d.mode||'AI';document.getElementById('resultSymptoms').textContent=d.symptoms||'No symptom information available.';document.getElementById('resultTreatment').textContent=d.treatment||'No treatment information available.';document.getElementById('resultPesticide').textContent=d.pesticide||'Follow approved local agricultural guidance and product label.';document.getElementById('resultPrevention').textContent=d.prevention||'Maintain crop sanitation and regular monitoring.';document.getElementById('resultRecommendation').textContent=d.recommendation||'Monitor the crop regularly and seek local agricultural advice.';latestDiseaseReport={disease:diseaseName(d.disease||'Unknown'),crop:diseaseName(d.crop||'Unknown'),confidence:confidence(d.confidence),sensitivity:diseaseName(d.sensitivity||'-'),symptoms:d.symptoms||'No symptom information available.',treatment:d.treatment||'No treatment information available.',pesticide:d.pesticide||'Follow approved local agricultural guidance and product label.',prevention:d.prevention||'Maintain crop sanitation and regular monitoring.',recommendation:d.recommendation||'Monitor the crop regularly and seek local agricultural advice.',mode:mode||d.mode||'AI'};document.getElementById('diseaseResult').style.display='block';document.getElementById('diseaseEmpty').style.display='none'}
-async function generateDiseaseProfile(silent=false){const state=document.getElementById('diseaseStateFilter').value,crop=document.getElementById('diseaseCropFilter').value,season=document.getElementById('diseaseSeasonFilter').value,year=document.getElementById('diseaseYearFilter').value;const status=document.getElementById('diseaseSelectionStatus');if(!crop||crop==='ALL'){if(!silent)status.textContent='Please select a Crop first.';return}if(!state||state==='ALL'){if(!silent)status.textContent='Please select a State first.';return}status.textContent='Generating disease profile...';try{const r=await fetch('/dashboard/disease-profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({state,crop,season:season==='ALL'?'':season,year:year==='ALL'?'':year})});const d=await r.json();if(!r.ok||d.success===false)throw new Error(d.error||'Disease profile generation failed.');setDiseaseResult(d,'Selection Risk');status.textContent='Disease profile generated for '+crop+' • '+state;document.getElementById('diseaseError').style.display='none'}catch(e){console.error(e);if(!silent)showDiseaseError(e.message||'Unable to generate disease profile.');status.textContent='Unable to generate profile.'}}
-function syncDiseaseSelectionFromDashboard(){const state=document.getElementById('stateFilter').value,crop=document.getElementById('cropFilter').value,season=document.getElementById('seasonFilter').value,year=document.getElementById('yearFilter').value;const map=[['diseaseStateFilter',state],['diseaseCropFilter',crop],['diseaseSeasonFilter',season],['diseaseYearFilter',year]];map.forEach(([id,v])=>{const el=document.getElementById(id);if(el&&[...el.options].some(o=>o.value===v))el.value=v});}
 
-function detectDisease(){const input=document.getElementById('diseaseImageInput'),btn=document.getElementById('diseasePredictButton'),load=document.getElementById('diseaseLoading');if(!input.files?.[0])return showDiseaseError('Please select a leaf image first.');document.getElementById('diseaseError').style.display='none';document.getElementById('diseaseResult').style.display='none';btn.disabled=true;load.style.display='block';(async()=>{try{const fd=new FormData();fd.append('image',input.files[0]);const selectedState=document.getElementById('diseaseStateFilter').value,selectedCrop=document.getElementById('diseaseCropFilter').value,selectedSeason=document.getElementById('diseaseSeasonFilter').value,selectedYear=document.getElementById('diseaseYearFilter').value;fd.append('state',selectedState==='ALL'?'':selectedState);fd.append('crop',selectedCrop==='ALL'?'':selectedCrop);fd.append('season',selectedSeason==='ALL'?'':selectedSeason);fd.append('year',selectedYear==='ALL'?'':selectedYear);const r=await fetch('/dashboard/disease-detect',{method:'POST',body:fd});const ct=r.headers.get('content-type')||'';if(!ct.includes('application/json'))throw new Error('Disease API did not return JSON. Check the /dashboard/disease-detect POST route in app.py.');const d=await r.json();if(!r.ok||d.success===false)throw new Error(d.error||'Disease detection failed.');setDiseaseResult(d,'AI Image');document.getElementById('diseaseSelectionStatus').textContent='AI image detection completed.'}catch(e){console.error(e);showDiseaseError(e.message||'Unable to detect disease.')}finally{load.style.display='none';btn.disabled=false}})()}
+/* =========================================================
+   DATA
+========================================================= */
 
-function selectedFilterValue(id, fallback){const el=document.getElementById(id);return el?el.value:fallback}
-function updateReportFilterLabels(){document.getElementById('reportState').textContent=selectedFilterValue('stateFilter','ALL')==='ALL'?'All States':selectedFilterValue('stateFilter','ALL');document.getElementById('reportCropName').textContent=selectedFilterValue('cropFilter','ALL')==='ALL'?'All Crops':selectedFilterValue('cropFilter','ALL');document.getElementById('reportSeason').textContent=selectedFilterValue('seasonFilter','ALL')==='ALL'?'All Seasons':selectedFilterValue('seasonFilter','ALL');document.getElementById('reportYear').textContent=selectedFilterValue('yearFilter','ALL')==='ALL'?'All Years':selectedFilterValue('yearFilter','ALL')}
-function moneyNum(v){return num(v).toLocaleString(undefined,{maximumFractionDigits:2})}
-function buildCropRecommendation(){if(!filteredData.length)return {title:'No crop recommendation available',text:'No records match the selected State, Crop, Season and Crop Year filters.',items:[]};const byCrop={};filteredData.forEach(r=>{const c=text(r.Crop)||'Unknown';if(!byCrop[c])byCrop[c]={yield:[],production:0,rainfall:[]};byCrop[c].yield.push(num(r.Yield));byCrop[c].production+=num(r.Production);byCrop[c].rainfall.push(num(r.Annual_Rainfall))});const rows=Object.entries(byCrop).map(([crop,v])=>({crop,avgYield:v.yield.reduce((a,b)=>a+b,0)/v.yield.length,production:v.production,avgRainfall:v.rainfall.reduce((a,b)=>a+b,0)/v.rainfall.length})).sort((a,b)=>b.avgYield-a.avgYield);const best=rows[0];let advice='';if(best.avgYield>=100)advice='This crop shows strong historical yield performance in the selected data. Consider it as a high-performing option, subject to local soil, climate, market and agronomist validation.';else if(best.avgYield>=50)advice='This crop shows comparatively good historical yield performance. Validate soil, water availability and local conditions before planting.';else advice='Use the highest-performing crop in the selected records as a starting point, but confirm suitability with local agricultural conditions before planting.';return {title:'Recommended Crop: '+best.crop,text:advice,items:[['Average Yield',moneyNum(best.avgYield)],['Total Production',moneyNum(best.production)],['Average Rainfall',moneyNum(best.avgRainfall)+' mm'],['Candidate Crops',String(rows.length)]]}}
-function pdfEsc(v){return text(v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;')}
-function pdfItems(items){return items.map(x=>`<div class="pdf-item"><span>${pdfEsc(x[0])}</span><strong>${pdfEsc(x[1])}</strong></div>`).join('')}
-function previewReport(){updateReportFilterLabels();const cropOn=document.getElementById('reportCrop').checked,waterOn=document.getElementById('reportWater').checked,diseaseOn=document.getElementById('reportDisease').checked,analyticsOn=document.getElementById('reportAnalytics').checked;let html=`<div class="pdf-brand"><div><h1>AgriAI Agriculture Report</h1><p>Smart Agriculture Analytics • Data Warehouse • Machine Learning</p></div><div class="pdf-date">Generated: ${new Date().toLocaleString()}</div></div>`;html+=`<div class="pdf-section"><h2>Selected Filters</h2><div class="pdf-grid">${pdfItems([['State',document.getElementById('reportState').textContent],['Crop',document.getElementById('reportCropName').textContent],['Season',document.getElementById('reportSeason').textContent],['Crop Year',document.getElementById('reportYear').textContent]])}</div></div>`;if(analyticsOn){html+=`<div class="pdf-section"><h2>Dashboard Analytics</h2><div class="pdf-grid">${pdfItems([['Records',String(filteredData.length)],['Total Production',moneyNum(sum('Production'))],['Average Yield',avg('Yield').toFixed(2)],['Average Rainfall',avg('Annual_Rainfall').toFixed(2)+' mm']])}</div></div>`}if(cropOn){const r=buildCropRecommendation();html+=`<div class="pdf-section"><h2>🌱 Crop Recommendation</h2><div class="pdf-grid">${pdfItems(r.items.length?r.items:[['Status','No matching data']])}</div><p class="pdf-text"><strong>${pdfEsc(r.title)}</strong><br>${pdfEsc(r.text)}</p></div>`}if(waterOn){if(latestWaterReport){html+=`<div class="pdf-section"><h2>💧 Water Usage Recommendation</h2><div class="pdf-grid">${pdfItems([['Crop',latestWaterReport.crop],['State',latestWaterReport.state],['Soil Type',latestWaterReport.soil_type],['Farm Area',latestWaterReport.farm_area+' hectares'],['Recommended Water',latestWaterReport.recommended_water_mm+' mm'],['Water Volume',latestWaterReport.recommended_water_m3+' m³'],['Irrigation Level',latestWaterReport.irrigation_level],['Water Saving Potential',latestWaterReport.saving_percentage+'%'],['Irrigation Efficiency',latestWaterReport.irrigation_efficiency+'%'],['Saving Method',latestWaterReport.water_saving_method]])}</div><p class="pdf-text">${pdfEsc(latestWaterReport.saving_message)}</p></div>`}else{html+=`<div class="pdf-section"><h2>💧 Water Usage Recommendation</h2><p class="pdf-text">No latest water calculation is available. Open Water Usage, enter the farm details and calculate the recommendation before generating the report.</p></div>`}}if(diseaseOn){if(latestDiseaseReport){html+=`<div class="pdf-section"><h2>🦠 Disease Detection</h2><div class="pdf-grid">${pdfItems([['Disease',latestDiseaseReport.disease],['Detected Crop',latestDiseaseReport.crop],['Confidence',latestDiseaseReport.confidence],['Sensitivity',latestDiseaseReport.sensitivity],['Mode',latestDiseaseReport.mode||'AI Image']])}</div><p class="pdf-text"><strong>Symptoms:</strong> ${pdfEsc(latestDiseaseReport.symptoms)}<br><strong>Treatment:</strong> ${pdfEsc(latestDiseaseReport.treatment)}<br><strong>Pesticide Guidance:</strong> ${pdfEsc(latestDiseaseReport.pesticide)}<br><strong>Prevention:</strong> ${pdfEsc(latestDiseaseReport.prevention)}<br><strong>Recommendation:</strong> ${pdfEsc(latestDiseaseReport.recommendation)}</p><div class="pdf-text"><strong>Safety:</strong> AI screening is advisory. Follow product labels and local agricultural guidance for any pesticide decision.</div></div>`}else{html+=`<div class="pdf-section"><h2>🦠 Disease Detection</h2><p class="pdf-text">No latest disease result is available. Open Disease Detector and select State + Crop, or upload an image for AI detection, before generating the report.</p></div>`}}html+=`<div class="pdf-footer">AgriAI Agriculture Data Warehouse • This report summarizes the selected data and latest module results.</div>`;document.getElementById('reportDocument').innerHTML=html}
-async function downloadReportPDF(){previewReport();const doc=document.getElementById('reportDocument');const selected=[];if(document.getElementById('reportCrop').checked)selected.push('crop');if(document.getElementById('reportWater').checked)selected.push('water');if(document.getElementById('reportDisease').checked)selected.push('disease');if(document.getElementById('reportAnalytics').checked)selected.push('analytics');if(!selected.length){alert('Please select at least one report category.');return}if(typeof html2pdf==='undefined'){alert('PDF library could not be loaded. Check your internet connection and reload the dashboard.');return}const state=document.getElementById('reportState').textContent.replace(/\s+/g,'_');const crop=document.getElementById('reportCropName').textContent.replace(/\s+/g,'_');const filename=`AgriAI_Report_${state}_${crop}_${new Date().toISOString().slice(0,10)}.pdf`;await html2pdf().set({margin:[8,8,8,8],filename,image:{type:'jpeg',quality:.95},html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy']}}).from(doc).save()}
+const dashboardData = {{ dashboard_data | tojson }};
 
-document.getElementById('cropFilter').addEventListener('change',()=>{applyFilters();updateReportFilterLabels();syncDiseaseSelectionFromDashboard()});document.getElementById('stateFilter').addEventListener('change',()=>{applyFilters();updateReportFilterLabels();syncDiseaseSelectionFromDashboard()});document.getElementById('seasonFilter').addEventListener('change',()=>{applyFilters();updateReportFilterLabels();syncDiseaseSelectionFromDashboard()});document.getElementById('yearFilter').addEventListener('change',()=>{applyFilters();updateReportFilterLabels();syncDiseaseSelectionFromDashboard()});document.getElementById('diseaseStateFilter').addEventListener('change',()=>generateDiseaseProfile(true));document.getElementById('diseaseCropFilter').addEventListener('change',()=>generateDiseaseProfile(true));document.getElementById('diseaseSeasonFilter').addEventListener('change',()=>generateDiseaseProfile(true));document.getElementById('diseaseYearFilter').addEventListener('change',()=>generateDiseaseProfile(true));populateFilters();populateDiseaseFilters();updateDashboard();
+let filteredData = [...dashboardData];
+
+let charts = {};
+
+let latestWaterReport = null;
+
+let latestDiseaseReport = null;
+
+let latestSolidWasteReport = null;
+
+let solidWasteOptions = [];
+
+
+/* =========================================================
+   UTILITY
+========================================================= */
+
+function num(v){
+
+    const n = Number(v);
+
+    return Number.isFinite(n) ? n : 0;
+
+}
+
+
+function text(v){
+
+    return v === undefined || v === null
+        ? ''
+        : String(v);
+
+}
+
+
+function escapeHtml(v){
+
+    return text(v)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#039;');
+
+}
+
+
+function unique(key){
+
+    return [
+        ...new Set(
+            dashboardData
+                .map(x => x[key])
+                .filter(
+                    x =>
+                        x !== undefined &&
+                        x !== null &&
+                        x !== ''
+                )
+        )
+    ];
+
+}
+
+
+function fillSelect(id,values,label){
+
+    const el = document.getElementById(id);
+
+    if(!el) return;
+
+    el.innerHTML =
+        `<option value="ALL">${label}</option>`;
+
+    values.forEach(v => {
+
+        el.insertAdjacentHTML(
+            'beforeend',
+            `<option value="${escapeHtml(v)}">
+                ${escapeHtml(v)}
+             </option>`
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+function populateFilters(){
+
+    fillSelect(
+        'cropFilter',
+        unique('Crop').sort(),
+        'All Crops'
+    );
+
+    fillSelect(
+        'stateFilter',
+        unique('State').sort(),
+        'All States'
+    );
+
+    fillSelect(
+        'seasonFilter',
+        unique('Season').sort(),
+        'All Seasons'
+    );
+
+    fillSelect(
+        'yearFilter',
+        unique('Crop_Year')
+            .sort((a,b)=>Number(a)-Number(b)),
+        'All Years'
+    );
+
+
+    fillSelect(
+        'waterCrop',
+        unique('Crop').sort(),
+        'Select Crop'
+    );
+
+    fillSelect(
+        'waterState',
+        unique('State').sort(),
+        'Select State'
+    );
+
+}
+
+
+function applyFilters(){
+
+    const c =
+        document.getElementById('cropFilter').value;
+
+    const s =
+        document.getElementById('stateFilter').value;
+
+    const se =
+        document.getElementById('seasonFilter').value;
+
+    const y =
+        document.getElementById('yearFilter').value;
+
+
+    filteredData =
+        dashboardData.filter(x =>
+
+            (c === 'ALL' ||
+             text(x.Crop) === c)
+
+            &&
+
+            (s === 'ALL' ||
+             text(x.State) === s)
+
+            &&
+
+            (se === 'ALL' ||
+             text(x.Season) === se)
+
+            &&
+
+            (y === 'ALL' ||
+             text(x.Crop_Year) === y)
+
+        );
+
+
+    updateDashboard();
+
+}
+
+
+/* =========================================================
+   DASHBOARD KPIs
+========================================================= */
+
+function sum(key){
+
+    return filteredData.reduce(
+        (a,x) => a + num(x[key]),
+        0
+    );
+
+}
+
+
+function avg(key){
+
+    return filteredData.length
+        ? sum(key) / filteredData.length
+        : 0;
+
+}
+
+
+function updateDashboard(){
+
+    document.getElementById(
+        'kpiProduction'
+    ).textContent =
+        Math.round(
+            sum('Production')
+        ).toLocaleString();
+
+
+    document.getElementById(
+        'kpiCrops'
+    ).textContent =
+        new Set(
+            filteredData
+                .map(x=>x.Crop)
+                .filter(Boolean)
+        ).size;
+
+
+    document.getElementById(
+        'kpiRainfall'
+    ).textContent =
+        avg('Annual_Rainfall')
+            .toFixed(2);
+
+
+    document.getElementById(
+        'kpiYield'
+    ).textContent =
+        avg('Yield')
+            .toFixed(2);
+
+
+    makeCharts();
+
+}
+
+
+/* =========================================================
+   CHARTS
+========================================================= */
+
+function groupAvg(key,value){
+
+    const m = {};
+
+    filteredData.forEach(x => {
+
+        const k =
+            text(x[key]) || 'Unknown';
+
+        if(!m[k])
+            m[k] = [];
+
+        m[k].push(
+            num(x[value])
+        );
+
+    });
+
+
+    return {
+
+        labels:Object.keys(m),
+
+        data:Object.values(m)
+            .map(a =>
+                a.reduce(
+                    (x,y)=>x+y,
+                    0
+                ) / a.length
+            )
+
+    };
+
+}
+
+
+function groupSum(key,value){
+
+    const m = {};
+
+    filteredData.forEach(x => {
+
+        const k =
+            text(x[key]) || 'Unknown';
+
+        m[k] =
+            (m[k] || 0)
+            + num(x[value]);
+
+    });
+
+
+    return {
+
+        labels:Object.keys(m),
+
+        data:Object.values(m)
+
+    };
+
+}
+
+
+function destroy(id){
+
+    if(charts[id]){
+
+        charts[id].destroy();
+
+        charts[id] = null;
+
+    }
+
+}
+
+
+function chart(
+    id,
+    type,
+    labels,
+    data,
+    label
+){
+
+    destroy(id);
+
+    const ctx =
+        document.getElementById(id);
+
+    if(!ctx) return;
+
+
+    charts[id] =
+        new Chart(
+            ctx,
+            {
+
+                type,
+
+                data:{
+                    labels,
+
+                    datasets:[
+                        {
+                            label,
+                            data,
+                            borderWidth:2,
+                            backgroundColor:[
+                                '#16d879',
+                                '#2d8cff',
+                                '#ffbf45',
+                                '#ef5360',
+                                '#8e7dff',
+                                '#40d9d2',
+                                '#f07ab0'
+                            ],
+                            borderColor:'#fff',
+                            tension:.3
+                        }
+                    ]
+                },
+
+                options:{
+
+                    responsive:true,
+
+                    maintainAspectRatio:false,
+
+                    plugins:{
+                        legend:{
+                            labels:{
+                                color:'#d7ebe7'
+                            }
+                        }
+                    },
+
+                    scales:{
+
+                        x:{
+                            ticks:{
+                                color:'#b5d0ca'
+                            },
+                            grid:{
+                                color:
+                                'rgba(255,255,255,.08)'
+                            }
+                        },
+
+                        y:{
+                            ticks:{
+                                color:'#b5d0ca'
+                            },
+                            grid:{
+                                color:
+                                'rgba(255,255,255,.08)'
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+
+
+function makeCharts(){
+
+    let g =
+        groupAvg(
+            'Crop',
+            'Yield'
+        );
+
+    chart(
+        'cropChart',
+        'bar',
+        g.labels,
+        g.data,
+        'Average Yield'
+    );
+
+
+    g =
+        groupSum(
+            'State',
+            'Production'
+        );
+
+    chart(
+        'stateChart',
+        'bar',
+        g.labels,
+        g.data,
+        'Production'
+    );
+
+
+    g =
+        groupSum(
+            'Season',
+            'Production'
+        );
+
+    chart(
+        'seasonChart',
+        'doughnut',
+        g.labels,
+        g.data,
+        'Production'
+    );
+
+
+    g =
+        groupAvg(
+            'Crop_Year',
+            'Annual_Rainfall'
+        );
+
+    chart(
+        'rainfallChart',
+        'line',
+        g.labels,
+        g.data,
+        'Average Rainfall'
+    );
+
+
+    destroy('fertilizerChart');
+
+
+    const points =
+        filteredData.map(x => ({
+            x:num(x.Fertilizer),
+            y:num(x.Yield)
+        }));
+
+
+    const ctx =
+        document.getElementById(
+            'fertilizerChart'
+        );
+
+
+    if(ctx){
+
+        charts.fertilizerChart =
+            new Chart(
+                ctx,
+                {
+
+                    type:'scatter',
+
+                    data:{
+                        datasets:[
+                            {
+                                label:
+                                'Fertilizer vs Yield',
+
+                                data:points,
+
+                                backgroundColor:
+                                '#16d879'
+                            }
+                        ]
+                    },
+
+                    options:{
+
+                        responsive:true,
+
+                        maintainAspectRatio:false,
+
+                        plugins:{
+                            legend:{
+                                labels:{
+                                    color:'#d7ebe7'
+                                }
+                            }
+                        },
+
+                        scales:{
+
+                            x:{
+                                title:{
+                                    display:true,
+                                    text:'Fertilizer',
+                                    color:'#fff'
+                                },
+                                ticks:{
+                                    color:'#b5d0ca'
+                                }
+                            },
+
+                            y:{
+                                title:{
+                                    display:true,
+                                    text:'Crop Yield',
+                                    color:'#fff'
+                                },
+                                ticks:{
+                                    color:'#b5d0ca'
+                                }
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function setActive(id){
+
+    [
+        'dashboardMenu',
+        'waterMenu',
+        'diseaseMenu',
+        'wasteMenu',
+        'reportsMenu'
+    ].forEach(x => {
+
+        const el =
+            document.getElementById(x);
+
+        if(el)
+            el.classList.remove('active');
+
+    });
+
+
+    const active =
+        document.getElementById(id);
+
+    if(active)
+        active.classList.add('active');
+
+}
+
+
+function hideAllSections(){
+
+    [
+        'dashboardSection',
+        'waterSection',
+        'diseaseSection',
+        'wasteSection',
+        'reportsSection'
+    ].forEach(id => {
+
+        const el =
+            document.getElementById(id);
+
+        if(el)
+            el.classList.add('hidden');
+
+    });
+
+}
+
+
+function showDashboard(){
+
+    hideAllSections();
+
+    document
+        .getElementById('dashboardSection')
+        .classList.remove('hidden');
+
+    setActive('dashboardMenu');
+
+    window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    });
+
+}
+
+
+function showWaterUsage(){
+
+    hideAllSections();
+
+    document
+        .getElementById('waterSection')
+        .classList.remove('hidden');
+
+    setActive('waterMenu');
+
+    window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    });
+
+}
+
+
+function showDiseaseDetector(){
+
+    hideAllSections();
+
+    document
+        .getElementById('diseaseSection')
+        .classList.remove('hidden');
+
+    setActive('diseaseMenu');
+
+    window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    });
+
+}
+
+
+function showSolidWaste(){
+
+    hideAllSections();
+
+    document
+        .getElementById('wasteSection')
+        .classList.remove('hidden');
+
+    setActive('wasteMenu');
+
+    loadSolidWasteOptions();
+
+    window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    });
+
+}
+
+
+function showReports(){
+
+    hideAllSections();
+
+    document
+        .getElementById('reportsSection')
+        .classList.remove('hidden');
+
+    setActive('reportsMenu');
+
+    updateReportFilterLabels();
+
+    previewReport();
+
+    window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    });
+
+}
+
+
+function goHome(){
+
+    window.location.href='/';
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetFilters(){
+
+    [
+        'cropFilter',
+        'stateFilter',
+        'seasonFilter',
+        'yearFilter'
+    ].forEach(id => {
+
+        const el =
+            document.getElementById(id);
+
+        if(el)
+            el.value='ALL';
+
+    });
+
+
+    applyFilters();
+
+    updateReportFilterLabels();
+
+
+    [
+        'diseaseCropFilter',
+        'diseaseStateFilter',
+        'diseaseSeasonFilter',
+        'diseaseYearFilter'
+    ].forEach(id => {
+
+        const el =
+            document.getElementById(id);
+
+        if(el)
+            el.value='ALL';
+
+    });
+
+
+    document.getElementById(
+        'diseaseSelectionStatus'
+    ).textContent =
+        'Choose State + Crop to generate a result.';
+
+}
+
+
+/* =========================================================
+   WATER MODULE
+========================================================= */
+
+function showWaterError(m){
+
+    const e =
+        document.getElementById(
+            'waterError'
+        );
+
+    e.textContent=m;
+
+    e.style.display='block';
+
+}
+
+
+async function calculateWater(){
+
+    const crop =
+        document.getElementById(
+            'waterCrop'
+        ).value;
+
+    const state =
+        document.getElementById(
+            'waterState'
+        ).value;
+
+    const soil =
+        document.getElementById(
+            'waterSoil'
+        ).value;
+
+    const area =
+        document.getElementById(
+            'waterArea'
+        ).value;
+
+
+    document.getElementById(
+        'waterError'
+    ).style.display='none';
+
+
+    document.getElementById(
+        'waterResultArea'
+    ).style.display='none';
+
+
+    document.getElementById(
+        'waterEmpty'
+    ).style.display='block';
+
+
+    if(!crop || crop==='ALL')
+        return showWaterError(
+            'Please select a crop.'
+        );
+
+
+    if(!state || state==='ALL')
+        return showWaterError(
+            'Please select a state.'
+        );
+
+
+    if(!soil)
+        return showWaterError(
+            'Please select a soil type.'
+        );
+
+
+    if(!area || Number(area)<=0)
+        return showWaterError(
+            'Please enter a valid farm area.'
+        );
+
+
+    document.getElementById(
+        'waterLoading'
+    ).style.display='block';
+
+
+    try{
+
+        const r =
+            await fetch(
+                '/dashboard/water-calculate',
+                {
+                    method:'POST',
+
+                    headers:{
+                        'Content-Type':
+                        'application/json'
+                    },
+
+                    body:
+                    JSON.stringify({
+                        crop,
+                        state,
+                        soil_type:soil,
+                        farm_area:
+                        Number(area)
+                    })
+
+                }
+            );
+
+
+        const d =
+            await r.json();
+
+
+        if(!r.ok || d.success===false)
+            throw new Error(
+                d.error ||
+                'Unable to calculate water usage.'
+            );
+
+
+        document.getElementById(
+            'recommendedMm'
+        ).textContent =
+            num(
+                d.recommended_water_mm
+            ).toLocaleString(
+                undefined,
+                {
+                    maximumFractionDigits:2
+                }
+            );
+
+
+        document.getElementById(
+            'recommendedM3'
+        ).textContent =
+            num(
+                d.recommended_water_m3
+            ).toLocaleString(
+                undefined,
+                {
+                    maximumFractionDigits:2
+                }
+            );
+
+
+        document.getElementById(
+            'savingPercentage'
+        ).textContent =
+            num(
+                d.saving_percentage
+            ).toFixed(2);
+
+
+        document.getElementById(
+            'irrigationLevel'
+        ).textContent =
+            d.irrigation_level || '-';
+
+
+        document.getElementById(
+            'waterMessage'
+        ).textContent =
+            d.saving_message || '-';
+
+
+        document.getElementById(
+            'waterMethod'
+        ).textContent =
+            d.water_saving_method || '-';
+
+
+        latestWaterReport = d;
+
+
+        document.getElementById(
+            'waterResultArea'
+        ).style.display='block';
+
+
+        document.getElementById(
+            'waterEmpty'
+        ).style.display='none';
+
+    }
+
+    catch(e){
+
+        showWaterError(
+            e.message ||
+            'Server error.'
+        );
+
+    }
+
+    finally{
+
+        document.getElementById(
+            'waterLoading'
+        ).style.display='none';
+
+    }
+
+}
+
+
+/* =========================================================
+   DISEASE MODULE
+========================================================= */
+
+function previewDiseaseImage(e){
+
+    const input=e.target;
+
+    const file =
+        input.files?.[0];
+
+    const preview =
+        document.getElementById(
+            'diseasePreview'
+        );
+
+    const img =
+        document.getElementById(
+            'diseasePreviewImage'
+        );
+
+    const name =
+        document.getElementById(
+            'diseaseFileName'
+        );
+
+    const btn =
+        document.getElementById(
+            'diseasePredictButton'
+        );
+
+
+    document.getElementById(
+        'diseaseError'
+    ).style.display='none';
+
+
+    document.getElementById(
+        'diseaseResult'
+    ).style.display='none';
+
+
+    document.getElementById(
+        'diseaseEmpty'
+    ).style.display='block';
+
+
+    if(!file){
+
+        preview.style.display='none';
+
+        btn.disabled=true;
+
+        return;
+
+    }
+
+
+    if(
+        ![
+            'image/jpeg',
+            'image/png',
+            'image/jpg'
+        ].includes(file.type)
+    ){
+
+        showDiseaseError(
+            'Please select a JPG, JPEG or PNG image.'
+        );
+
+        input.value='';
+
+        preview.style.display='none';
+
+        btn.disabled=true;
+
+        return;
+
+    }
+
+
+    if(
+        file.size >
+        10 * 1024 * 1024
+    ){
+
+        showDiseaseError(
+            'Image size must be 10 MB or less.'
+        );
+
+        input.value='';
+
+        preview.style.display='none';
+
+        btn.disabled=true;
+
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        x => {
+
+            img.src =
+                x.target.result;
+
+            preview.style.display='block';
+
+        };
+
+
+    reader.readAsDataURL(file);
+
+
+    name.textContent =
+        file.name;
+
+    btn.disabled=false;
+
+}
+
+
+function diseaseName(v){
+
+    return text(v)
+        .replaceAll(
+            '___',
+            ' - '
+        )
+        .replaceAll(
+            '__',
+            ' '
+        )
+        .replaceAll(
+            '_',
+            ' '
+        )
+        .replace(/\s+/g,' ')
+        .trim();
+
+}
+
+
+function confidence(v){
+
+    if(v===undefined || v===null)
+        return '-';
+
+
+    const raw =
+        text(v);
+
+    const n =
+        Number(
+            raw.replace('%','')
+        );
+
+
+    if(!Number.isFinite(n))
+        return raw;
+
+
+    return (
+        raw.includes('%')
+            ? n
+            : (n<=1 ? n*100 : n)
+    ).toFixed(2)+'%';
+
+}
+
+
+function showDiseaseError(m){
+
+    const e =
+        document.getElementById(
+            'diseaseError'
+        );
+
+    e.textContent=m;
+
+    e.style.display='block';
+
+}
+
+
+function populateDiseaseFilters(){
+
+    fillSelect(
+        'diseaseStateFilter',
+        unique('State').sort(),
+        'Select State'
+    );
+
+    fillSelect(
+        'diseaseCropFilter',
+        unique('Crop').sort(),
+        'Select Crop'
+    );
+
+    fillSelect(
+        'diseaseSeasonFilter',
+        unique('Season').sort(),
+        'Select Season'
+    );
+
+    fillSelect(
+        'diseaseYearFilter',
+        unique('Crop_Year')
+            .sort((a,b)=>Number(a)-Number(b)),
+        'Select Crop Year'
+    );
+
+}
+
+
+function setDiseaseResult(
+    d,
+    mode
+){
+
+    document.getElementById(
+        'resultDisease'
+    ).textContent =
+        diseaseName(
+            d.disease || 'Unknown'
+        );
+
+
+    document.getElementById(
+        'resultCrop'
+    ).textContent =
+        diseaseName(
+            d.crop || 'Unknown'
+        );
+
+
+    document.getElementById(
+        'resultConfidence'
+    ).textContent =
+        confidence(
+            d.confidence
+        );
+
+
+    document.getElementById(
+        'resultSensitivity'
+    ).textContent =
+        diseaseName(
+            d.sensitivity || '-'
+        );
+
+
+    document.getElementById(
+        'resultMode'
+    ).textContent =
+        mode ||
+        d.mode ||
+        'AI';
+
+
+    document.getElementById(
+        'resultSymptoms'
+    ).textContent =
+        d.symptoms ||
+        'No symptom information available.';
+
+
+    document.getElementById(
+        'resultTreatment'
+    ).textContent =
+        d.treatment ||
+        'No treatment information available.';
+
+
+    document.getElementById(
+        'resultPesticide'
+    ).textContent =
+        d.pesticide ||
+        'Follow approved local agricultural guidance and product label.';
+
+
+    document.getElementById(
+        'resultPrevention'
+    ).textContent =
+        d.prevention ||
+        'Maintain crop sanitation and regular monitoring.';
+
+
+    document.getElementById(
+        'resultRecommendation'
+    ).textContent =
+        d.recommendation ||
+        'Monitor the crop regularly and seek local agricultural advice.';
+
+
+    latestDiseaseReport = {
+
+        disease:
+            diseaseName(
+                d.disease ||
+                'Unknown'
+            ),
+
+        crop:
+            diseaseName(
+                d.crop ||
+                'Unknown'
+            ),
+
+        confidence:
+            confidence(
+                d.confidence
+            ),
+
+        sensitivity:
+            diseaseName(
+                d.sensitivity ||
+                '-'
+            ),
+
+        symptoms:
+            d.symptoms ||
+            'No symptom information available.',
+
+        treatment:
+            d.treatment ||
+            'No treatment information available.',
+
+        pesticide:
+            d.pesticide ||
+            'Follow approved local agricultural guidance and product label.',
+
+        prevention:
+            d.prevention ||
+            'Maintain crop sanitation and regular monitoring.',
+
+        recommendation:
+            d.recommendation ||
+            'Monitor the crop regularly and seek local agricultural advice.',
+
+        mode:
+            mode ||
+            d.mode ||
+            'AI'
+
+    };
+
+
+    document.getElementById(
+        'diseaseResult'
+    ).style.display='block';
+
+
+    document.getElementById(
+        'diseaseEmpty'
+    ).style.display='none';
+
+}
+
+
+/*
+   We keep the selection feature lightweight.
+   The actual visual disease detection uses
+   /dashboard/disease-detect.
+*/
+
+function generateDiseaseProfile(){
+
+    const state =
+        document.getElementById(
+            'diseaseStateFilter'
+        ).value;
+
+    const crop =
+        document.getElementById(
+            'diseaseCropFilter'
+        ).value;
+
+
+    const status =
+        document.getElementById(
+            'diseaseSelectionStatus'
+        );
+
+
+    if(!crop || crop==='ALL'){
+
+        status.textContent =
+            'Please select a Crop first.';
+
+        return;
+
+    }
+
+
+    if(!state || state==='ALL'){
+
+        status.textContent =
+            'Please select a State first.';
+
+        return;
+
+    }
+
+
+    status.textContent =
+        'Selection ready. Upload an image for AI visual disease detection.';
+
+}
+
+
+function syncDiseaseSelectionFromDashboard(){
+
+    const state =
+        document.getElementById(
+            'stateFilter'
+        ).value;
+
+    const crop =
+        document.getElementById(
+            'cropFilter'
+        ).value;
+
+    const season =
+        document.getElementById(
+            'seasonFilter'
+        ).value;
+
+    const year =
+        document.getElementById(
+            'yearFilter'
+        ).value;
+
+
+    const map = [
+
+        [
+            'diseaseStateFilter',
+            state
+        ],
+
+        [
+            'diseaseCropFilter',
+            crop
+        ],
+
+        [
+            'diseaseSeasonFilter',
+            season
+        ],
+
+        [
+            'diseaseYearFilter',
+            year
+        ]
+
+    ];
+
+
+    map.forEach(
+        ([id,v]) => {
+
+            const el =
+                document.getElementById(id);
+
+            if(
+                el &&
+                [...el.options]
+                    .some(
+                        o =>
+                            o.value === v
+                    )
+            ){
+
+                el.value=v;
+
+            }
+
+        }
+    );
+
+}
+
+
+function detectDisease(){
+
+    const input =
+        document.getElementById(
+            'diseaseImageInput'
+        );
+
+    const btn =
+        document.getElementById(
+            'diseasePredictButton'
+        );
+
+    const load =
+        document.getElementById(
+            'diseaseLoading'
+        );
+
+
+    if(!input.files?.[0]){
+
+        return showDiseaseError(
+            'Please select a leaf image first.'
+        );
+
+    }
+
+
+    document.getElementById(
+        'diseaseError'
+    ).style.display='none';
+
+
+    document.getElementById(
+        'diseaseResult'
+    ).style.display='none';
+
+
+    btn.disabled=true;
+
+    load.style.display='block';
+
+
+    (
+        async () => {
+
+            try{
+
+                const fd =
+                    new FormData();
+
+
+                fd.append(
+                    'image',
+                    input.files[0]
+                );
+
+
+                const selectedState =
+                    document.getElementById(
+                        'diseaseStateFilter'
+                    ).value;
+
+
+                const selectedCrop =
+                    document.getElementById(
+                        'diseaseCropFilter'
+                    ).value;
+
+
+                const selectedSeason =
+                    document.getElementById(
+                        'diseaseSeasonFilter'
+                    ).value;
+
+
+                const selectedYear =
+                    document.getElementById(
+                        'diseaseYearFilter'
+                    ).value;
+
+
+                fd.append(
+                    'state',
+                    selectedState==='ALL'
+                        ? ''
+                        : selectedState
+                );
+
+
+                fd.append(
+                    'crop',
+                    selectedCrop==='ALL'
+                        ? ''
+                        : selectedCrop
+                );
+
+
+                fd.append(
+                    'season',
+                    selectedSeason==='ALL'
+                        ? ''
+                        : selectedSeason
+                );
+
+
+                fd.append(
+                    'year',
+                    selectedYear==='ALL'
+                        ? ''
+                        : selectedYear
+                );
+
+
+                const r =
+                    await fetch(
+                        '/dashboard/disease-detect',
+                        {
+                            method:'POST',
+                            body:fd
+                        }
+                    );
+
+
+                const ct =
+                    r.headers.get(
+                        'content-type'
+                    ) || '';
+
+
+                if(
+                    !ct.includes(
+                        'application/json'
+                    )
+                ){
+
+                    throw new Error(
+                        'Disease API did not return JSON. Check the /dashboard/disease-detect route.'
+                    );
+
+                }
+
+
+                const d =
+                    await r.json();
+
+
+                if(
+                    !r.ok ||
+                    d.success===false
+                ){
+
+                    throw new Error(
+                        d.error ||
+                        'Disease detection failed.'
+                    );
+
+                }
+
+
+                setDiseaseResult(
+                    d,
+                    'AI Image'
+                );
+
+
+                document.getElementById(
+                    'diseaseSelectionStatus'
+                ).textContent =
+                    'AI image detection completed.';
+
+
+            }
+
+            catch(e){
+
+                console.error(e);
+
+                showDiseaseError(
+                    e.message ||
+                    'Unable to detect disease.'
+                );
+
+            }
+
+            finally{
+
+                load.style.display='none';
+
+                btn.disabled=false;
+
+            }
+
+        }
+
+    )();
+
+}
+
+
+/* =========================================================
+   SOLID WASTE MANAGEMENT
+========================================================= */
+
+async function loadSolidWasteOptions(){
+
+    try{
+
+        const r =
+            await fetch(
+                '/dashboard/solid-waste-options'
+            );
+
+
+        const d =
+            await r.json();
+
+
+        if(
+            !r.ok ||
+            d.success===false
+        ){
+
+            throw new Error(
+                d.error ||
+                'Unable to load waste categories.'
+            );
+
+        }
+
+
+        solidWasteOptions =
+            d.categories || [];
+
+
+        const select =
+            document.getElementById(
+                'wasteType'
+            );
+
+
+        select.innerHTML =
+            `<option value="">
+                Select Agricultural Waste
+             </option>`;
+
+
+        solidWasteOptions.forEach(
+            item => {
+
+                select.insertAdjacentHTML(
+                    'beforeend',
+
+                    `<option value="${escapeHtml(item.key)}">
+                        ${escapeHtml(item.name)}
+                     </option>`
+                );
+
+            }
+        );
+
+
+        const container =
+            document.getElementById(
+                'wasteTypes'
+            );
+
+
+        container.innerHTML='';
+
+
+        solidWasteOptions.forEach(
+            item => {
+
+                const card =
+                    document.createElement(
+                        'div'
+                    );
+
+
+                card.className =
+                    'waste-type-card';
+
+
+                card.innerHTML = `
+
+                    <strong>
+                        ${escapeHtml(item.name)}
+                    </strong>
+
+                    <span>
+                        ${escapeHtml(item.examples)}
+                    </span>
+
+                    <small>
+                        ${escapeHtml(item.category)}
+                    </small>
+
+                `;
+
+
+                card.onclick =
+                    () => {
+
+                        select.value =
+                            item.key;
+
+                        updateWasteTreatmentOptions();
+
+                    };
+
+
+                container.appendChild(
+                    card
+                );
+
+            }
+        );
+
+
+    }
+
+    catch(e){
+
+        document.getElementById(
+            'wasteTypes'
+        ).innerHTML = `
+
+            <div class="waste-note">
+
+                Unable to load waste categories.
+
+                <br>
+
+                ${escapeHtml(e.message)}
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   WASTE TREATMENT OPTIONS
+========================================================= */
+
+function updateWasteTreatmentOptions(){
+
+    const key =
+        document.getElementById(
+            'wasteType'
+        ).value;
+
+
+    const treatment =
+        document.getElementById(
+            'wasteTreatment'
+        );
+
+
+    treatment.innerHTML =
+        `<option value="">
+            Recommended Automatically
+         </option>`;
+
+
+    const item =
+        solidWasteOptions.find(
+            x => x.key === key
+        );
+
+
+    if(!item)
+        return;
+
+
+    (item.treatments || [])
+        .forEach(
+            t => {
+
+                treatment.insertAdjacentHTML(
+                    'beforeend',
+
+                    `<option value="${escapeHtml(t)}">
+                        ${escapeHtml(t)}
+                     </option>`
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   WASTE ERROR
+========================================================= */
+
+function showWasteError(message){
+
+    const e =
+        document.getElementById(
+            'wasteError'
+        );
+
+    e.textContent =
+        message;
+
+    e.style.display =
+        'block';
+
+}
+
+
+/* =========================================================
+   SOLID WASTE CALCULATION
+========================================================= */
+
+async function calculateSolidWaste(){
+
+    const wasteType =
+        document.getElementById(
+            'wasteType'
+        ).value;
+
+
+    const quantity =
+        document.getElementById(
+            'wasteQuantity'
+        ).value;
+
+
+    const treatment =
+        document.getElementById(
+            'wasteTreatment'
+        ).value;
+
+
+    document.getElementById(
+        'wasteError'
+    ).style.display='none';
+
+
+    document.getElementById(
+        'wasteResult'
+    ).style.display='none';
+
+
+    document.getElementById(
+        'wasteEmpty'
+    ).style.display='block';
+
+
+    if(!wasteType){
+
+        return showWasteError(
+            'Please select an agricultural waste type.'
+        );
+
+    }
+
+
+    if(
+        !quantity ||
+        Number(quantity)<=0
+    ){
+
+        return showWasteError(
+            'Please enter a waste quantity greater than zero.'
+        );
+
+    }
+
+
+    document.getElementById(
+        'wasteLoading'
+    ).style.display='block';
+
+
+    try{
+
+        const body = {
+
+            waste_type:
+                wasteType,
+
+            quantity_kg:
+                Number(quantity)
+
+        };
+
+
+        if(treatment){
+
+            body.treatment =
+                treatment;
+
+        }
+
+
+        const r =
+            await fetch(
+                '/dashboard/solid-waste-calculate',
+                {
+
+                    method:'POST',
+
+                    headers:{
+                        'Content-Type':
+                        'application/json'
+                    },
+
+                    body:
+                        JSON.stringify(body)
+
+                }
+            );
+
+
+        const d =
+            await r.json();
+
+
+        if(
+            !r.ok ||
+            d.success===false
+        ){
+
+            throw new Error(
+                d.error ||
+                'Solid waste calculation failed.'
+            );
+
+        }
+
+
+        latestSolidWasteReport =
+            d;
+
+
+        displaySolidWasteResult(d);
+
+
+    }
+
+    catch(e){
+
+        console.error(e);
+
+        showWasteError(
+            e.message ||
+            'Unable to calculate agricultural waste management plan.'
+        );
+
+    }
+
+    finally{
+
+        document.getElementById(
+            'wasteLoading'
+        ).style.display='none';
+
+    }
+
+}
+
+
+/* =========================================================
+   DISPLAY WASTE RESULT
+========================================================= */
+
+function displaySolidWasteResult(d){
+
+    document.getElementById(
+        'wasteResultName'
+    ).textContent =
+        d.waste_name || '-';
+
+
+    document.getElementById(
+        'wasteRecommendedTreatment'
+    ).textContent =
+        d.recommended_treatment ||
+        d.treatment ||
+        '-';
+
+
+    document.getElementById(
+        'wasteCategory'
+    ).textContent =
+        d.segregation_category ||
+        '-';
+
+
+    document.getElementById(
+        'wasteUtilization'
+    ).textContent =
+        d.utilization ||
+        '-';
+
+
+    document.getElementById(
+        'wasteInputKg'
+    ).textContent =
+        num(
+            d.quantity_kg
+        ).toLocaleString(
+            undefined,
+            {
+                maximumFractionDigits:2
+            }
+        ) +
+        ' kg';
+
+
+    document.getElementById(
+        'wasteRecoveryKg'
+    ).textContent =
+        num(
+            d.recovery_kg
+        ).toLocaleString(
+            undefined,
+            {
+                maximumFractionDigits:2
+            }
+        ) +
+        ' kg';
+
+
+    document.getElementById(
+        'wasteRecoveryPercent'
+    ).textContent =
+        num(
+            d.recovery_percent
+        ).toFixed(2) +
+        '%';
+
+
+    document.getElementById(
+        'wasteResidualKg'
+    ).textContent =
+        num(
+            d.residual_kg
+        ).toLocaleString(
+            undefined,
+            {
+                maximumFractionDigits:2
+            }
+        ) +
+        ' kg';
+
+
+    document.getElementById(
+        'wasteOutputKg'
+    ).textContent =
+        num(
+            d.estimated_output_kg
+        ).toLocaleString(
+            undefined,
+            {
+                maximumFractionDigits:2
+            }
+        ) +
+        ' kg';
+
+
+    document.getElementById(
+        'wasteRisk'
+    ).textContent =
+        d.risk_level ||
+        '-';
+
+
+    document.getElementById(
+        'wastePrimaryOutput'
+    ).textContent =
+        d.primary_output ||
+        '-';
+
+
+    document.getElementById(
+        'wasteProcessNote'
+    ).textContent =
+        d.process_note ||
+        '-';
+
+
+    document.getElementById(
+        'wasteSecondaryOutput'
+    ).textContent =
+        d.secondary_output ||
+        '-';
+
+
+    document.getElementById(
+        'wasteHandling'
+    ).textContent =
+        d.handling_guidance ||
+        '-';
+
+
+    const benefits =
+        d.benefits || [];
+
+
+    document.getElementById(
+        'wasteBenefit1'
+    ).textContent =
+        benefits[0] ||
+        'Reduces uncontrolled agricultural waste';
+
+
+    document.getElementById(
+        'wasteBenefit2'
+    ).textContent =
+        benefits[1] ||
+        'Improves resource recovery';
+
+
+    document.getElementById(
+        'wasteBenefit3'
+    ).textContent =
+        benefits[2] ||
+        'Supports circular agriculture';
+
+
+    document.getElementById(
+        'wasteResult'
+    ).style.display='block';
+
+
+    document.getElementById(
+        'wasteEmpty'
+    ).style.display='none';
+
+}
+
+
+/* =========================================================
+   REPORT FILTERS
+========================================================= */
+
+function selectedFilterValue(
+    id,
+    fallback
+){
+
+    const el =
+        document.getElementById(id);
+
+    return el
+        ? el.value
+        : fallback;
+
+}
+
+
+function updateReportFilterLabels(){
+
+    const state =
+        selectedFilterValue(
+            'stateFilter',
+            'ALL'
+        );
+
+
+    const crop =
+        selectedFilterValue(
+            'cropFilter',
+            'ALL'
+        );
+
+
+    const season =
+        selectedFilterValue(
+            'seasonFilter',
+            'ALL'
+        );
+
+
+    const year =
+        selectedFilterValue(
+            'yearFilter',
+            'ALL'
+        );
+
+
+    document.getElementById(
+        'reportState'
+    ).textContent =
+        state==='ALL'
+            ? 'All States'
+            : state;
+
+
+    document.getElementById(
+        'reportCropName'
+    ).textContent =
+        crop==='ALL'
+            ? 'All Crops'
+            : crop;
+
+
+    document.getElementById(
+        'reportSeason'
+    ).textContent =
+        season==='ALL'
+            ? 'All Seasons'
+            : season;
+
+
+    document.getElementById(
+        'reportYear'
+    ).textContent =
+        year==='ALL'
+            ? 'All Years'
+            : year;
+
+}
+
+
+function moneyNum(v){
+
+    return num(v)
+        .toLocaleString(
+            undefined,
+            {
+                maximumFractionDigits:2
+            }
+        );
+
+}
+
+
+/* =========================================================
+   CROP RECOMMENDATION
+========================================================= */
+
+function buildCropRecommendation(){
+
+    if(!filteredData.length){
+
+        return {
+
+            title:
+                'No crop recommendation available',
+
+            text:
+                'No records match the selected filters.',
+
+            items:[]
+
+        };
+
+    }
+
+
+    const byCrop={};
+
+
+    filteredData.forEach(r => {
+
+        const c =
+            text(r.Crop) ||
+            'Unknown';
+
+
+        if(!byCrop[c]){
+
+            byCrop[c] = {
+
+                yield:[],
+                production:0,
+                rainfall:[]
+
+            };
+
+        }
+
+
+        byCrop[c]
+            .yield
+            .push(
+                num(r.Yield)
+            );
+
+
+        byCrop[c]
+            .production +=
+            num(r.Production);
+
+
+        byCrop[c]
+            .rainfall
+            .push(
+                num(
+                    r.Annual_Rainfall
+                )
+            );
+
+    });
+
+
+    const rows =
+        Object.entries(byCrop)
+            .map(
+                ([crop,v]) => ({
+
+                    crop,
+
+                    avgYield:
+                        v.yield.reduce(
+                            (a,b)=>a+b,
+                            0
+                        ) /
+                        v.yield.length,
+
+                    production:
+                        v.production,
+
+                    avgRainfall:
+                        v.rainfall.reduce(
+                            (a,b)=>a+b,
+                            0
+                        ) /
+                        v.rainfall.length
+
+                })
+            )
+            .sort(
+                (a,b)=>
+                    b.avgYield -
+                    a.avgYield
+            );
+
+
+    const best =
+        rows[0];
+
+
+    let advice;
+
+
+    if(best.avgYield>=100){
+
+        advice =
+            'This crop shows strong historical yield performance in the selected data. Validate local soil, climate, market and agronomic conditions before planting.';
+
+    }
+
+    else if(best.avgYield>=50){
+
+        advice =
+            'This crop shows comparatively good historical yield performance. Validate soil, water availability and local conditions before planting.';
+
+    }
+
+    else{
+
+        advice =
+            'Use the highest-performing crop in the selected records as a starting point, but confirm suitability with local agricultural conditions.';
+
+    }
+
+
+    return {
+
+        title:
+            'Recommended Crop: ' +
+            best.crop,
+
+        text:
+            advice,
+
+        items:[
+
+            [
+                'Average Yield',
+                moneyNum(
+                    best.avgYield
+                )
+            ],
+
+            [
+                'Total Production',
+                moneyNum(
+                    best.production
+                )
+            ],
+
+            [
+                'Average Rainfall',
+                moneyNum(
+                    best.avgRainfall
+                ) +
+                ' mm'
+            ],
+
+            [
+                'Candidate Crops',
+                String(
+                    rows.length
+                )
+            ]
+
+        ]
+
+    };
+
+}
+
+
+/* =========================================================
+   PDF HELPERS
+========================================================= */
+
+function pdfEsc(v){
+
+    return text(v)
+        .replaceAll(
+            '&',
+            '&amp;'
+        )
+        .replaceAll(
+            '<',
+            '&lt;'
+        )
+        .replaceAll(
+            '>',
+            '&gt;'
+        )
+        .replaceAll(
+            '"',
+            '&quot;'
+        );
+
+}
+
+
+function pdfItems(items){
+
+    return items
+        .map(
+            x => `
+
+                <div class="pdf-item">
+
+                    <span>
+                        ${pdfEsc(x[0])}
+                    </span>
+
+                    <strong>
+                        ${pdfEsc(x[1])}
+                    </strong>
+
+                </div>
+
+            `
+        )
+        .join('');
+
+}
+
+
+/* =========================================================
+   REPORT PREVIEW
+========================================================= */
+
+function previewReport(){
+
+    updateReportFilterLabels();
+
+
+    const cropOn =
+        document.getElementById(
+            'reportCrop'
+        ).checked;
+
+
+    const waterOn =
+        document.getElementById(
+            'reportWater'
+        ).checked;
+
+
+    const diseaseOn =
+        document.getElementById(
+            'reportDisease'
+        ).checked;
+
+
+    const wasteOn =
+        document.getElementById(
+            'reportWaste'
+        ).checked;
+
+
+    const analyticsOn =
+        document.getElementById(
+            'reportAnalytics'
+        ).checked;
+
+
+    let html = `
+
+        <div class="pdf-brand">
+
+            <div>
+
+                <h1>
+                    AgriAI Agriculture Report
+                </h1>
+
+                <p>
+                    Smart Agriculture Analytics •
+                    Data Warehouse • Machine Learning •
+                    Sustainable Agriculture
+                </p>
+
+            </div>
+
+            <div class="pdf-date">
+
+                Generated:
+                ${new Date().toLocaleString()}
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    html += `
+
+        <div class="pdf-section">
+
+            <h2>
+                Selected Filters
+            </h2>
+
+            <div class="pdf-grid">
+
+                ${pdfItems([
+
+                    [
+                        'State',
+                        document.getElementById(
+                            'reportState'
+                        ).textContent
+                    ],
+
+                    [
+                        'Crop',
+                        document.getElementById(
+                            'reportCropName'
+                        ).textContent
+                    ],
+
+                    [
+                        'Season',
+                        document.getElementById(
+                            'reportSeason'
+                        ).textContent
+                    ],
+
+                    [
+                        'Crop Year',
+                        document.getElementById(
+                            'reportYear'
+                        ).textContent
+                    ]
+
+                ])}
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    /* ANALYTICS */
+
+    if(analyticsOn){
+
+        html += `
+
+            <div class="pdf-section">
+
+                <h2>
+                    📊 Dashboard Analytics
+                </h2>
+
+                <div class="pdf-grid">
+
+                    ${pdfItems([
+
+                        [
+                            'Records',
+                            String(
+                                filteredData.length
+                            )
+                        ],
+
+                        [
+                            'Total Production',
+                            moneyNum(
+                                sum('Production')
+                            )
+                        ],
+
+                        [
+                            'Average Yield',
+                            avg('Yield')
+                                .toFixed(2)
+                        ],
+
+                        [
+                            'Average Rainfall',
+                            avg(
+                                'Annual_Rainfall'
+                            ).toFixed(2)
+                            + ' mm'
+                        ]
+
+                    ])}
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* CROP */
+
+    if(cropOn){
+
+        const r =
+            buildCropRecommendation();
+
+
+        html += `
+
+            <div class="pdf-section">
+
+                <h2>
+                    🌱 Crop Recommendation
+                </h2>
+
+                <div class="pdf-grid">
+
+                    ${pdfItems(
+                        r.items.length
+                            ? r.items
+                            : [
+                                [
+                                    'Status',
+                                    'No matching data'
+                                ]
+                            ]
+                    )}
+
+                </div>
+
+                <p class="pdf-text">
+
+                    <strong>
+                        ${pdfEsc(r.title)}
+                    </strong>
+
+                    <br>
+
+                    ${pdfEsc(r.text)}
+
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* WATER */
+
+    if(waterOn){
+
+        if(latestWaterReport){
+
+            html += `
+
+                <div class="pdf-section">
+
+                    <h2>
+                        💧 Water Usage Recommendation
+                    </h2>
+
+                    <div class="pdf-grid">
+
+                        ${pdfItems([
+
+                            [
+                                'Crop',
+                                latestWaterReport.crop
+                            ],
+
+                            [
+                                'State',
+                                latestWaterReport.state
+                            ],
+
+                            [
+                                'Soil Type',
+                                latestWaterReport.soil_type
+                            ],
+
+                            [
+                                'Farm Area',
+                                latestWaterReport.farm_area +
+                                ' hectares'
+                            ],
+
+                            [
+                                'Recommended Water',
+                                latestWaterReport.recommended_water_mm +
+                                ' mm'
+                            ],
+
+                            [
+                                'Water Volume',
+                                latestWaterReport.recommended_water_m3 +
+                                ' m³'
+                            ],
+
+                            [
+                                'Water Saving',
+                                latestWaterReport.saving_percentage +
+                                '%'
+                            ],
+
+                            [
+                                'Irrigation Level',
+                                latestWaterReport.irrigation_level
+                            ]
+
+                        ])}
+
+                    </div>
+
+                    <p class="pdf-text">
+
+                        ${pdfEsc(
+                            latestWaterReport.saving_message ||
+                            ''
+                        )}
+
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+        else{
+
+            html += `
+
+                <div class="pdf-section">
+
+                    <h2>
+                        💧 Water Usage Recommendation
+                    </h2>
+
+                    <p class="pdf-text">
+
+                        No latest water calculation is
+                        available. Open Water Usage and
+                        calculate the recommendation first.
+
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    /* DISEASE */
+
+    if(diseaseOn){
+
+        if(latestDiseaseReport){
+
+            html += `
+
+                <div class="pdf-section">
+
+                    <h2>
+                        🦠 Disease Detection
+                    </h2>
+
+                    <div class="pdf-grid">
+
+                        ${pdfItems([
+
+                            [
+                                'Disease',
+                                latestDiseaseReport.disease
+                            ],
+
+                            [
+                                'Detected Crop',
+                                latestDiseaseReport.crop
+                            ],
+
+                            [
+                                'Confidence',
+                                latestDiseaseReport.confidence
+                            ],
+
+                            [
+                                'Sensitivity',
+                                latestDiseaseReport.sensitivity
+                            ],
+
+                            [
+                                'Mode',
+                                latestDiseaseReport.mode
+                            ]
+
+                        ])}
+
+                    </div>
+
+                    <p class="pdf-text">
+
+                        <strong>
+                            Symptoms:
+                        </strong>
+
+                        ${pdfEsc(
+                            latestDiseaseReport.symptoms
+                        )}
+
+                        <br>
+
+                        <strong>
+                            Treatment:
+                        </strong>
+
+                        ${pdfEsc(
+                            latestDiseaseReport.treatment
+                        )}
+
+                        <br>
+
+                        <strong>
+                            Pesticide Guidance:
+                        </strong>
+
+                        ${pdfEsc(
+                            latestDiseaseReport.pesticide
+                        )}
+
+                        <br>
+
+                        <strong>
+                            Prevention:
+                        </strong>
+
+                        ${pdfEsc(
+                            latestDiseaseReport.prevention
+                        )}
+
+                        <br>
+
+                        <strong>
+                            Recommendation:
+                        </strong>
+
+                        ${pdfEsc(
+                            latestDiseaseReport.recommendation
+                        )}
+
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+        else{
+
+            html += `
+
+                <div class="pdf-section">
+
+                    <h2>
+                        🦠 Disease Detection
+                    </h2>
+
+                    <p class="pdf-text">
+
+                        No latest disease result is available.
+                        Upload an image in Disease Detector
+                        before generating the final report.
+
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       SOLID WASTE REPORT
+    ===================================================== */
+
+    if(wasteOn){
+
+        if(latestSolidWasteReport){
+
+            const w =
+                latestSolidWasteReport;
+
+
+            html += `
+
+                <div class="pdf-section">
+
+                    <h2>
+                        ♻️ Agricultural Solid Waste Management
+                    </h2>
+
+                    <div class="pdf-grid">
+
+                        ${pdfItems([
+
+                            [
+                                'Waste Type',
+                                w.waste_name || '-'
+                            ],
+
+                            [
+                                'Waste Quantity',
+                                (w.quantity_kg || 0)
+                                + ' kg'
+                            ],
+
+                            [
+                                'Waste Category',
+                                w.segregation_category || '-'
+                            ],
+
+                            [
+                                'Treatment',
+                                w.recommended_treatment ||
+                                w.treatment ||
+                                '-'
+                            ],
+
+                            [
+                                'Recovery',
+                                (w.recovery_kg || 0)
+                                + ' kg'
+                            ],
+
+                            [
+                                'Recovery Percentage',
+                                (w.recovery_percent || 0)
+                                + '%'
+                            ],
+
+                            [
+                                'Estimated Output',
+                                (w.estimated_output_kg || 0)
+                                + ' kg'
+                            ],
+
+                            [
+                                'Residual Waste',
+                                (w.residual_kg || 0)
+                                + ' kg'
+                            ],
+
+                            [
+                                'Primary Output',
+                                w.primary_output || '-'
+                            ],
+
+                            [
+                                'Secondary Output',
+                                w.secondary_output || '-'
+                            ],
+
+                            [
+                                'Utilization',
+                                w.utilization || '-'
+                            ],
+
+                            [
+                                'Risk Level',
+                                w.risk_level || '-'
+                            ]
+
+                        ])}
+
+                    </div>
+
+
+                    <p class="pdf-text">
+
+                        <strong>
+                            Processing Method:
+                        </strong>
+
+                        ${pdfEsc(
+                            w.process_note || ''
+                        )}
+
+                        <br><br>
+
+                        <strong>
+                            Handling Guidance:
+                        </strong>
+
+                        ${pdfEsc(
+                            w.handling_guidance || ''
+                        )}
+
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+        else{
+
+            html += `
+
+                <div class="pdf-section">
+
+                    <h2>
+                        ♻️ Agricultural Solid Waste Management
+                    </h2>
+
+                    <p class="pdf-text">
+
+                        No latest solid waste management
+                        calculation is available.
+
+                        Open Solid Waste and generate
+                        a management plan before
+                        creating the final report.
+
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    html += `
+
+        <div class="pdf-footer">
+
+            AgriAI Agriculture Data Warehouse
+            • Sustainable Agricultural Solid Waste Management
+            • Smart Agriculture Analytics
+
+        </div>
+
+    `;
+
+
+    document.getElementById(
+        'reportDocument'
+    ).innerHTML =
+        html;
+
+}
+
+
+/* =========================================================
+   DOWNLOAD PDF
+========================================================= */
+
+async function downloadReportPDF(){
+
+    previewReport();
+
+
+    const doc =
+        document.getElementById(
+            'reportDocument'
+        );
+
+
+    const selected=[];
+
+
+    if(
+        document.getElementById(
+            'reportCrop'
+        ).checked
+    )
+        selected.push('crop');
+
+
+    if(
+        document.getElementById(
+            'reportWater'
+        ).checked
+    )
+        selected.push('water');
+
+
+    if(
+        document.getElementById(
+            'reportDisease'
+        ).checked
+    )
+        selected.push('disease');
+
+
+    if(
+        document.getElementById(
+            'reportWaste'
+        ).checked
+    )
+        selected.push('waste');
+
+
+    if(
+        document.getElementById(
+            'reportAnalytics'
+        ).checked
+    )
+        selected.push('analytics');
+
+
+    if(!selected.length){
+
+        alert(
+            'Please select at least one report category.'
+        );
+
+        return;
+
+    }
+
+
+    if(
+        typeof html2pdf ===
+        'undefined'
+    ){
+
+        alert(
+            'PDF library could not be loaded. Check your internet connection and reload the dashboard.'
+        );
+
+        return;
+
+    }
+
+
+    const state =
+        document.getElementById(
+            'reportState'
+        ).textContent
+        .replace(/\s+/g,'_');
+
+
+    const crop =
+        document.getElementById(
+            'reportCropName'
+        ).textContent
+        .replace(/\s+/g,'_');
+
+
+    const filename =
+        `AgriAI_Report_${state}_${crop}_${new Date().toISOString().slice(0,10)}.pdf`;
+
+
+    await html2pdf()
+        .set({
+
+            margin:[
+                8,
+                8,
+                8,
+                8
+            ],
+
+            filename,
+
+            image:{
+                type:'jpeg',
+                quality:.95
+            },
+
+            html2canvas:{
+                scale:2,
+                useCORS:true,
+                backgroundColor:'#ffffff'
+            },
+
+            jsPDF:{
+                unit:'mm',
+                format:'a4',
+                orientation:'portrait'
+            },
+
+            pagebreak:{
+                mode:[
+                    'css',
+                    'legacy'
+                ]
+            }
+
+        })
+
+        .from(doc)
+
+        .save();
+
+}
+
+
+/* =========================================================
+   EVENT LISTENERS
+========================================================= */
+
+document
+    .getElementById(
+        'cropFilter'
+    )
+    .addEventListener(
+        'change',
+        () => {
+
+            applyFilters();
+
+            updateReportFilterLabels();
+
+            syncDiseaseSelectionFromDashboard();
+
+        }
+    );
+
+
+document
+    .getElementById(
+        'stateFilter'
+    )
+    .addEventListener(
+        'change',
+        () => {
+
+            applyFilters();
+
+            updateReportFilterLabels();
+
+            syncDiseaseSelectionFromDashboard();
+
+        }
+    );
+
+
+document
+    .getElementById(
+        'seasonFilter'
+    )
+    .addEventListener(
+        'change',
+        () => {
+
+            applyFilters();
+
+            updateReportFilterLabels();
+
+            syncDiseaseSelectionFromDashboard();
+
+        }
+    );
+
+
+document
+    .getElementById(
+        'yearFilter'
+    )
+    .addEventListener(
+        'change',
+        () => {
+
+            applyFilters();
+
+            updateReportFilterLabels();
+
+            syncDiseaseSelectionFromDashboard();
+
+        }
+    );
+
+
+document
+    .getElementById(
+        'diseaseStateFilter'
+    )
+    .addEventListener(
+        'change',
+        () => {
+
+            document.getElementById(
+                'diseaseSelectionStatus'
+            ).textContent =
+                'Selection changed. Upload an image for AI detection.';
+
+        }
+    );
+
+
+document
+    .getElementById(
+        'diseaseCropFilter'
+    )
+    .addEventListener(
+        'change',
+        () => {
+
+            document.getElementById(
+                'diseaseSelectionStatus'
+            ).textContent =
+                'Selection changed. Upload an image for AI detection.';
+
+        }
+    );
+
+
+document
+    .getElementById(
+        'diseaseSeasonFilter'
+    )
+    .addEventListener(
+        'change',
+        () => {
+
+            document.getElementById(
+                'diseaseSelectionStatus'
+            ).textContent =
+                'Selection changed. Upload an image for AI detection.';
+
+        }
+    );
+
+
+document
+    .getElementById(
+        'diseaseYearFilter'
+    )
+    .addEventListener(
+        'change',
+        () => {
+
+            document.getElementById(
+                'diseaseSelectionStatus'
+            ).textContent =
+                'Selection changed. Upload an image for AI detection.';
+
+        }
+    );
+
+
+document
+    .getElementById(
+        'wasteType'
+    )
+    .addEventListener(
+        'change',
+        updateWasteTreatmentOptions
+    );
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+populateFilters();
+
+populateDiseaseFilters();
+
+updateDashboard();
+
+loadSolidWasteOptions();
+
 </script>
+
 </body>
 </html>
