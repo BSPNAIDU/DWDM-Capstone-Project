@@ -2,8 +2,15 @@ import os
 import json
 import csv
 import numpy as np
-import tensorflow as tf
 from PIL import Image
+
+# LiteRT runtime
+try:
+    from ai_edge_litert.interpreter import Interpreter
+except ImportError:
+    # Compatibility fallback for environments where the interpreter
+    # is exposed directly by the package.
+    from ai_edge_litert import Interpreter
 
 
 # ============================================================
@@ -15,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(
     BASE_DIR,
     "disease_model",
-    "plant_disease_model.keras"
+    "plant_disease_model.tflite"
 )
 
 CLASS_NAMES_PATH = os.path.join(
@@ -35,33 +42,53 @@ DISEASE_INFO_PATH = os.path.join(
 # GLOBAL VARIABLES
 # ============================================================
 
-model = None
+interpreter = None
+input_details = None
+output_details = None
+
 class_names = []
 disease_information = {}
 
 
 # ============================================================
-# LOAD MODEL
+# LOAD TFLITE MODEL
 # ============================================================
 
 def load_disease_model():
 
-    global model
+    global interpreter
+    global input_details
+    global output_details
 
-    if model is None:
+    if interpreter is None:
 
         if not os.path.exists(MODEL_PATH):
             raise FileNotFoundError(
-                f"Disease model not found:\n{MODEL_PATH}"
+                f"Disease TFLite model not found:\n{MODEL_PATH}"
             )
 
-        print("Loading disease model...")
+        print("Loading disease TFLite model...")
 
-        model = tf.keras.models.load_model(MODEL_PATH)
+        interpreter = Interpreter(model_path=MODEL_PATH)
 
-        print("Disease model loaded successfully.")
+        interpreter.allocate_tensors()
 
-    return model
+        input_details = interpreter.get_input_details()
+        output_details = interpreter.get_output_details()
+
+        print("Disease TFLite model loaded successfully.")
+
+        print(
+            "Model input shape:",
+            input_details[0]["shape"]
+        )
+
+        print(
+            "Model output shape:",
+            output_details[0]["shape"]
+        )
+
+    return interpreter
 
 
 # ============================================================
@@ -149,19 +176,14 @@ def preprocess_image(image_path):
 
     image = Image.open(image_path)
 
-    # Convert image to RGB
     image = image.convert("RGB")
 
-    # Resize to model input size
     image = image.resize((224, 224))
 
-    # Convert to numpy
     image_array = np.array(image)
 
-    # Normalize
     image_array = image_array.astype("float32") / 255.0
 
-    # Add batch dimension
     image_array = np.expand_dims(
         image_array,
         axis=0
@@ -176,31 +198,107 @@ def preprocess_image(image_path):
 
 def predict_disease(image_path):
 
+    global interpreter
+    global input_details
+    global output_details
+
     # Load model
     disease_model = load_disease_model()
 
     # Load classes
     classes = load_class_names()
 
-    # Load information
+    # Load disease information
     information = load_disease_information()
 
     # Prepare image
     image = preprocess_image(image_path)
 
-    # Prediction
-    predictions = disease_model.predict(
-        image,
-        verbose=0
+    # --------------------------------------------------------
+    # Handle model input datatype
+    # --------------------------------------------------------
+
+    input_info = input_details[0]
+
+    input_dtype = input_info["dtype"]
+
+    if input_dtype == np.float32:
+
+        input_data = image.astype(np.float32)
+
+    elif input_dtype == np.uint8:
+
+        input_data = (image * 255).astype(np.uint8)
+
+    elif input_dtype == np.int8:
+
+        scale, zero_point = input_info["quantization"]
+
+        if scale == 0:
+            raise ValueError(
+                "Invalid quantization scale in disease model."
+            )
+
+        input_data = (
+            image / scale + zero_point
+        ).astype(np.int8)
+
+    else:
+
+        raise TypeError(
+            f"Unsupported model input type: {input_dtype}"
+        )
+
+    # --------------------------------------------------------
+    # Run inference
+    # --------------------------------------------------------
+
+    disease_model.set_tensor(
+        input_info["index"],
+        input_data
     )
+
+    disease_model.invoke()
+
+    predictions = disease_model.get_tensor(
+        output_details[0]["index"]
+    )
+
+    # --------------------------------------------------------
+    # Handle quantized output if required
+    # --------------------------------------------------------
+
+    output_info = output_details[0]
+
+    if output_info["dtype"] in (
+        np.uint8,
+        np.int8
+    ):
+
+        scale, zero_point = output_info["quantization"]
+
+        if scale != 0:
+
+            predictions = (
+                predictions.astype(np.float32)
+                - zero_point
+            ) * scale
+
+    predictions = np.asarray(
+        predictions,
+        dtype=np.float32
+    )
+
+    # Remove batch dimension
+    predictions = predictions[0]
 
     # Get highest probability
     predicted_index = int(
-        np.argmax(predictions[0])
+        np.argmax(predictions)
     )
 
     confidence = float(
-        predictions[0][predicted_index]
+        predictions[predicted_index]
     ) * 100
 
     # Safety check
@@ -213,27 +311,46 @@ def predict_disease(image_path):
 
     predicted_disease = classes[predicted_index]
 
+    # --------------------------------------------------------
     # Get disease details
+    # --------------------------------------------------------
+
     details = information.get(
         predicted_disease,
         {}
     )
 
-    # If no CSV entry exists
+    # Fallback if CSV entry doesn't exist
     if not details:
 
         details = {
             "Disease": predicted_disease,
             "Crop": predicted_disease.split("_")[0],
             "Sensitivity": "Unknown",
-            "Symptoms": "Disease information not available.",
-            "Treatment": "Consult a qualified agricultural expert.",
-            "Pesticide": "Use only locally approved products according to the label.",
-            "Prevention": "Maintain crop sanitation and regular monitoring.",
-            "Recommendation": "Monitor the crop closely and seek expert confirmation."
+            "Symptoms": (
+                "Disease information not available."
+            ),
+            "Treatment": (
+                "Consult a qualified agricultural expert."
+            ),
+            "Pesticide": (
+                "Use only locally approved products "
+                "according to the label."
+            ),
+            "Prevention": (
+                "Maintain crop sanitation and "
+                "regular monitoring."
+            ),
+            "Recommendation": (
+                "Monitor the crop closely and seek "
+                "expert confirmation."
+            )
         }
 
+    # --------------------------------------------------------
     # Return complete result
+    # --------------------------------------------------------
+
     result = {
 
         "disease": details.get(
@@ -293,7 +410,7 @@ if __name__ == "__main__":
 
     print()
     print("=" * 70)
-    print("AGRI AI - DISEASE DETECTOR TEST")
+    print("AGRI AI - TFLITE DISEASE DETECTOR TEST")
     print("=" * 70)
 
     load_disease_model()
